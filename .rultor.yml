@@ -1,3 +1,4 @@
+# http://doc.rultor.com/basics.html
 env:
   MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx1g"
 
