@@ -1,0 +1,8 @@
+env:
+  MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx1g"
+
+merge:
+  commanders:
+    - aistomin
+  script:
+    - "mvn clean install package"
