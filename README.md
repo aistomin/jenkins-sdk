@@ -8,7 +8,7 @@ This project is objective oriented Java SDK for
 [Jenkins XML API](https://wiki.jenkins-ci.org/display/JENKINS/Remote+access+API) 
 that is going to help developers to manipulate Jenkins instance using it's API.
 This SDK can be useful for developers who creates CI scripts or other environment
-software that needs to read information of Jenkins, trigger builds etc.
+software that needs to read information from Jenkins, trigger builds etc.
 
 ## How to contribute?
 
