@@ -13,26 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rising.dummy;
+package org.rising.jenkins.fake;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.rising.jenkins.Jenkins;
+import org.rising.jenkins.Jobs;
 
 /**
- * Test for Dummy class.
+ * Fake Jenkins instance for tests.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class DummyTest {
+public final class FakeJenkins implements Jenkins {
 
     /**
-     * Dummy test.
+     * Jobs instance that should be returned in jobs() method.
      */
-    @Test
-    public void testExecute() {
-        final String text = "dummy";
-        Assert.assertEquals(text, new Dummy(text).execute());
+    private final transient Jobs projects;
+
+    /**
+     * Ctor.
+     * @param jobs Jobs instance that should be returned in jobs() method.
+     */
+    public FakeJenkins(final Jobs jobs) {
+        this.projects = jobs;
+    }
+
+    /**
+     * Return test instance that was set via ctor.
+     * @return Jobs.
+     * @throws Exception If reading jobs was not successful.
+     */
+    public Jobs jobs() throws Exception {
+        return this.projects;
     }
 }

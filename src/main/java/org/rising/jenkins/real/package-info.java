@@ -13,4 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rising.dummy;
+
+/**
+ * Package for classes who interact with real Jenkins instance.
+ *
+ * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
+ * @version $Id$
+ * @since 1.0
+ */
+package org.rising.jenkins.real;

@@ -13,35 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rising.dummy;
+package org.rising.jenkins;
 
 /**
- * Dummy class.
+ * Jenkins' jobs.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class Dummy {
-
-    /**
-     * Dummy field.
-     */
-    private final transient String text;
-
-    /**
-     * Ctor.
-     * @param dum Dummy field.
-     */
-    public Dummy(final String dum) {
-        this.text = dum;
-    }
-
-    /**
-     * Dummy method.
-     * @return Dummy string.
-     */
-    public String execute() {
-        return this.text;
-    }
+public interface Jobs {
 }
