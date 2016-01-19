@@ -22,5 +22,5 @@ package org.rising.jenkins;
  * @version $Id$
  * @since 1.0
  */
-public interface Jobs {
+public interface Jobs extends APIObject {
 }

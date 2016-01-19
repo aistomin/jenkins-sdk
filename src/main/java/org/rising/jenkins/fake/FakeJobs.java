@@ -15,6 +15,7 @@
  */
 package org.rising.jenkins.fake;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.Jobs;
 
 /**
@@ -25,4 +26,19 @@ import org.rising.jenkins.Jobs;
  * @since 1.0
  */
 public final class FakeJobs implements Jobs {
+
+    /**
+     * Return XML content that was set in ctor.
+     * @return XML string.
+     * @throws Exception If something goes wrong.
+     * @todo: Let's implement this method and solve Issue #17.
+     */
+    public String xml() throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "Method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
+    }
 }

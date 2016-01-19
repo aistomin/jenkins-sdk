@@ -31,7 +31,6 @@ public final class RealJenkins implements Jenkins {
 
     /**
      * All the jobs of this Jenkins instance.
-     *
      * @return Jobs.
      * @throws Exception If reading jobs was not successful.
      * @todo: Let's implement this method and solve Issue #11.
@@ -39,7 +38,7 @@ public final class RealJenkins implements Jenkins {
     public Jobs jobs() throws Exception {
         throw new NotImplementedException(
             String.format(
-                "The method is not implemented for %s.",
+                "jobs() method is not implemented for %s.",
                 this.getClass().getCanonicalName()
             )
         );
@@ -47,7 +46,6 @@ public final class RealJenkins implements Jenkins {
 
     /**
      * All the registered users of this Jenkins instance.
-     *
      * @return Users.
      * @throws Exception If reading users was not successful.
      * @todo: Let's implement this method and solve Issue #13.
@@ -55,7 +53,22 @@ public final class RealJenkins implements Jenkins {
     public Users users() throws Exception {
         throw new NotImplementedException(
             String.format(
-                "Method is not implemented for %s.",
+                "users() method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
+    }
+
+    /**
+     * Root XML content of Jenkins.
+     * @return XML string.
+     * @throws Exception If something goes wrong.
+     * @todo: Let's implement this method and solve Issue #19.
+     */
+    public String xml() throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "xml() method is not implemented for %s.",
                 this.getClass().getCanonicalName()
             )
         );

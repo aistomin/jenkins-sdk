@@ -13,32 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rising.jenkins.fake;
-
-import org.apache.commons.lang3.NotImplementedException;
-import org.rising.jenkins.Users;
+package org.rising.jenkins;
 
 /**
- * Fake Jenkins' users for tests.
+ * Jenkins XML API object.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class FakeUsers implements Users {
+public interface APIObject {
 
     /**
-     * Return XML content that was set in ctor.
-     * @return XML string.
+     * Object's XML representation.
+     * @return XML's string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #18.
      */
-    public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "Method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
-    }
+    String xml() throws Exception;
 }

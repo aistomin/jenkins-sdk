@@ -22,7 +22,7 @@ package org.rising.jenkins;
  * @version $Id$
  * @since 1.0
  */
-public interface Jenkins {
+public interface Jenkins extends APIObject {
 
     /**
      * All the jobs of this Jenkins instance.

@@ -57,7 +57,8 @@ public final class FakeJenkinsTest {
     public void testCanListJobs() throws Exception {
         final Jobs jobs = new FakeJobs();
         Assert.assertEquals(
-            jobs, new FakeJenkins(jobs, new FakeUsers()).jobs()
+            jobs,
+            new FakeJenkins(jobs, new FakeUsers(), "<test>test</test>").jobs()
         );
     }
 
@@ -69,7 +70,8 @@ public final class FakeJenkinsTest {
     public void testCanListUsers() throws Exception {
         final Users users = new FakeUsers();
         Assert.assertEquals(
-            users, new FakeJenkins(new FakeJobs(), users).users()
+            users,
+            new FakeJenkins(new FakeJobs(), users, "<jen>jen</jen>").users()
         );
     }
 }

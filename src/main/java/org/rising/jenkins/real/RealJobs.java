@@ -15,6 +15,7 @@
  */
 package org.rising.jenkins.real;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.Jobs;
 
 /**
@@ -25,4 +26,19 @@ import org.rising.jenkins.Jobs;
  * @since 1.0
  */
 public final class RealJobs implements Jobs {
+
+    /**
+     * Jobs' node XML content.
+     * @return XML string.
+     * @throws Exception If something goes wrong.
+     * @todo: Let's implement this method and solve Issue #20.
+     */
+    public String xml() throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "xml() method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
+    }
 }
