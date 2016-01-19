@@ -26,6 +26,7 @@ public interface APIObject {
 
     /**
      * Object's XML representation.
+     *
      * @return XML's string.
      * @throws Exception If something goes wrong.
      */

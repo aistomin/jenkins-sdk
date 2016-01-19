@@ -34,10 +34,7 @@ public final class ITRealJenkinsTest {
      */
     @Test
     public void testXml() throws Exception {
-        final String xml = new RealJenkins(
-            "https://cisdk-istomin.rhcloud.com",
-            new UsernamePasswordCredentials("integration", "2mFxM5tMVAKHMzTx")
-        ).xml();
+        final String xml = new TestJenkins().xml();
         Assert.assertTrue(xml.startsWith("<hudson>"));
         Assert.assertTrue(
             xml.contains("<displayName>test-different-builds-job</displayName>")

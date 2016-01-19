@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/aistomin/jenkins-sdk.svg?branch=master)](https://travis-ci.org/aistomin/jenkins-sdk)
 
-# jenkins-sdk
+# JENKINS-SDK
 
 ## Purpose
 
@@ -28,7 +28,7 @@ or
 $ mvn clean install package
 ```
 
-## Jenkins instance for Integration tests
+## Jenkins Instance for Integration tests
 
 We have running instance at https://cisdk-istomin.rhcloud.com Unfortunately,
 sometimes this instance goes to "Idle" status and needs to be restarted. But,

@@ -26,6 +26,7 @@ public interface Jenkins extends APIObject {
 
     /**
      * All the jobs of this Jenkins instance.
+     *
      * @return Jobs.
      * @throws Exception If reading jobs was not successful.
      */
@@ -33,6 +34,7 @@ public interface Jenkins extends APIObject {
 
     /**
      * All the registered Jenkins' users.
+     *
      * @return Users.
      * @throws Exception If reading users was not successful.
      */
