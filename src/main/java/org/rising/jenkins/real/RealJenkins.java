@@ -16,7 +16,7 @@
 package org.rising.jenkins.real;
 
 import org.apache.commons.lang3.NotImplementedException;
-import org.rising.http.MyPOSTRequest;
+import org.rising.http.PostRequest;
 import org.rising.jenkins.Credentials;
 import org.rising.jenkins.Jenkins;
 import org.rising.jenkins.Jobs;
@@ -91,7 +91,7 @@ public final class RealJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public String xml() throws Exception {
-        return new MyPOSTRequest(
+        return new PostRequest(
             String.format("%s/api/xml?depth=1", this.base), this.creds.headers()
         ).execute();
     }

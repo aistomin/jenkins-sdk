@@ -25,7 +25,7 @@ import org.apache.http.client.fluent.Request;
  * @version $Id$
  * @since 1.0
  */
-public final class MyPOSTRequest implements HTTPRequest {
+public final class PostRequest implements HTTPRequest {
 
     /**
      * Request's URL.
@@ -43,7 +43,7 @@ public final class MyPOSTRequest implements HTTPRequest {
      * @param url Request's URL.
      * @param headers Request's headers.
      */
-    public MyPOSTRequest(final String url, final Map<String, String> headers) {
+    public PostRequest(final String url, final Map<String, String> headers) {
         this.resource = url;
         this.heads = headers;
     }
