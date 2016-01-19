@@ -16,6 +16,8 @@
 package org.rising.jenkins.real;
 
 import org.apache.commons.lang3.NotImplementedException;
+import org.rising.http.MyPOSTRequest;
+import org.rising.jenkins.Credentials;
 import org.rising.jenkins.Jenkins;
 import org.rising.jenkins.Jobs;
 import org.rising.jenkins.Users;
@@ -30,7 +32,29 @@ import org.rising.jenkins.Users;
 public final class RealJenkins implements Jenkins {
 
     /**
+     * Base Jenkins URL.
+     */
+    private final transient String base;
+
+    /**
+     * Jenkins credentials.
+     */
+    private final transient Credentials creds;
+
+    /**
+     * Ctor.
+     *
+     * @param url Base Jenkins URL.
+     * @param credentials Jenkins credentials.
+     */
+    public RealJenkins(final String url, final Credentials credentials) {
+        this.base = url;
+        this.creds = credentials;
+    }
+
+    /**
      * All the jobs of this Jenkins instance.
+     *
      * @return Jobs.
      * @throws Exception If reading jobs was not successful.
      * @todo: Let's implement this method and solve Issue #11.
@@ -46,6 +70,7 @@ public final class RealJenkins implements Jenkins {
 
     /**
      * All the registered users of this Jenkins instance.
+     *
      * @return Users.
      * @throws Exception If reading users was not successful.
      * @todo: Let's implement this method and solve Issue #13.
@@ -61,16 +86,13 @@ public final class RealJenkins implements Jenkins {
 
     /**
      * Root XML content of Jenkins.
+     *
      * @return XML string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #19.
      */
     public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "xml() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return new MyPOSTRequest(
+            String.format("%s/api/xml?depth=1", this.base), this.creds.headers()
+        ).execute();
     }
 }

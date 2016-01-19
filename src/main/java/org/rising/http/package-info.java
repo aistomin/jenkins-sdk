@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rising.jenkins;
 
 /**
- * Jenkins' jobs.
+ * Package for classes that work with HTTP.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
- * @todo: Create design of this interface and solve Issue #24
  */
-public interface Jobs extends APIObject {
-}
+package org.rising.http;
