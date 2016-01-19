@@ -39,7 +39,30 @@ public final class FakeJenkins implements Jenkins {
     private final transient Users usrs;
 
     /**
-     * Ctor.
+     * Default ctor. Sets all the defaults.
+     */
+    public FakeJenkins() {
+        this(new FakeJobs(), new FakeUsers());
+    }
+
+    /**
+     * Secondary ctor.
+     * @param jobs Jobs instance that should be returned in jobs() method.
+     */
+    public FakeJenkins(final Jobs jobs) {
+        this(jobs, new FakeUsers());
+    }
+
+    /**
+     * Secondary ctor.
+     * @param users Jobs instance that should be returned in jobs() method.
+     */
+    public FakeJenkins(final Users users) {
+        this(new FakeJobs(), users);
+    }
+
+    /**
+     * Primary ctor.
      * @param jobs Jobs instance that should be returned in jobs() method.
      * @param users Users instance that should be returned in users() method.
      */

@@ -17,6 +17,8 @@ package org.rising.jenkins.fake;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.rising.jenkins.Jenkins;
+import org.rising.jenkins.Jobs;
 import org.rising.jenkins.Users;
 
 /**
@@ -29,12 +31,31 @@ import org.rising.jenkins.Users;
 public final class FakeJenkinsTest {
 
     /**
+     * Can create fake instances using different constructors.
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testConstructors() throws Exception {
+        final Jenkins def = new FakeJenkins();
+        Assert.assertNotNull(def.jobs());
+        Assert.assertNotNull(def.users());
+        final Users users = new FakeUsers();
+        final Jenkins secondaryone = new FakeJenkins(users);
+        Assert.assertNotNull(secondaryone.jobs());
+        Assert.assertEquals(users, secondaryone.users());
+        final Jobs jobs = new FakeJobs();
+        final Jenkins secondarytwo = new FakeJenkins(jobs);
+        Assert.assertNotNull(secondarytwo.users());
+        Assert.assertEquals(jobs, secondarytwo.jobs());
+    }
+
+    /**
      * Can list Jenkins' jobs.
      * @throws Exception If something goes wrong.
      */
     @Test
     public void testCanListJobs() throws Exception {
-        final FakeJobs jobs = new FakeJobs();
+        final Jobs jobs = new FakeJobs();
         Assert.assertEquals(
             jobs, new FakeJenkins(jobs, new FakeUsers()).jobs()
         );
