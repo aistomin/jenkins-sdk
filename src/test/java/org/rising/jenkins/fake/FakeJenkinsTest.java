@@ -31,22 +31,61 @@ import org.rising.jenkins.Users;
 public final class FakeJenkinsTest {
 
     /**
-     * Can create fake instances using different constructors.
+     * Can create fake instances using default constructor.
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testConstructors() throws Exception {
-        final Jenkins def = new FakeJenkins();
-        Assert.assertNotNull(def.jobs());
-        Assert.assertNotNull(def.users());
+    public void testDefaultConstructor() throws Exception {
+        final Jenkins jenkins = new FakeJenkins();
+        Assert.assertNotNull(jenkins.jobs());
+        Assert.assertNotNull(jenkins.users());
+        Assert.assertNotNull(jenkins.xml());
+        Assert.assertTrue(jenkins.xml().startsWith("<hudson>"));
+        Assert.assertTrue(
+            jenkins.xml().contains(
+                "https://cisdk-istomin.rhcloud.com/job/test-disabled-job/"
+            )
+        );
+        Assert.assertTrue(jenkins.xml().endsWith("</hudson>"));
+    }
+
+    /**
+     * Can create fake instances providing only Users.
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testConstructorWithUsers() throws Exception {
         final Users users = new FakeUsers();
-        final Jenkins secondaryone = new FakeJenkins(users);
-        Assert.assertNotNull(secondaryone.jobs());
-        Assert.assertEquals(users, secondaryone.users());
+        final Jenkins jenkins = new FakeJenkins(users);
+        Assert.assertNotNull(jenkins.jobs());
+        Assert.assertNotNull(jenkins.xml());
+        Assert.assertEquals(users, jenkins.users());
+    }
+
+    /**
+     * Can create fake instances providing only Jobs.
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testConstructorWithJobs() throws Exception {
         final Jobs jobs = new FakeJobs();
-        final Jenkins secondarytwo = new FakeJenkins(jobs);
-        Assert.assertNotNull(secondarytwo.users());
-        Assert.assertEquals(jobs, secondarytwo.jobs());
+        final Jenkins jenkins = new FakeJenkins(jobs);
+        Assert.assertNotNull(jenkins.users());
+        Assert.assertNotNull(jenkins.xml());
+        Assert.assertEquals(jobs, jenkins.jobs());
+    }
+
+    /**
+     * Can create fake instances providing only XML.
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testConstructorWithXML() throws Exception {
+        final String xml = "<jenkins></jenkins>";
+        final Jenkins jenkins = new FakeJenkins(xml);
+        Assert.assertNotNull(jenkins.jobs());
+        Assert.assertNotNull(jenkins.users());
+        Assert.assertEquals(xml, jenkins.xml());
     }
 
     /**
@@ -72,6 +111,19 @@ public final class FakeJenkinsTest {
         Assert.assertEquals(
             users,
             new FakeJenkins(new FakeJobs(), users, "<jen>jen</jen>").users()
+        );
+    }
+
+    /**
+     * Can list Jenkins' XML.
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadXML() throws Exception {
+        final String xml = "<hudson></hudson>";
+        Assert.assertEquals(
+            xml,
+            new FakeJenkins(new FakeJobs(), new FakeUsers(), xml).xml()
         );
     }
 }

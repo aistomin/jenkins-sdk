@@ -71,6 +71,14 @@ public final class FakeJenkins implements Jenkins {
     }
 
     /**
+     * Secondary ctor.
+     * @param xml XML content that should be returned in xml() method.
+     */
+    public FakeJenkins(final String xml) {
+        this(new FakeJobs(), new FakeUsers(), xml);
+    }
+
+    /**
      * Primary ctor.
      * @param jobs Jobs instance that should be returned in jobs() method.
      * @param users Users instance that should be returned in users() method.
