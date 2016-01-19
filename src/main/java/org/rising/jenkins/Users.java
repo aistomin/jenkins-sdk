@@ -21,6 +21,7 @@ package org.rising.jenkins;
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
+ * @todo: Create design of this interface and solve Issue #25
  */
 public interface Users extends APIObject {
 }

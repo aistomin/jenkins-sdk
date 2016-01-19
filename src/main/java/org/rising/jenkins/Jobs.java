@@ -17,10 +17,10 @@ package org.rising.jenkins;
 
 /**
  * Jenkins' jobs.
- *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
+ * @todo: Create design of this interface and solve Issue #24
  */
 public interface Jobs extends APIObject {
 }
