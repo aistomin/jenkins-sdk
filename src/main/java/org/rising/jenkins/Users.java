@@ -16,25 +16,11 @@
 package org.rising.jenkins;
 
 /**
- * Jenkins instance.
+ * Jenkins' users.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public interface Jenkins {
-
-    /**
-     * All the jobs of this Jenkins instance.
-     * @return Jobs.
-     * @throws Exception If reading jobs was not successful.
-     */
-    Jobs jobs() throws Exception;
-
-    /**
-     * All the registered Jenkins' users.
-     * @return Users.
-     * @throws Exception If reading users was not successful.
-     */
-    Users users() throws Exception;
+public interface Users {
 }

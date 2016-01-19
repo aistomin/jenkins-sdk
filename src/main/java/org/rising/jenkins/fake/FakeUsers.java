@@ -15,40 +15,14 @@
  */
 package org.rising.jenkins.fake;
 
-import org.junit.Assert;
-import org.junit.Test;
 import org.rising.jenkins.Users;
 
 /**
- * Test for FakeJenkins class.
+ * Fake Jenkins' users for tests.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class FakeJenkinsTest {
-
-    /**
-     * Can list Jenkins' jobs.
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanListJobs() throws Exception {
-        final FakeJobs jobs = new FakeJobs();
-        Assert.assertEquals(
-            jobs, new FakeJenkins(jobs, new FakeUsers()).jobs()
-        );
-    }
-
-    /**
-     * Can list Jenkins' users.
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanListUsers() throws Exception {
-        final Users users = new FakeUsers();
-        Assert.assertEquals(
-            users, new FakeJenkins(new FakeJobs(), users).users()
-        );
-    }
+public class FakeUsers implements Users {
 }

@@ -17,6 +17,7 @@ package org.rising.jenkins.fake;
 
 import org.rising.jenkins.Jenkins;
 import org.rising.jenkins.Jobs;
+import org.rising.jenkins.Users;
 
 /**
  * Fake Jenkins instance for tests.
@@ -33,19 +34,35 @@ public final class FakeJenkins implements Jenkins {
     private final transient Jobs projects;
 
     /**
+     * Users instance that should be returned in users() method.
+     */
+    private final transient Users usrs;
+
+    /**
      * Ctor.
      * @param jobs Jobs instance that should be returned in jobs() method.
+     * @param users Users instance that should be returned in users() method.
      */
-    public FakeJenkins(final Jobs jobs) {
+    public FakeJenkins(final Jobs jobs, final Users users) {
         this.projects = jobs;
+        this.usrs = users;
     }
 
     /**
-     * Return test instance that was set via ctor.
+     * Return test jobs instance that was set via ctor.
      * @return Jobs.
      * @throws Exception If reading jobs was not successful.
      */
     public Jobs jobs() throws Exception {
         return this.projects;
+    }
+
+    /**
+     * Return test users instance that was set via ctor.
+     * @return Users
+     * @throws Exception If reading users was not successful.
+     */
+    public Users users() throws Exception {
+        return this.usrs;
     }
 }
