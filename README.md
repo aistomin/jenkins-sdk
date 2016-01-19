@@ -27,3 +27,10 @@ or
 ```
 $ mvn clean install package
 ```
+
+## Jenkins instance for Integration tests
+
+We have running instance at https://cisdk-istomin.rhcloud.com Unfortunately,
+sometimes this instance goes to "Idle" status and needs to be restarted. But,
+at least, we have something to test with. Feel free to create an issue if 
+Jenkins is not available.
