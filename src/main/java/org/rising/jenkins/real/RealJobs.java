@@ -17,6 +17,7 @@ package org.rising.jenkins.real;
 
 import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
+import org.rising.jenkins.Credentials;
 import org.rising.jenkins.Job;
 import org.rising.jenkins.Jobs;
 
@@ -28,6 +29,27 @@ import org.rising.jenkins.Jobs;
  * @since 1.0
  */
 public final class RealJobs implements Jobs {
+
+    /**
+     * Jobs' details request.
+     */
+    private final transient String request;
+
+    /**
+     * Jenkins credentials.
+     */
+    private final transient Credentials creds;
+
+    /**
+     * Ctor.
+     *
+     * @param url Base Jenkins URL.
+     * @param credentials Jenkins credentials.
+     */
+    public RealJobs(final String url, final Credentials credentials) {
+        this.request = url;
+        this.creds = credentials;
+    }
 
     /**
      * List all Jenkins jobs.
@@ -69,8 +91,8 @@ public final class RealJobs implements Jobs {
     public String xml() throws Exception {
         throw new NotImplementedException(
             String.format(
-                "xml() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
+                "xml() method is not implemented for %s. Req: %s, Creds: %s",
+                this.getClass().getCanonicalName(), this.request, this.creds
             )
         );
     }

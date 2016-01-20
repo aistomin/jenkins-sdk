@@ -28,7 +28,7 @@ import org.junit.Test;
 public final class ITRealJenkinsTest {
 
     /**
-     * Can get Jenkin's XML.
+     * Can get Jenkins' XML.
      *
      * @throws Exception If something goes wrong.
      */
@@ -40,5 +40,15 @@ public final class ITRealJenkinsTest {
             xml.contains("<displayName>test-different-builds-job</displayName>")
         );
         Assert.assertTrue(xml.endsWith("</hudson>"));
+    }
+
+    /**
+     * Can get Jenkins' jobs.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testJobs() throws Exception {
+        Assert.assertNotNull(new TestJenkins().jobs());
     }
 }

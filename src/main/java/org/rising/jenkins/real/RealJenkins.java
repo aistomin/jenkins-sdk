@@ -57,15 +57,9 @@ public final class RealJenkins implements Jenkins {
      *
      * @return Jobs.
      * @throws Exception If reading jobs was not successful.
-     * @todo: Let's implement this method and solve Issue #11.
      */
     public Jobs jobs() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "jobs() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return new RealJobs(this.base, this.creds);
     }
 
     /**
