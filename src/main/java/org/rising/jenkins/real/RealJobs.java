@@ -17,6 +17,7 @@ package org.rising.jenkins.real;
 
 import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
+import org.rising.http.PostRequest;
 import org.rising.jenkins.Credentials;
 import org.rising.jenkins.Job;
 import org.rising.jenkins.Jobs;
@@ -47,7 +48,10 @@ public final class RealJobs implements Jobs {
      * @param credentials Jenkins credentials.
      */
     public RealJobs(final String url, final Credentials credentials) {
-        this.request = url;
+        this.request = String.format(
+            "%s/%s", url,
+            "api/xml?depth=1&tree=jobs[displayName,lastBuild[result]]"
+        );
         this.creds = credentials;
     }
 
@@ -84,16 +88,11 @@ public final class RealJobs implements Jobs {
 
     /**
      * Jobs' node XML content.
+     *
      * @return XML string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #20.
      */
     public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "xml() method is not implemented for %s. Req: %s, Creds: %s",
-                this.getClass().getCanonicalName(), this.request, this.creds
-            )
-        );
+        return new PostRequest(this.request, this.creds.headers()).execute();
     }
 }
