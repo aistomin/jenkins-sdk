@@ -15,7 +15,9 @@
  */
 package org.rising.jenkins.fake;
 
+import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
+import org.rising.jenkins.Job;
 import org.rising.jenkins.Jobs;
 
 /**
@@ -28,7 +30,39 @@ import org.rising.jenkins.Jobs;
 public final class FakeJobs implements Jobs {
 
     /**
+     * Return jobs that were set via ctor.
+     *
+     * @return List of jobs.
+     * @todo: Let's implement this method and solve Issue #32.
+     */
+    public List<Job> list() {
+        throw new NotImplementedException(
+            String.format(
+                "list() method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
+    }
+
+    /**
+     * Find by Jenkins' job name.
+     *
+     * @param name Job's name.
+     * @return Job.
+     * @todo: Let's implement this method and solve Issue #33.
+     */
+    public Job findByName(final String name) {
+        throw new NotImplementedException(
+            String.format(
+                "findByName() method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
+    }
+
+    /**
      * Return XML content that was set in ctor.
+     *
      * @return XML string.
      * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #17.
@@ -36,7 +70,7 @@ public final class FakeJobs implements Jobs {
     public String xml() throws Exception {
         throw new NotImplementedException(
             String.format(
-                "Method is not implemented for %s.",
+                "xml() is not implemented for %s.",
                 this.getClass().getCanonicalName()
             )
         );

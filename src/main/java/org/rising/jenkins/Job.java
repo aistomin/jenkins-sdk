@@ -15,28 +15,13 @@
  */
 package org.rising.jenkins;
 
-import java.util.List;
-
 /**
- * Jenkins' jobs.
+ * Jenkins' job.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
+ * @todo: Let's create this interface desing and solve Issue #29.
  */
-public interface Jobs extends APIObject {
-
-    /**
-     * List all Jenkins jobs.
-     *
-     * @return List of jobs.
-     */
-    List<Job> list();
-
-    /**
-     * Find by Jenkins' job name.
-     * @param name Job's name.
-     * @return Job.
-     */
-    Job findByName(String name);
+public interface Job extends APIObject {
 }

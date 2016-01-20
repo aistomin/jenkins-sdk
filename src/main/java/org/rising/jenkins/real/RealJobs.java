@@ -15,7 +15,9 @@
  */
 package org.rising.jenkins.real;
 
+import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
+import org.rising.jenkins.Job;
 import org.rising.jenkins.Jobs;
 
 /**
@@ -26,6 +28,37 @@ import org.rising.jenkins.Jobs;
  * @since 1.0
  */
 public final class RealJobs implements Jobs {
+
+    /**
+     * List all Jenkins jobs.
+     *
+     * @return List of jobs.
+     * @todo: Let's implement this method and solve Issue #30.
+     */
+    public List<Job> list() {
+        throw new NotImplementedException(
+            String.format(
+                "list() method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
+    }
+
+    /**
+     * Find by Jenkins' job name.
+     *
+     * @param name Job's name.
+     * @return Job.
+     * @todo: Let's implement this method and solve Issue #31.
+     */
+    public Job findByName(final String name) {
+        throw new NotImplementedException(
+            String.format(
+                "findByName() method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
+    }
 
     /**
      * Jobs' node XML content.
