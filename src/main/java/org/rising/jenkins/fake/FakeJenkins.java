@@ -15,10 +15,10 @@
  */
 package org.rising.jenkins.fake;
 
-import org.apache.commons.io.IOUtils;
 import org.rising.jenkins.Jenkins;
 import org.rising.jenkins.Jobs;
 import org.rising.jenkins.Users;
+import org.rising.xml.SampleJenkinsXML;
 
 /**
  * Fake Jenkins instance for tests.
@@ -50,7 +50,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins() throws Exception {
-        this(new FakeJobs(), new FakeUsers(), defaultXML());
+        this(new FakeJobs(), new FakeUsers(), new SampleJenkinsXML().content());
     }
 
     /**
@@ -60,7 +60,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Jobs jobs) throws Exception {
-        this(jobs, new FakeUsers(), defaultXML());
+        this(jobs, new FakeUsers(), new SampleJenkinsXML().content());
     }
 
     /**
@@ -70,7 +70,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Users users) throws Exception {
-        this(new FakeJobs(), users, defaultXML());
+        this(new FakeJobs(), users, new SampleJenkinsXML().content());
     }
 
     /**
@@ -124,18 +124,5 @@ public final class FakeJenkins implements Jenkins {
      */
     public String xml() throws Exception {
         return this.content;
-    }
-
-    /**
-     * Read default XML string.
-     *
-     * @return XML string.
-     * @throws Exception If reading XML was not successful.
-     */
-    private static String defaultXML() throws Exception {
-        return IOUtils.toString(
-            Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("jenkins.xml")
-        );
     }
 }

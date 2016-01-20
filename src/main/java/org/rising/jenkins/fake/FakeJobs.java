@@ -16,10 +16,10 @@
 package org.rising.jenkins.fake;
 
 import java.util.List;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.Job;
 import org.rising.jenkins.Jobs;
+import org.rising.xml.XML;
 
 /**
  * Fake Jenkins' jobs for tests.
@@ -41,7 +41,7 @@ public final class FakeJobs implements Jobs {
      * @throws Exception If reading XML was not successful.
      */
     public FakeJobs() throws Exception {
-        this(defaultXML());
+        this(new XML("jobs.xml").content());
     }
 
     /**
@@ -92,17 +92,5 @@ public final class FakeJobs implements Jobs {
      */
     public String xml() throws Exception {
         return this.content;
-    }
-
-    /**
-     * Read default XML string.
-     * @return XML string.
-     * @throws Exception If reading XML was not successful.
-     */
-    private static String defaultXML() throws Exception {
-        return IOUtils.toString(
-            Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("jenkins.xml")
-        );
     }
 }
