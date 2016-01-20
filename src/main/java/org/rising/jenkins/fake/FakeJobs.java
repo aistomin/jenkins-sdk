@@ -19,7 +19,7 @@ import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.Job;
 import org.rising.jenkins.Jobs;
-import org.rising.xml.XML;
+import org.rising.xml.SampleJobsXML;
 
 /**
  * Fake Jenkins' jobs for tests.
@@ -41,7 +41,7 @@ public final class FakeJobs implements Jobs {
      * @throws Exception If reading XML was not successful.
      */
     public FakeJobs() throws Exception {
-        this(new XML("jobs.xml").content());
+        this(new SampleJobsXML().content());
     }
 
     /**
