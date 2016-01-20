@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rising.jenkins.real;
+package org.rising.jenkins.fake;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Integration tests for RealJobs class.
+ * Test for FakeJobs class.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class ITRealJobsTest {
+public final class FakeJobsTest {
 
     /**
-     * Can get jobs' XML.
+     * Can read Jenkins' XML.
      *
      * @throws Exception If something goes wrong.
      */
     @Test
     public void testCanReadXML() throws Exception {
-        final String xml = new TestJenkins().jobs().xml();
+        final String xml = new FakeJobs().xml();
         Assert.assertTrue(
             xml.contains("<displayName>test-different-builds-job</displayName>")
         );

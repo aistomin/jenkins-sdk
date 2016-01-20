@@ -46,6 +46,7 @@ public final class FakeJenkins implements Jenkins {
 
     /**
      * Default ctor. Sets all the defaults.
+     *
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins() throws Exception {
@@ -54,6 +55,7 @@ public final class FakeJenkins implements Jenkins {
 
     /**
      * Secondary ctor.
+     *
      * @param jobs Jobs instance that should be returned in jobs() method.
      * @throws Exception If something goes wrong.
      */
@@ -63,6 +65,7 @@ public final class FakeJenkins implements Jenkins {
 
     /**
      * Secondary ctor.
+     *
      * @param users Jobs instance that should be returned in jobs() method.
      * @throws Exception If something goes wrong.
      */
@@ -72,14 +75,17 @@ public final class FakeJenkins implements Jenkins {
 
     /**
      * Secondary ctor.
+     *
      * @param xml XML content that should be returned in xml() method.
+     * @throws Exception If something goes wrong.
      */
-    public FakeJenkins(final String xml) {
+    public FakeJenkins(final String xml) throws Exception {
         this(new FakeJobs(), new FakeUsers(), xml);
     }
 
     /**
      * Primary ctor.
+     *
      * @param jobs Jobs instance that should be returned in jobs() method.
      * @param users Users instance that should be returned in users() method.
      * @param xml XML content that should be returned in xml() method.
@@ -92,6 +98,7 @@ public final class FakeJenkins implements Jenkins {
 
     /**
      * Return test jobs instance that was set via ctor.
+     *
      * @return Jobs.
      * @throws Exception If reading jobs was not successful.
      */
@@ -101,6 +108,7 @@ public final class FakeJenkins implements Jenkins {
 
     /**
      * Return test users instance that was set via ctor.
+     *
      * @return Users
      * @throws Exception If reading users was not successful.
      */
@@ -110,6 +118,7 @@ public final class FakeJenkins implements Jenkins {
 
     /**
      * Return XML content that was set in ctor.
+     *
      * @return XML string.
      * @throws Exception If something goes wrong.
      */
@@ -119,6 +128,7 @@ public final class FakeJenkins implements Jenkins {
 
     /**
      * Read default XML string.
+     *
      * @return XML string.
      * @throws Exception If reading XML was not successful.
      */

@@ -33,7 +33,7 @@ public final class ITRealJenkinsTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testXml() throws Exception {
+    public void testCanReadXML() throws Exception {
         final String xml = new TestJenkins().xml();
         Assert.assertTrue(xml.startsWith("<hudson>"));
         Assert.assertTrue(
@@ -48,7 +48,7 @@ public final class ITRealJenkinsTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testJobs() throws Exception {
+    public void testCanListJobs() throws Exception {
         Assert.assertNotNull(new TestJenkins().jobs());
     }
 }

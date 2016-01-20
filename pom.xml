@@ -62,6 +62,7 @@
                     <license>file:${basedir}/LICENSE</license>
                     <excludes>
                         <exclude>xml:/src/main/resources/jenkins.xml</exclude>
+                        <exclude>xml:/src/main/resources/jobs.xml</exclude>
                     </excludes>
                 </configuration>
                 <executions>

@@ -16,6 +16,7 @@
 package org.rising.jenkins.fake;
 
 import java.util.List;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.Job;
 import org.rising.jenkins.Jobs;
@@ -28,6 +29,29 @@ import org.rising.jenkins.Jobs;
  * @since 1.0
  */
 public final class FakeJobs implements Jobs {
+
+    /**
+     * XML content that should be returned in xml() method.
+     */
+    private final transient String content;
+
+    /**
+     * Default ctor.
+     *
+     * @throws Exception If reading XML was not successful.
+     */
+    public FakeJobs() throws Exception {
+        this(defaultXML());
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param xml XML content that should be returned in xml() method.
+     */
+    public FakeJobs(final String xml) {
+        this.content = xml;
+    }
 
     /**
      * Return jobs that were set via ctor.
@@ -65,14 +89,20 @@ public final class FakeJobs implements Jobs {
      *
      * @return XML string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #17.
      */
     public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "xml() is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+        return this.content;
+    }
+
+    /**
+     * Read default XML string.
+     * @return XML string.
+     * @throws Exception If reading XML was not successful.
+     */
+    private static String defaultXML() throws Exception {
+        return IOUtils.toString(
+            Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("jenkins.xml")
         );
     }
 }

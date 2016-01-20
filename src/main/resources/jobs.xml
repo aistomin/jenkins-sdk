@@ -1,0 +1,17 @@
+<hudson>
+    <job>
+        <displayName>test-different-builds-job</displayName>
+        <lastBuild>
+            <result>SUCCESS</result>
+        </lastBuild>
+    </job>
+    <job>
+        <displayName>test-disabled-job</displayName>
+    </job>
+    <job>
+        <displayName>test-parametrised-job</displayName>
+        <lastBuild>
+            <result>SUCCESS</result>
+        </lastBuild>
+    </job>
+</hudson>

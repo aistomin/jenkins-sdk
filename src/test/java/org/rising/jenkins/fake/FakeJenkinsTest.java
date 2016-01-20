@@ -115,7 +115,7 @@ public final class FakeJenkinsTest {
     }
 
     /**
-     * Can list Jenkins' XML.
+     * Can read Jenkins' XML.
      * @throws Exception If something goes wrong.
      */
     @Test
