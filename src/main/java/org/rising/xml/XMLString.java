@@ -16,26 +16,33 @@
 package org.rising.xml;
 
 /**
- * Jenkins' sample XML.
+ * XML string.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class SampleJenkinsXML {
-
-    /**
-     * XML file.
-     */
-    private final transient XML xml = new XML("jenkins.xml");
+public final class XMLString implements XML {
 
     /**
      * XML string content.
-     *
+     */
+    private final transient String string;
+
+    /**
+     * Ctor.
+     * @param xml XML string content.
+     */
+    public XMLString(final String xml) {
+        this.string = xml;
+    }
+
+    /**
+     * XML string content.
      * @return XML string.
      * @throws Exception If reading XML was not successful.
      */
     public String content() throws Exception {
-        return this.xml.content();
+        return this.string;
     }
 }

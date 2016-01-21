@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.rising.jenkins.Jenkins;
 import org.rising.jenkins.Jobs;
 import org.rising.jenkins.Users;
+import org.rising.xml.XMLString;
 
 /**
  * Test for FakeJenkins class.
@@ -82,7 +83,7 @@ public final class FakeJenkinsTest {
     @Test
     public void testConstructorWithXML() throws Exception {
         final String xml = "<jenkins></jenkins>";
-        final Jenkins jenkins = new FakeJenkins(xml);
+        final Jenkins jenkins = new FakeJenkins(new XMLString(xml));
         Assert.assertNotNull(jenkins.jobs());
         Assert.assertNotNull(jenkins.users());
         Assert.assertEquals(xml, jenkins.xml());
@@ -97,7 +98,9 @@ public final class FakeJenkinsTest {
         final Jobs jobs = new FakeJobs();
         Assert.assertEquals(
             jobs,
-            new FakeJenkins(jobs, new FakeUsers(), "<test>test</test>").jobs()
+            new FakeJenkins(
+                jobs, new FakeUsers(), new XMLString("<test>test</test>")
+            ).jobs()
         );
     }
 
@@ -110,7 +113,9 @@ public final class FakeJenkinsTest {
         final Users users = new FakeUsers();
         Assert.assertEquals(
             users,
-            new FakeJenkins(new FakeJobs(), users, "<jen>jen</jen>").users()
+            new FakeJenkins(
+                new FakeJobs(), users, new XMLString("<jen>jen</jen>")
+            ).users()
         );
     }
 
@@ -123,7 +128,9 @@ public final class FakeJenkinsTest {
         final String xml = "<hudson></hudson>";
         Assert.assertEquals(
             xml,
-            new FakeJenkins(new FakeJobs(), new FakeUsers(), xml).xml()
+            new FakeJenkins(
+                new FakeJobs(), new FakeUsers(), new XMLString(xml)
+            ).xml()
         );
     }
 }

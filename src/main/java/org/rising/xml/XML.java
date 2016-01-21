@@ -15,39 +15,19 @@
  */
 package org.rising.xml;
 
-import org.apache.commons.io.IOUtils;
-
 /**
- * XML file.
+ * XML.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class XML {
-
-    /**
-     * File name.
-     */
-    private final transient String name;
-
-    /**
-     * Ctor.
-     * @param file File name.
-     */
-    public XML(final String file) {
-        this.name = file;
-    }
+public interface XML {
 
     /**
      * XML string content.
      * @return XML string.
      * @throws Exception If reading XML was not successful.
      */
-    public String content() throws Exception {
-        return IOUtils.toString(
-            Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream(this.name)
-        );
-    }
+    String content() throws Exception;
 }

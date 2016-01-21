@@ -18,7 +18,8 @@ package org.rising.jenkins.fake;
 import org.rising.jenkins.Jenkins;
 import org.rising.jenkins.Jobs;
 import org.rising.jenkins.Users;
-import org.rising.xml.SampleJenkinsXML;
+import org.rising.xml.XML;
+import org.rising.xml.XMLResource;
 
 /**
  * Fake Jenkins instance for tests.
@@ -28,6 +29,11 @@ import org.rising.xml.SampleJenkinsXML;
  * @since 1.0
  */
 public final class FakeJenkins implements Jenkins {
+
+    /**
+     * XML resource file name.
+     */
+    private static final String RESOURCE = "jenkins.xml";
 
     /**
      * Jobs instance that should be returned in jobs() method.
@@ -42,7 +48,7 @@ public final class FakeJenkins implements Jenkins {
     /**
      * XML content that should be returned in xml() method.
      */
-    private final transient String content;
+    private final transient XML content;
 
     /**
      * Default ctor. Sets all the defaults.
@@ -50,7 +56,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins() throws Exception {
-        this(new FakeJobs(), new FakeUsers(), new SampleJenkinsXML().content());
+        this(new FakeJobs(), new FakeUsers(), new XMLResource(RESOURCE));
     }
 
     /**
@@ -60,7 +66,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Jobs jobs) throws Exception {
-        this(jobs, new FakeUsers(), new SampleJenkinsXML().content());
+        this(jobs, new FakeUsers(), new XMLResource(RESOURCE));
     }
 
     /**
@@ -70,7 +76,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Users users) throws Exception {
-        this(new FakeJobs(), users, new SampleJenkinsXML().content());
+        this(new FakeJobs(), users, new XMLResource(RESOURCE));
     }
 
     /**
@@ -79,7 +85,7 @@ public final class FakeJenkins implements Jenkins {
      * @param xml XML content that should be returned in xml() method.
      * @throws Exception If something goes wrong.
      */
-    public FakeJenkins(final String xml) throws Exception {
+    public FakeJenkins(final XML xml) throws Exception {
         this(new FakeJobs(), new FakeUsers(), xml);
     }
 
@@ -90,7 +96,7 @@ public final class FakeJenkins implements Jenkins {
      * @param users Users instance that should be returned in users() method.
      * @param xml XML content that should be returned in xml() method.
      */
-    public FakeJenkins(final Jobs jobs, final Users users, final String xml) {
+    public FakeJenkins(final Jobs jobs, final Users users, final XML xml) {
         this.projects = jobs;
         this.usrs = users;
         this.content = xml;
@@ -123,6 +129,6 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public String xml() throws Exception {
-        return this.content;
+        return this.content.content();
     }
 }

@@ -15,27 +15,39 @@
  */
 package org.rising.xml;
 
+import org.apache.commons.io.IOUtils;
+
 /**
- * Jenkins' users sample XML.
+ * XML file.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class SampleUsersXML {
+public final class XMLResource implements XML {
 
     /**
-     * XML file.
+     * File name.
      */
-    private final transient XML xml = new XML("users.xml");
+    private final transient String name;
+
+    /**
+     * Ctor.
+     * @param file File name.
+     */
+    public XMLResource(final String file) {
+        this.name = file;
+    }
 
     /**
      * XML string content.
-     *
      * @return XML string.
      * @throws Exception If reading XML was not successful.
      */
     public String content() throws Exception {
-        return this.xml.content();
+        return IOUtils.toString(
+            Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream(this.name)
+        );
     }
 }
