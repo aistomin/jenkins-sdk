@@ -13,44 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rising.jenkins;
+package org.rising.jenkins.real;
 
-import java.util.List;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * Jenkins' job.
+ * Tests for RealJob.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public interface Job extends APIObject {
+public final class RealJobTest {
 
     /**
-     * Job details.
+     * Sample test.
      *
-     * @return Job details.
+     * @todo: Delete this test Issue #42.
      */
-    JobDetails details();
-
-    /**
-     * Job URL.
-     *
-     * @return URL string.
-     */
-    String url();
-
-    /**
-     * Job builds.
-     *
-     * @return Builds.
-     */
-    Builds builds();
-
-    /**
-     * Job parameters.
-     *
-     * @return Job's parameters.
-     */
-    List<JobParameter> parameters();
+    @Test
+    public void testSample() {
+        Assert.assertEquals(1, 1);
+    }
 }
