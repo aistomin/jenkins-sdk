@@ -15,42 +15,13 @@
  */
 package org.rising.jenkins;
 
-import java.util.List;
-
 /**
- * Jenkins' job.
+ * Jenkins' job's parameter.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
+ * @todo: Let's create this interface design and solve Issue #41.
  */
-public interface Job extends APIObject {
-
-    /**
-     * Job's details.
-     *
-     * @return Job details.
-     */
-    JobDetails details();
-
-    /**
-     * Job's URL.
-     *
-     * @return URL string.
-     */
-    String url();
-
-    /**
-     * Jobs's builds.
-     *
-     * @return Builds.
-     */
-    Builds builds();
-
-    /**
-     * Job's parameters.
-     *
-     * @return Job's parameters.
-     */
-    List<JobParameter> parameters();
+public interface JobParameter extends APIObject {
 }
