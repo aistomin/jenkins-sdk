@@ -15,48 +15,30 @@
  */
 package org.rising.jenkins.fake;
 
-import org.rising.jenkins.Users;
-import org.rising.xml.SampleUsersXML;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * Fake Jenkins' users for tests.
+ * Test for FakeJobs class.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class FakeUsers implements Users {
+public final class FakeUsersTest {
 
     /**
-     * XML content that should be returned in xml() method.
-     */
-    private final transient String content;
-
-    /**
-     * Default ctor.
+     * Can read Jenkins' users XML.
      *
-     * @throws Exception If reading XML was not successful.
-     */
-    public FakeUsers() throws Exception {
-        this(new SampleUsersXML().content());
-    }
-
-    /**
-     * Secondary ctor.
-     *
-     * @param xml XML content that should be returned in xml() method.
-     */
-    public FakeUsers(final String xml) {
-        this.content = xml;
-    }
-
-    /**
-     * Return XML content that was set in ctor.
-     *
-     * @return XML string.
      * @throws Exception If something goes wrong.
      */
-    public String xml() throws Exception {
-        return this.content;
+    @Test
+    public void testCanReadXML() throws Exception {
+        final String xml = new FakeUsers().xml();
+        Assert.assertTrue(xml.startsWith("<people>"));
+        Assert.assertTrue(
+            xml.contains("<fullName>Integration Test</fullName>")
+        );
+        Assert.assertTrue(xml.endsWith("</people>"));
     }
 }
