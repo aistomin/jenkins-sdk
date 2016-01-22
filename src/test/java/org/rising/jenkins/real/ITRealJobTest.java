@@ -25,7 +25,7 @@ import org.junit.Test;
  * @version $Id$
  * @since 1.0
  */
-public final class RealJobTest {
+public final class ITRealJobTest {
 
     /**
      * Sample test.

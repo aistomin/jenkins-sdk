@@ -16,6 +16,7 @@
 package org.rising.jenkins.real;
 
 import org.apache.commons.lang3.NotImplementedException;
+import org.rising.http.PostRequest;
 import org.rising.jenkins.Credentials;
 import org.rising.jenkins.Users;
 
@@ -57,15 +58,8 @@ public final class RealUsers implements Users {
      *
      * @return XML's string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #50.
      */
     public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "xml() method is not implemented for %s. URL: %s, creds: %s",
-                this.getClass().getCanonicalName(), this.request,
-                this.creds.toString()
-            )
-        );
+        return new PostRequest(this.request, this.creds.headers()).execute();
     }
 }
