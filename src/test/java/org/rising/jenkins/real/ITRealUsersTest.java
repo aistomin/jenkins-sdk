@@ -17,7 +17,6 @@ package org.rising.jenkins.real;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.rising.jenkins.fake.FakeUsers;
 
 /**
  * Integration tests for RealUsers class.
@@ -35,7 +34,7 @@ public final class ITRealUsersTest {
      */
     @Test
     public void testCanReadXML() throws Exception {
-        final String xml = new FakeUsers().xml();
+        final String xml = new TestJenkins().users().xml();
         Assert.assertTrue(xml.startsWith("<people>"));
         Assert.assertTrue(
             xml.contains("<fullName>Integration Test</fullName>")
