@@ -15,7 +15,6 @@
  */
 package org.rising.jenkins.real;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.rising.http.PostRequest;
 import org.rising.jenkins.Credentials;
 import org.rising.jenkins.Users;
