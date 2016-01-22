@@ -43,12 +43,22 @@ public final class ITRealJenkinsTest {
     }
 
     /**
-     * Can get Jenkins' jobs.
+     * Can list Jenkins' jobs.
      *
      * @throws Exception If something goes wrong.
      */
     @Test
     public void testCanListJobs() throws Exception {
         Assert.assertNotNull(new TestJenkins().jobs());
+    }
+
+    /**
+     * Can list Jenkins' users.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanListUsers() throws Exception {
+        Assert.assertNotNull(new TestJenkins().users());
     }
 }

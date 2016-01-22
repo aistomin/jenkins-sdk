@@ -15,7 +15,6 @@
  */
 package org.rising.jenkins.real;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.rising.http.PostRequest;
 import org.rising.jenkins.Credentials;
 import org.rising.jenkins.Jenkins;
@@ -67,15 +66,9 @@ public final class RealJenkins implements Jenkins {
      *
      * @return Users.
      * @throws Exception If reading users was not successful.
-     * @todo: Let's implement this method and solve Issue #13.
      */
     public Users users() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "users() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return new RealUsers(this.base, this.creds);
     }
 
     /**

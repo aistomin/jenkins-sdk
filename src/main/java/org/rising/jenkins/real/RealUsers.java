@@ -16,6 +16,7 @@
 package org.rising.jenkins.real;
 
 import org.apache.commons.lang3.NotImplementedException;
+import org.rising.jenkins.Credentials;
 import org.rising.jenkins.Users;
 
 /**
@@ -28,6 +29,30 @@ import org.rising.jenkins.Users;
 public final class RealUsers implements Users {
 
     /**
+     * Users' details request.
+     */
+    private final transient String request;
+
+    /**
+     * Jenkins credentials.
+     */
+    private final transient Credentials creds;
+
+    /**
+     * Ctor.
+     *
+     * @param url Base Jenkins URL.
+     * @param credentials Jenkins credentials.
+     */
+    public RealUsers(final String url, final Credentials credentials) {
+        this.request = String.format(
+            "%s/%s", url,
+            "asynchPeople/api/xml?depth=2"
+        );
+        this.creds = credentials;
+    }
+
+    /**
      * Users XML representation.
      *
      * @return XML's string.
@@ -37,8 +62,9 @@ public final class RealUsers implements Users {
     public String xml() throws Exception {
         throw new NotImplementedException(
             String.format(
-                "xml() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
+                "xml() method is not implemented for %s. URL: %s, creds: %s",
+                this.getClass().getCanonicalName(), this.request,
+                this.creds.toString()
             )
         );
     }
