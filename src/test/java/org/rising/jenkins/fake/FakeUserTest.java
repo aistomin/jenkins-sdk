@@ -13,49 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rising.jenkins;
+package org.rising.jenkins.fake;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * Jenkins' user.
+ * Test for FakeUser class.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public interface User extends APIObject {
+public final class FakeUserTest {
 
     /**
-     * Username. This name is ID of user that can not be changed.
-     *
-     * @return Username.
+     * Sample test.
+     * @throws Exception If something goes wrong.
      */
-    String username();
-
-    /**
-     * User's full name.
-     *
-     * @return User's full name.
-     */
-    String fullName();
-
-    /**
-     * User's email.
-     *
-     * @return User's email.
-     */
-    String email();
-
-    /**
-     * User's Jenkins page URL.
-     *
-     * @return URL string.
-     */
-    String url();
-
-    /**
-     * User's description.
-     *
-     * @return Description string.
-     */
-    String description();
+    @Test
+    public void testSample() throws Exception {
+        Assert.assertNotNull(new FakeUser());
+    }
 }
