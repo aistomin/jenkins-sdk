@@ -15,6 +15,9 @@
  */
 package org.rising.jenkins.fake;
 
+import java.util.List;
+import org.apache.commons.lang3.NotImplementedException;
+import org.rising.jenkins.User;
 import org.rising.jenkins.Users;
 import org.rising.xml.XML;
 import org.rising.xml.XMLResource;
@@ -54,6 +57,69 @@ public final class FakeUsers implements Users {
      */
     public FakeUsers(final XML xml) {
         this.content = xml;
+    }
+
+    /**
+     * List fake users.
+     *
+     * @return List of users.
+     * @todo: Let's implement this method and solve Issue #63.
+     */
+    public List<User> list() {
+        throw new NotImplementedException(
+            String.format(
+                "list() method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
+    }
+
+    /**
+     * Find fake user by Jenkins' user name.
+     *
+     * @param username Username(aka ID).
+     * @return User.
+     * @todo: Let's implement this method and solve Issue #64.
+     */
+    public User findByUsername(final String username) {
+        throw new NotImplementedException(
+            String.format(
+                "findByUsername() method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
+    }
+
+    /**
+     * Find fake user by Jenkins' user email.
+     *
+     * @param email Username(aka ID).
+     * @return User.
+     * @todo: Let's implement this method and solve Issue #65.
+     */
+    public User findByEmail(final String email) {
+        throw new NotImplementedException(
+            String.format(
+                "findByEmail() method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
+    }
+
+    /**
+     * Find fake user by Jenkins' user full name.
+     *
+     * @param name Full name or part of it.
+     * @return User.
+     * @todo: Let's implement this method and solve Issue #66.
+     */
+    public User findByFullName(final String name) {
+        throw new NotImplementedException(
+            String.format(
+                "findByFullName() method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
     }
 
     /**

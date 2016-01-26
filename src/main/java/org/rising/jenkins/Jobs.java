@@ -35,6 +35,7 @@ public interface Jobs extends APIObject {
 
     /**
      * Find by Jenkins' job name.
+     *
      * @param name Job's name.
      * @return Job.
      */

@@ -15,45 +15,12 @@
  */
 package org.rising.jenkins;
 
-import java.util.List;
-
 /**
- * Jenkins' users.
- *
+ * Jenkins' user.
+ * @todo: Let's create design of this interface and solve Issue #62.
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public interface Users extends APIObject {
-
-    /**
-     * List all Jenkins users.
-     *
-     * @return List of users.
-     */
-    List<User> list();
-
-    /**
-     * Find by Jenkins' user name.
-     *
-     * @param username Username(aka ID).
-     * @return User.
-     */
-    User findByUsername(String username);
-
-    /**
-     * Find by Jenkins' user email.
-     *
-     * @param email Username(aka ID).
-     * @return User.
-     */
-    User findByEmail(String email);
-
-    /**
-     * Find by Jenkins' user full name.
-     *
-     * @param name Full name or part of it.
-     * @return User.
-     */
-    User findByFullName(String name);
+public interface User extends APIObject {
 }
