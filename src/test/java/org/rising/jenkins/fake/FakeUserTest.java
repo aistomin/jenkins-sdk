@@ -17,6 +17,7 @@ package org.rising.jenkins.fake;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.rising.xml.XMLString;
 
 /**
  * Test for FakeUser class.
@@ -28,11 +29,27 @@ import org.junit.Test;
 public final class FakeUserTest {
 
     /**
-     * Sample test.
+     * Can create fake instances providing only XML.
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testSample() throws Exception {
-        Assert.assertNotNull(new FakeUser());
+    public void testConstructorWithXML() throws Exception {
+        final String xml = "<user><id>integration</id></user>";
+        Assert.assertEquals(xml, new FakeUser(new XMLString(xml)).xml());
+    }
+
+    /**
+     * Can read Jenkins' users XML.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadXML() throws Exception {
+        final String xml = new FakeUser().xml();
+        Assert.assertTrue(xml.startsWith("<user>"));
+        Assert.assertTrue(
+            xml.contains("<id>integration</id>")
+        );
+        Assert.assertTrue(xml.endsWith("</user>"));
     }
 }

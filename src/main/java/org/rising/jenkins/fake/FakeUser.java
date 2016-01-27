@@ -17,6 +17,8 @@ package org.rising.jenkins.fake;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.User;
+import org.rising.xml.XML;
+import org.rising.xml.XMLResource;
 
 /**
  * Fake Jenkins' user for tests.
@@ -26,6 +28,34 @@ import org.rising.jenkins.User;
  * @since 1.0
  */
 public final class FakeUser implements User {
+
+    /**
+     * XML resource file name.
+     */
+    private static final String RESOURCE = "user.xml";
+
+    /**
+     * XML content that should be returned in xml() method.
+     */
+    private final transient XML content;
+
+    /**
+     * Default ctor.
+     *
+     * @throws Exception If reading XML was not successful.
+     */
+    public FakeUser() throws Exception {
+        this(new XMLResource(RESOURCE));
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param xml XML content that should be returned in xml() method.
+     */
+    public FakeUser(final XML xml) {
+        this.content = xml;
+    }
 
     /**
      * Fake username.
@@ -107,14 +137,8 @@ public final class FakeUser implements User {
      *
      * @return XML's string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #77.
      */
     public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "xml() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.content.content();
     }
 }
