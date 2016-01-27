@@ -45,15 +45,15 @@ public interface Users extends APIObject {
      * Find by Jenkins' user email.
      *
      * @param email Username(aka ID).
-     * @return User.
+     * @return List of users who match the criteria.
      */
-    User findByEmail(String email);
+    List<User> findByEmail(String email);
 
     /**
      * Find by Jenkins' user full name.
      *
      * @param name Full name or part of it.
-     * @return User.
+     * @return List of users who match the criteria.
      */
-    User findByFullName(String name);
+    List<User> findByFullName(String name);
 }

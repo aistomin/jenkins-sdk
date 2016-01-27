@@ -94,10 +94,10 @@ public final class FakeUsers implements Users {
      * Find fake user by Jenkins' user email.
      *
      * @param email Username(aka ID).
-     * @return User.
+     * @return List of users who match the criteria.
      * @todo: Let's implement this method and solve Issue #65.
      */
-    public User findByEmail(final String email) {
+    public List<User> findByEmail(final String email) {
         throw new NotImplementedException(
             String.format(
                 "findByEmail() method is not implemented for %s.",
@@ -110,10 +110,10 @@ public final class FakeUsers implements Users {
      * Find fake user by Jenkins' user full name.
      *
      * @param name Full name or part of it.
-     * @return User.
+     * @return List of users who match the criteria.
      * @todo: Let's implement this method and solve Issue #66.
      */
-    public User findByFullName(final String name) {
+    public List<User> findByFullName(final String name) {
         throw new NotImplementedException(
             String.format(
                 "findByFullName() method is not implemented for %s.",
