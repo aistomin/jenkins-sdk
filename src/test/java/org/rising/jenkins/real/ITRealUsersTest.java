@@ -15,8 +15,10 @@
  */
 package org.rising.jenkins.real;
 
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
+import org.rising.jenkins.User;
 
 /**
  * Integration tests for RealUsers class.
@@ -40,5 +42,18 @@ public final class ITRealUsersTest {
             xml.contains("<fullName>Integration Test</fullName>")
         );
         Assert.assertTrue(xml.endsWith("</people>"));
+    }
+
+    /**
+     * Can list Jenkins' users.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanListUsers() throws Exception {
+        final List<User> users = new TestJenkins().users().list();
+        Assert.assertEquals("\"system_builder", users.get(0).username());
+        Assert.assertEquals("system_builder", users.get(1).username());
+        Assert.assertEquals("admin", users.get(2).username());
     }
 }

@@ -28,11 +28,14 @@ import org.junit.Test;
 public final class ITRealUserTest {
 
     /**
-     * Sample test.
+     * Can read user's username.
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testSample() throws Exception {
-        Assert.assertNotNull(new RealUser());
+    public void testCanReadUsername() throws Exception {
+        Assert.assertEquals(
+            "\"system_builder",
+            new TestJenkins().users().list().get(0).username()
+        );
     }
 }

@@ -28,18 +28,25 @@ import org.rising.jenkins.User;
 public final class RealUser implements User {
 
     /**
+     * User's username.
+     */
+    private final transient String identifier;
+
+    /**
+     * Ctor.
+     * @param username User's username.
+     */
+    public RealUser(final String username) {
+        this.identifier = username;
+    }
+
+    /**
      * Username. This name is ID of user that can not be changed.
      *
      * @return Username.
-     * @todo: Let's implement this method and solve Issue #78.
      */
     public String username() {
-        throw new NotImplementedException(
-            String.format(
-                "username() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.identifier;
     }
 
     /**

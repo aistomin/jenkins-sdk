@@ -63,9 +63,10 @@ public final class FakeUsers implements Users {
      * List fake users.
      *
      * @return List of users.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #63.
      */
-    public List<User> list() {
+    public List<User> list() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "list() method is not implemented for %s.",

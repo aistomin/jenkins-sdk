@@ -15,6 +15,8 @@
  */
 package org.rising.jenkins.real;
 
+import com.jcabi.xml.XMLDocument;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.http.PostRequest;
@@ -59,15 +61,23 @@ public final class RealUsers implements Users {
      * List all Jenkins users.
      *
      * @return List of users.
-     * @todo: Let's implement this method and solve Issue #67.
+     * @throws Exception If error occurred.
      */
-    public List<User> list() {
-        throw new NotImplementedException(
-            String.format(
-                "list() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+    public List<User> list() throws Exception {
+        final List<String> ids = new XMLDocument(
+            new PostRequest(
+                String.format(
+                    "%s%s", this.request,
+                    "&xpath=people/user/user/id&wrapper=usernames"
+                ), this.creds.headers()
+            ).execute()
+        ).xpath("//id/text()");
+        final List<User> result = new ArrayList<User>(ids.size());
+        for (final String username : ids) {
+            result.add(new RealUser(username));
+        }
+        return result;
     }
 
     /**

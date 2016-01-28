@@ -30,8 +30,9 @@ public interface Users extends APIObject {
      * List all Jenkins users.
      *
      * @return List of users.
+     * @throws Exception If error occurred.
      */
-    List<User> list();
+    List<User> list() throws Exception;
 
     /**
      * Find by Jenkins' user name.
