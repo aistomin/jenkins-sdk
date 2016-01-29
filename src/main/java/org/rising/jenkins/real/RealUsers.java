@@ -17,6 +17,7 @@ package org.rising.jenkins.real;
 
 import com.jcabi.xml.XMLDocument;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.http.PostRequest;
@@ -73,6 +74,7 @@ public final class RealUsers implements Users {
                 ), this.creds.headers()
             ).execute()
         ).xpath("//id/text()");
+        Collections.sort(ids, String.CASE_INSENSITIVE_ORDER);
         final List<User> result = new ArrayList<User>(ids.size());
         for (final String username : ids) {
             result.add(new RealUser(username));

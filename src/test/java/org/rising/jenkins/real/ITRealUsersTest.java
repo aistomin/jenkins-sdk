@@ -53,7 +53,7 @@ public final class ITRealUsersTest {
     public void testCanListUsers() throws Exception {
         final List<User> users = new TestJenkins().users().list();
         Assert.assertEquals("\"system_builder", users.get(0).username());
-        Assert.assertEquals("system_builder", users.get(1).username());
-        Assert.assertEquals("admin", users.get(2).username());
+        Assert.assertEquals("admin", users.get(1).username());
+        Assert.assertEquals("integration", users.get(2).username());
     }
 }
