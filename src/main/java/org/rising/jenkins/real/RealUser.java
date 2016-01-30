@@ -15,7 +15,10 @@
  */
 package org.rising.jenkins.real;
 
+import java.net.URLEncoder;
 import org.apache.commons.lang3.NotImplementedException;
+import org.rising.http.PostRequest;
+import org.rising.jenkins.Credentials;
 import org.rising.jenkins.User;
 
 /**
@@ -33,11 +36,35 @@ public final class RealUser implements User {
     private final transient String identifier;
 
     /**
-     * Ctor.
-     * @param username User's username.
+     * User's details request.
      */
-    public RealUser(final String username) {
+    private final transient String request;
+
+    /**
+     * Jenkins credentials.
+     */
+    private final transient Credentials creds;
+
+    /**
+     * Ctor.
+     *
+     * @param username User's username.
+     * @param url Base Jenkins URL.
+     * @param credentials Jenkins credentials
+     * @throws Exception If user was not constructed.
+     */
+    public RealUser(
+        final String username, final String url, final Credentials credentials
+    ) throws Exception {
         this.identifier = username;
+        this.request = String.format(
+            "%s%s", url,
+            String.format(
+                "&xpath=people/user/user[id=%s]",
+                URLEncoder.encode(String.format("'%s'", username), "UTF-8")
+            )
+        );
+        this.creds = credentials;
     }
 
     /**
@@ -114,14 +141,8 @@ public final class RealUser implements User {
      *
      * @return XML's string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #83.
      */
     public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "xml() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return new PostRequest(this.request, this.creds.headers()).execute();
     }
 }

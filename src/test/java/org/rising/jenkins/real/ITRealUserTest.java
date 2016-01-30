@@ -28,14 +28,34 @@ import org.junit.Test;
 public final class ITRealUserTest {
 
     /**
+     * First username in test users list.
+     */
+    private static final transient String USERNAME = "\"system_builder";
+
+    /**
      * Can read user's username.
      * @throws Exception If something goes wrong.
      */
     @Test
     public void testCanReadUsername() throws Exception {
         Assert.assertEquals(
-            "\"system_builder",
+            ITRealUserTest.USERNAME,
             new TestJenkins().users().list().get(0).username()
         );
+    }
+
+    /**
+     * Can read Jenkins' user XML.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadXML() throws Exception {
+        final String xml = new TestJenkins().users().list().get(0).xml();
+        Assert.assertTrue(xml.startsWith("<user>"));
+        Assert.assertTrue(
+            xml.contains(String.format("<id>%s</id>", ITRealUserTest.USERNAME))
+        );
+        Assert.assertTrue(xml.endsWith("</user>"));
     }
 }

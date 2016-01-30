@@ -53,7 +53,7 @@ public final class RealUsers implements Users {
     public RealUsers(final String url, final Credentials credentials) {
         this.request = String.format(
             "%s/%s", url,
-            "asynchPeople/api/xml?depth=2"
+            "asynchPeople/api/xml?depth=3"
         );
         this.creds = credentials;
     }
@@ -77,7 +77,7 @@ public final class RealUsers implements Users {
         Collections.sort(ids, String.CASE_INSENSITIVE_ORDER);
         final List<User> result = new ArrayList<User>(ids.size());
         for (final String username : ids) {
-            result.add(new RealUser(username));
+            result.add(new RealUser(username, this.request, this.creds));
         }
         return result;
     }
