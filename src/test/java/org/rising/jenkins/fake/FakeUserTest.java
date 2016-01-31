@@ -15,6 +15,7 @@
  */
 package org.rising.jenkins.fake;
 
+import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 import org.rising.xml.XMLString;
@@ -30,12 +31,28 @@ public final class FakeUserTest {
 
     /**
      * Can create fake instances providing only XML.
+     *
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testConstructorWithXML() throws Exception {
+    public void testCanCreateWithXML() throws Exception {
         final String xml = "<user><id>integration</id></user>";
-        Assert.assertEquals(xml, new FakeUser(new XMLString(xml)).xml());
+        Assert.assertEquals(
+            xml, new FakeUser(new XMLString(xml)).xml()
+        );
+    }
+
+    /**
+     * Can create fake instances providing only username.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanCreateWithUsername() throws Exception {
+        final String username = String.format(
+            "username%d", new Random().nextInt(1000)
+        );
+        Assert.assertEquals(username, new FakeUser(username).username());
     }
 
     /**
@@ -51,5 +68,17 @@ public final class FakeUserTest {
             xml.contains("<id>integration</id>")
         );
         Assert.assertTrue(xml.endsWith("</user>"));
+    }
+
+    /**
+     * Can get user's username.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadUsername() throws Exception {
+        final String username = new FakeUser().username();
+        Assert.assertNotNull(username);
+        Assert.assertTrue(username.startsWith("user"));
     }
 }

@@ -35,9 +35,19 @@ public final class FakeUser implements User {
     private static final String RESOURCE = "user.xml";
 
     /**
+     * Fake username format.
+     */
+    private static final String FORMAT = "user%s";
+
+    /**
      * XML content that should be returned in xml() method.
      */
     private final transient XML content;
+
+    /**
+     * Username that should be returned in username() method.
+     */
+    private final transient String identifier;
 
     /**
      * Default ctor.
@@ -45,7 +55,10 @@ public final class FakeUser implements User {
      * @throws Exception If reading XML was not successful.
      */
     public FakeUser() throws Exception {
-        this(new XMLResource(RESOURCE));
+        this(
+            new XMLResource(RESOURCE),
+            String.format(FORMAT, System.currentTimeMillis())
+        );
     }
 
     /**
@@ -54,22 +67,36 @@ public final class FakeUser implements User {
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeUser(final XML xml) {
+        this(xml, String.format(FORMAT, System.currentTimeMillis()));
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param username Username that should be returned in username() method.
+     */
+    public FakeUser(final String username) {
+        this(new XMLResource(RESOURCE), username);
+    }
+
+    /**
+     * Primary ctor.
+     *
+     * @param xml XML content that should be returned in xml() method.
+     * @param username Username that should be returned in username() method.
+     */
+    public FakeUser(final XML xml, final String username) {
         this.content = xml;
+        this.identifier = username;
     }
 
     /**
      * Fake username.
      *
      * @return Username.
-     * @todo: Let's implement this method and solve Issue #72.
      */
     public String username() {
-        throw new NotImplementedException(
-            String.format(
-                "username() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.identifier;
     }
 
     /**
