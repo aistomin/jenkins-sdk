@@ -15,13 +15,59 @@
  */
 package org.rising.jenkins;
 
+import java.util.List;
+
 /**
  * Jenkins' job's builds.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
- * @todo: Let's create this interface design and solve Issue #39.
+ * @todo: Let's create fake implementation of the interface and solve Issue #93.
+ * @todo: Let's create real implementation of the interface and solve Issue #94.
  */
 public interface Builds extends APIObject {
+
+    /**
+     * List all builds.
+     *
+     * @return List of the builds.
+     */
+    List<Builds> list();
+
+    /**
+     * Last successful build.
+     *
+     * @return Last successful build.
+     */
+    Build lastSuccessful();
+
+    /**
+     * Last failed build.
+     *
+     * @return Last failed build.
+     */
+    Build lastFailed();
+
+    /**
+     * Last stable build.
+     *
+     * @return Last stable build.
+     */
+    Build lastStable();
+
+    /**
+     * Last unstable build.
+     *
+     * @return Last unstable build.
+     */
+    Build lastUnstable();
+
+    /**
+     * Find build by number.
+     *
+     * @param number Build's number.
+     * @return Build.
+     */
+    Build find(String number);
 }
