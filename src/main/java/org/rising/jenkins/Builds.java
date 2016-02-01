@@ -23,8 +23,6 @@ import java.util.List;
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
- * @todo: Let's create fake implementation of the interface and solve Issue #93.
- * @todo: Let's create real implementation of the interface and solve Issue #94.
  */
 public interface Builds extends APIObject {
 
