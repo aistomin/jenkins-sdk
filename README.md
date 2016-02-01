@@ -10,6 +10,28 @@ that is going to help developers to manipulate Jenkins instance using it's API.
 This SDK can be useful for developers who creates CI scripts or other environment
 software that needs to read information from Jenkins, trigger builds etc.
 
+Using classes from `org.rising.jenkins` and `org.rising.jenkins.real` you can 
+manipulate with existing Jenkins installation. For example:
+```java
+public class Main {
+    public static void main(String[] args) throws Exception {
+        Jenkins jenkins = new RealJenkins(
+            "<Jenkins URL>",
+            new UsernamePasswordCredentials("<USERNAME>", "<PASSWORD>")
+        );
+        List<User> users = jenkins.users().list();
+        for (User user : users) {
+            System.out.println(
+                "username: " + user.username() + ", email: " + user.email()
+            );
+        }
+    }
+}
+```
+
+Using classes from `org.rising.jenkins.fake` you have possibility to create
+stubs/fakes of Jenkins installation.
+
 ## How to contribute?
 
 Fork the repository, make changes, submit a pull request.
