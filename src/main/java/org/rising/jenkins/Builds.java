@@ -32,42 +32,48 @@ public interface Builds extends APIObject {
      * List all builds.
      *
      * @return List of the builds.
+     * @throws Exception If something goes wrong.
      */
-    List<Builds> list();
+    List<Builds> list() throws Exception;
 
     /**
      * Last successful build.
      *
      * @return Last successful build.
+     * @throws Exception If something goes wrong.
      */
-    Build lastSuccessful();
+    Build lastSuccessful() throws Exception;
 
     /**
      * Last failed build.
      *
      * @return Last failed build.
+     * @throws Exception If something goes wrong.
      */
-    Build lastFailed();
+    Build lastFailed() throws Exception;
 
     /**
      * Last stable build.
      *
      * @return Last stable build.
+     * @throws Exception If something goes wrong.
      */
-    Build lastStable();
+    Build lastStable() throws Exception;
 
     /**
      * Last unstable build.
      *
      * @return Last unstable build.
+     * @throws Exception If something goes wrong.
      */
-    Build lastUnstable();
+    Build lastUnstable() throws Exception;
 
     /**
      * Find build by number.
      *
      * @param number Build's number.
      * @return Build.
+     * @throws Exception If something goes wrong.
      */
-    Build find(String number);
+    Build find(String number) throws Exception;
 }
