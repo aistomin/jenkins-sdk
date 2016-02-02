@@ -15,7 +15,7 @@
  */
 package org.rising.jenkins.fake;
 
-import java.util.List;
+import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.Job;
 import org.rising.jenkins.Jobs;
@@ -60,13 +60,13 @@ public final class FakeJobs implements Jobs {
     }
 
     /**
-     * Return jobs that were set via ctor.
+     * Return jobs iterator that was set via ctor.
      *
-     * @return List of jobs.
+     * @return Iterator of jobs.
      * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #32.
      */
-    public List<Job> list() throws Exception {
+    public Iterator<Job> iterator() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "list() method is not implemented for %s.",

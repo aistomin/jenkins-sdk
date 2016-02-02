@@ -16,11 +16,12 @@
 package org.rising.jenkins.real;
 
 import com.jcabi.xml.XMLDocument;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.http.PostRequest;
+import org.rising.iterators.EntityIterator;
 import org.rising.jenkins.Credentials;
 import org.rising.jenkins.Job;
 import org.rising.jenkins.Jobs;
@@ -56,21 +57,18 @@ public final class RealJobs implements Jobs {
     }
 
     /**
-     * List all Jenkins jobs.
+     * Jenkins jobs iterator.
      *
-     * @return List of jobs.
+     * @return Jobs iterator.
      * @throws Exception If error occurred.
      */
-    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    public List<Job> list() throws Exception {
+    public Iterator<Job> iterator() throws Exception {
         final List<String> jobs = new XMLDocument(this.xml())
             .xpath("//job/displayName/text()");
         Collections.sort(jobs, String.CASE_INSENSITIVE_ORDER);
-        final List<Job> result = new ArrayList<Job>(jobs.size());
-        for (final String job : jobs) {
-            result.add(new RealJob(job, this.api, this.creds));
-        }
-        return result;
+        return new EntityIterator<Job, String>(
+            jobs.iterator(), new RealJob.Transformer(this.api, this.creds)
+        );
     }
 
     /**

@@ -19,6 +19,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.http.PostRequest;
+import org.rising.iterators.Transformation;
 import org.rising.jenkins.Builds;
 import org.rising.jenkins.Credentials;
 import org.rising.jenkins.Job;
@@ -55,11 +56,10 @@ public final class RealJob implements Job {
      * @param name Job's name.
      * @param url API URL.
      * @param credentials Jenkins credentials.
-     * @throws Exception If error occurred.
      */
     public RealJob(
         final String name, final String url, final Credentials credentials
-    ) throws Exception {
+    ) {
         this.identifier = name;
         this.api = url;
         this.creds = credentials;
@@ -161,5 +161,42 @@ public final class RealJob implements Job {
                 )
             )
         );
+    }
+
+    /**
+     * Transformer for getting job by his id name.
+     */
+    public static final class Transformer implements
+        Transformation<Job, String> {
+
+        /**
+         * API URL.
+         */
+        private final transient String api;
+
+        /**
+         * Jenkins credentials.
+         */
+        private final transient Credentials creds;
+
+        /**
+         * Ctor.
+         * @param url API URL.
+         * @param credentials Jenkins credentials.
+         */
+        public Transformer(final String url, final Credentials credentials) {
+            this.api = url;
+            this.creds = credentials;
+        }
+
+        /**
+         * Transform username to job.
+         *
+         * @param source Source object.
+         * @return Job.
+         */
+        public Job transform(final String source) {
+            return new RealJob(source, this.api, this.creds);
+        }
     }
 }

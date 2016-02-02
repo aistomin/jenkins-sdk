@@ -13,32 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rising.jenkins;
-
-import java.util.Iterator;
 
 /**
- * Jenkins' jobs.
+ * Package for iteration logic.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public interface Jobs extends APIObject {
-
-    /**
-     * Jenkins jobs iterator.
-     *
-     * @return Jobs iterator.
-     * @throws Exception If error occurred.
-     */
-    Iterator<Job> iterator() throws Exception;
-
-    /**
-     * Find by Jenkins' job name.
-     *
-     * @param name Job's name.
-     * @return Job.
-     */
-    Job findByName(String name);
-}
+package org.rising.iterators;

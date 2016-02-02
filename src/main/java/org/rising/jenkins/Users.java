@@ -16,7 +16,6 @@
 package org.rising.jenkins;
 
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Jenkins' users.
@@ -47,15 +46,15 @@ public interface Users extends APIObject {
      * Find by Jenkins' user email.
      *
      * @param email Username(aka ID).
-     * @return List of users who match the criteria.
+     * @return Iterator of users who match the criteria.
      */
-    List<User> findByEmail(String email);
+    Iterator<User> findByEmail(String email);
 
     /**
      * Find by Jenkins' user full name.
      *
      * @param name Full name or part of it.
-     * @return List of users who match the criteria.
+     * @return Iterator of users who match the criteria.
      */
-    List<User> findByFullName(String name);
+    Iterator<User> findByFullName(String name);
 }

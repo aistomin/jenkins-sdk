@@ -91,10 +91,10 @@ public final class RealUsers implements Users {
      * Find by Jenkins' user email.
      *
      * @param email Username(aka ID).
-     * @return List of users who match the criteria.
+     * @return Iterator of users who match the criteria.
      * @todo: Let's implement this method and solve Issue #69.
      */
-    public List<User> findByEmail(final String email) {
+    public Iterator<User> findByEmail(final String email) {
         throw new NotImplementedException(
             String.format(
                 "findByEmail() method is not implemented for %s.",
@@ -107,10 +107,10 @@ public final class RealUsers implements Users {
      * Find by Jenkins' user full name.
      *
      * @param name Full name or part of it.
-     * @return List of users who match the criteria.
+     * @return Iterator of users who match the criteria.
      * @todo: Let's implement this method and solve Issue #70.
      */
-    public List<User> findByFullName(final String name) {
+    public Iterator<User> findByFullName(final String name) {
         throw new NotImplementedException(
             String.format(
                 "findByFullName() method is not implemented for %s.",

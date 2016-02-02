@@ -16,7 +16,6 @@
 package org.rising.jenkins.fake;
 
 import java.util.Iterator;
-import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.User;
 import org.rising.jenkins.Users;
@@ -96,10 +95,10 @@ public final class FakeUsers implements Users {
      * Find fake user by Jenkins' user email.
      *
      * @param email Username(aka ID).
-     * @return List of users who match the criteria.
+     * @return Iterator of users who match the criteria.
      * @todo: Let's implement this method and solve Issue #65.
      */
-    public List<User> findByEmail(final String email) {
+    public Iterator<User> findByEmail(final String email) {
         throw new NotImplementedException(
             String.format(
                 "findByEmail() method is not implemented for %s.",
@@ -112,10 +111,10 @@ public final class FakeUsers implements Users {
      * Find fake user by Jenkins' user full name.
      *
      * @param name Full name or part of it.
-     * @return List of users who match the criteria.
+     * @return Iterator of users who match the criteria.
      * @todo: Let's implement this method and solve Issue #66.
      */
-    public List<User> findByFullName(final String name) {
+    public Iterator<User> findByFullName(final String name) {
         throw new NotImplementedException(
             String.format(
                 "findByFullName() method is not implemented for %s.",

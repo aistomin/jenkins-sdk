@@ -34,7 +34,7 @@ public final class ITRealJobTest {
      */
     @Test
     public void testCanReadXML() throws Exception {
-        final String xml = new TestJenkins().jobs().list().get(0).xml();
+        final String xml = new TestJenkins().jobs().iterator().next().xml();
         Assert.assertTrue(xml.startsWith("<job>"));
         Assert.assertTrue(
             xml.contains("<displayName>test-different-builds-job</displayName>")
