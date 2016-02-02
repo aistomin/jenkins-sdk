@@ -49,7 +49,7 @@ public final class RealUser implements User {
      * Ctor.
      *
      * @param username User's username.
-     * @param url Base Jenkins URL.
+     * @param url API URL that returns users' details.
      * @param credentials Jenkins credentials
      * @throws Exception If user was not constructed.
      */

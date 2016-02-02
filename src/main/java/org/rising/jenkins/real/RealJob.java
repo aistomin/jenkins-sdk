@@ -15,9 +15,12 @@
  */
 package org.rising.jenkins.real;
 
+import java.net.URLEncoder;
 import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
+import org.rising.http.PostRequest;
 import org.rising.jenkins.Builds;
+import org.rising.jenkins.Credentials;
 import org.rising.jenkins.Job;
 import org.rising.jenkins.JobDetails;
 import org.rising.jenkins.JobParameter;
@@ -30,6 +33,53 @@ import org.rising.jenkins.JobParameter;
  * @since 1.0
  */
 public final class RealJob implements Job {
+
+    /**
+     * Job's name.
+     */
+    private final transient String identifier;
+
+    /**
+     * Job's details request.
+     */
+    private final transient String request;
+
+    /**
+     * Jenkins credentials.
+     */
+    private final transient Credentials creds;
+
+    /**
+     * Ctor.
+     *
+     * @param name Job's name.
+     * @param url API URL that returns users' details.
+     * @param credentials Jenkins credentials.
+     * @throws Exception If error occurred.
+     */
+    public RealJob(
+        final String name, final String url, final Credentials credentials
+    ) throws Exception {
+        this.identifier = name;
+        this.request = String.format(
+            "%s%s", url,
+            String.format(
+                "&xpath=hudson/job[displayName=%s]",
+                URLEncoder.encode(String.format("'%s'", name), "UTF-8")
+            )
+        );
+        this.creds = credentials;
+    }
+
+    /**
+     * Job name.
+     *
+     * @return Job name.
+     * @throws Exception If something goes wrong.
+     */
+    public String name() throws Exception {
+        return this.identifier;
+    }
 
     /**
      * Job details.
@@ -96,14 +146,8 @@ public final class RealJob implements Job {
      *
      * @return XML's string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #42.
      */
     public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "xml() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return new PostRequest(this.request, this.creds.headers()).execute();
     }
 }

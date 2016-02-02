@@ -30,8 +30,9 @@ public interface Jobs extends APIObject {
      * List all Jenkins jobs.
      *
      * @return List of jobs.
+     * @throws Exception If error occurred.
      */
-    List<Job> list();
+    List<Job> list() throws Exception;
 
     /**
      * Find by Jenkins' job name.

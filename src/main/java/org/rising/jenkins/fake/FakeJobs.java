@@ -63,9 +63,10 @@ public final class FakeJobs implements Jobs {
      * Return jobs that were set via ctor.
      *
      * @return List of jobs.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #32.
      */
-    public List<Job> list() {
+    public List<Job> list() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "list() method is not implemented for %s.",

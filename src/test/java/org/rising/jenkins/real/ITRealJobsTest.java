@@ -15,8 +15,10 @@
  */
 package org.rising.jenkins.real;
 
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
+import org.rising.jenkins.Job;
 
 /**
  * Integration tests for RealJobs class.
@@ -41,5 +43,18 @@ public final class ITRealJobsTest {
         Assert.assertTrue(
             xml.contains("<displayName>test-disabled-job</displayName>")
         );
+    }
+
+    /**
+     * Can list Jenkins jobs.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanListJobs() throws Exception {
+        final List<Job> jobs = new TestJenkins().jobs().list();
+        Assert.assertEquals("test-different-builds-job", jobs.get(0).name());
+        Assert.assertEquals("test-disabled-job", jobs.get(1).name());
+        Assert.assertEquals("test-parametrised-job", jobs.get(2).name());
     }
 }

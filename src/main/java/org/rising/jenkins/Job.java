@@ -27,6 +27,14 @@ import java.util.List;
 public interface Job extends APIObject {
 
     /**
+     * Job name.
+     *
+     * @return Job name.
+     * @throws Exception If something goes wrong.
+     */
+    String name() throws Exception;
+
+    /**
      * Job details.
      *
      * @return Job details.

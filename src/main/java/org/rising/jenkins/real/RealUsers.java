@@ -66,14 +66,8 @@ public final class RealUsers implements Users {
      */
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public List<User> list() throws Exception {
-        final List<String> ids = new XMLDocument(
-            new PostRequest(
-                String.format(
-                    "%s%s", this.request,
-                    "&xpath=people/user/user/id&wrapper=usernames"
-                ), this.creds.headers()
-            ).execute()
-        ).xpath("//id/text()");
+        final List<String> ids = new XMLDocument(this.xml())
+            .xpath("//id/text()");
         Collections.sort(ids, String.CASE_INSENSITIVE_ORDER);
         final List<User> result = new ArrayList<User>(ids.size());
         for (final String username : ids) {

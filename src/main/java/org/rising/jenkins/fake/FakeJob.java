@@ -32,6 +32,22 @@ import org.rising.jenkins.JobParameter;
 public final class FakeJob implements Job {
 
     /**
+     * Job name.
+     *
+     * @return Job name.
+     * @throws Exception If something goes wrong.
+     * @todo: Let's implement this method and solve Issue #113.
+     */
+    public String name() throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "name() method is not implemented for %s.",
+                this.getClass().getCanonicalName()
+            )
+        );
+    }
+
+    /**
      * Fake job details.
      *
      * @return Job details.

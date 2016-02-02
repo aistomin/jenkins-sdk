@@ -15,6 +15,9 @@
  */
 package org.rising.jenkins.real;
 
+import com.jcabi.xml.XMLDocument;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.http.PostRequest;
@@ -30,6 +33,11 @@ import org.rising.jenkins.Jobs;
  * @since 1.0
  */
 public final class RealJobs implements Jobs {
+
+    /**
+     * API URL.
+     */
+    private final transient String api;
 
     /**
      * Jobs' details request.
@@ -48,6 +56,7 @@ public final class RealJobs implements Jobs {
      * @param credentials Jenkins credentials.
      */
     public RealJobs(final String url, final Credentials credentials) {
+        this.api = url;
         this.request = String.format(
             "%s%s", url, "&xpath=hudson/job&wrapper=jobs"
         );
@@ -58,15 +67,18 @@ public final class RealJobs implements Jobs {
      * List all Jenkins jobs.
      *
      * @return List of jobs.
-     * @todo: Let's implement this method and solve Issue #30.
+     * @throws Exception If error occurred.
      */
-    public List<Job> list() {
-        throw new NotImplementedException(
-            String.format(
-                "list() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+    public List<Job> list() throws Exception {
+        final List<String> jobs = new XMLDocument(this.xml())
+            .xpath("//job/displayName/text()");
+        Collections.sort(jobs, String.CASE_INSENSITIVE_ORDER);
+        final List<Job> result = new ArrayList<Job>(jobs.size());
+        for (final String job : jobs) {
+            result.add(new RealJob(job, this.api, this.creds));
+        }
+        return result;
     }
 
     /**

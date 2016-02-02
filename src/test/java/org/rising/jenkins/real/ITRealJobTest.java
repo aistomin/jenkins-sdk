@@ -28,12 +28,17 @@ import org.junit.Test;
 public final class ITRealJobTest {
 
     /**
-     * Sample test.
+     * Can get job's XML.
      *
-     * @todo: Delete this test Issue #42.
+     * @throws Exception If something goes wrong.
      */
     @Test
-    public void testSample() {
-        Assert.assertEquals(1, 1);
+    public void testCanReadXML() throws Exception {
+        final String xml = new TestJenkins().jobs().list().get(0).xml();
+        Assert.assertTrue(xml.startsWith("<job>"));
+        Assert.assertTrue(
+            xml.contains("<displayName>test-different-builds-job</displayName>")
+        );
+        Assert.assertTrue(xml.endsWith("</job>"));
     }
 }
