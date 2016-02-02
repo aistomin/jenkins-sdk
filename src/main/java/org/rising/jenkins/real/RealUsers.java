@@ -35,9 +35,9 @@ import org.rising.jenkins.Users;
 public final class RealUsers implements Users {
 
     /**
-     * Users' details request.
+     * Base Jenkins URL.
      */
-    private final transient String request;
+    private final transient String base;
 
     /**
      * Jenkins credentials.
@@ -51,10 +51,7 @@ public final class RealUsers implements Users {
      * @param credentials Jenkins credentials.
      */
     public RealUsers(final String url, final Credentials credentials) {
-        this.request = String.format(
-            "%s/%s", url,
-            "asynchPeople/api/xml?depth=3"
-        );
+        this.base = url;
         this.creds = credentials;
     }
 
@@ -71,7 +68,7 @@ public final class RealUsers implements Users {
         Collections.sort(ids, String.CASE_INSENSITIVE_ORDER);
         final List<User> result = new ArrayList<User>(ids.size());
         for (final String username : ids) {
-            result.add(new RealUser(username, this.request, this.creds));
+            result.add(new RealUser(username, this.request(), this.creds));
         }
         return result;
     }
@@ -131,6 +128,18 @@ public final class RealUsers implements Users {
      * @throws Exception If something goes wrong.
      */
     public String xml() throws Exception {
-        return new PostRequest(this.request, this.creds.headers()).execute();
+        return new PostRequest(this.request(), this.creds.headers()).execute();
+    }
+
+    /**
+     * Creates API URL to request Jenkins' users data.
+     *
+     * @return URL string.
+     */
+    private String request() {
+        return String.format(
+            "%s/%s", this.base,
+            "asynchPeople/api/xml?depth=3"
+        );
     }
 }

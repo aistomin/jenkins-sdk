@@ -35,14 +35,14 @@ import org.rising.jenkins.JobParameter;
 public final class RealJob implements Job {
 
     /**
+     * API URL.
+     */
+    private final transient String api;
+
+    /**
      * Job's name.
      */
     private final transient String identifier;
-
-    /**
-     * Job's details request.
-     */
-    private final transient String request;
 
     /**
      * Jenkins credentials.
@@ -53,7 +53,7 @@ public final class RealJob implements Job {
      * Ctor.
      *
      * @param name Job's name.
-     * @param url API URL that returns users' details.
+     * @param url API URL.
      * @param credentials Jenkins credentials.
      * @throws Exception If error occurred.
      */
@@ -61,13 +61,7 @@ public final class RealJob implements Job {
         final String name, final String url, final Credentials credentials
     ) throws Exception {
         this.identifier = name;
-        this.request = String.format(
-            "%s%s", url,
-            String.format(
-                "&xpath=hudson/job[displayName=%s]",
-                URLEncoder.encode(String.format("'%s'", name), "UTF-8")
-            )
-        );
+        this.api = url;
         this.creds = credentials;
     }
 
@@ -148,6 +142,24 @@ public final class RealJob implements Job {
      * @throws Exception If something goes wrong.
      */
     public String xml() throws Exception {
-        return new PostRequest(this.request, this.creds.headers()).execute();
+        return new PostRequest(this.request(), this.creds.headers()).execute();
+    }
+
+    /**
+     * Creates API URL to request Jenkins' job data.
+     *
+     * @return URL string.
+     * @throws Exception If error occurred.
+     */
+    private String request() throws Exception {
+        return String.format(
+            "%s%s", this.api,
+            String.format(
+                "&xpath=hudson/job[displayName=%s]",
+                URLEncoder.encode(
+                    String.format("'%s'", this.identifier), "UTF-8"
+                )
+            )
+        );
     }
 }

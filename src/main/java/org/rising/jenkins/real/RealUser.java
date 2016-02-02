@@ -31,19 +31,19 @@ import org.rising.jenkins.User;
 public final class RealUser implements User {
 
     /**
-     * User's username.
+     * API URL.
      */
-    private final transient String identifier;
-
-    /**
-     * User's details request.
-     */
-    private final transient String request;
+    private final transient String api;
 
     /**
      * Jenkins credentials.
      */
     private final transient Credentials creds;
+
+    /**
+     * User's username.
+     */
+    private final transient String identifier;
 
     /**
      * Ctor.
@@ -56,15 +56,9 @@ public final class RealUser implements User {
     public RealUser(
         final String username, final String url, final Credentials credentials
     ) throws Exception {
-        this.identifier = username;
-        this.request = String.format(
-            "%s%s", url,
-            String.format(
-                "&xpath=people/user/user[id=%s]",
-                URLEncoder.encode(String.format("'%s'", username), "UTF-8")
-            )
-        );
+        this.api = url;
         this.creds = credentials;
+        this.identifier = username;
     }
 
     /**
@@ -143,6 +137,24 @@ public final class RealUser implements User {
      * @throws Exception If something goes wrong.
      */
     public String xml() throws Exception {
-        return new PostRequest(this.request, this.creds.headers()).execute();
+        return new PostRequest(this.request(), this.creds.headers()).execute();
+    }
+
+    /**
+     * Creates API URL to request Jenkins' user data.
+     *
+     * @return URL string.
+     * @throws Exception If error occurred.
+     */
+    private String request() throws Exception {
+        return String.format(
+            "%s%s", this.api,
+            String.format(
+                "&xpath=people/user/user[id=%s]",
+                URLEncoder.encode(
+                    String.format("'%s'", this.identifier), "UTF-8"
+                )
+            )
+        );
     }
 }

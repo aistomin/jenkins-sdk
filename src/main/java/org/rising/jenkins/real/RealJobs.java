@@ -40,11 +40,6 @@ public final class RealJobs implements Jobs {
     private final transient String api;
 
     /**
-     * Jobs' details request.
-     */
-    private final transient String request;
-
-    /**
      * Jenkins credentials.
      */
     private final transient Credentials creds;
@@ -52,14 +47,11 @@ public final class RealJobs implements Jobs {
     /**
      * Ctor.
      *
-     * @param url Base Jenkins URL.
+     * @param url API URL.
      * @param credentials Jenkins credentials.
      */
     public RealJobs(final String url, final Credentials credentials) {
         this.api = url;
-        this.request = String.format(
-            "%s%s", url, "&xpath=hudson/job&wrapper=jobs"
-        );
         this.creds = credentials;
     }
 
@@ -104,6 +96,17 @@ public final class RealJobs implements Jobs {
      * @throws Exception If something goes wrong.
      */
     public String xml() throws Exception {
-        return new PostRequest(this.request, this.creds.headers()).execute();
+        return new PostRequest(this.request(), this.creds.headers()).execute();
+    }
+
+    /**
+     * Creates API URL to request Jenkins' jobs data.
+     *
+     * @return URL string.
+     */
+    private String request() {
+        return String.format(
+            "%s%s", this.api, "&xpath=hudson/job&wrapper=jobs"
+        );
     }
 }
