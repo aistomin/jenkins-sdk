@@ -49,8 +49,7 @@ public final class RealJobs implements Jobs {
      */
     public RealJobs(final String url, final Credentials credentials) {
         this.request = String.format(
-            "%s/%s", url,
-            "api/xml?depth=1&tree=jobs[displayName,lastBuild[result]]"
+            "%s%s", url, "&xpath=hudson/job&wrapper=jobs"
         );
         this.creds = credentials;
     }

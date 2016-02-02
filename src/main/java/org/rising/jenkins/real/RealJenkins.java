@@ -36,6 +36,11 @@ public final class RealJenkins implements Jenkins {
     private final transient String base;
 
     /**
+     * API URL.
+     */
+    private final transient String api;
+
+    /**
      * Jenkins credentials.
      */
     private final transient Credentials creds;
@@ -48,6 +53,7 @@ public final class RealJenkins implements Jenkins {
      */
     public RealJenkins(final String url, final Credentials credentials) {
         this.base = url;
+        this.api = String.format("%s/api/xml?depth=3", url);
         this.creds = credentials;
     }
 
@@ -58,7 +64,7 @@ public final class RealJenkins implements Jenkins {
      * @throws Exception If reading jobs was not successful.
      */
     public Jobs jobs() throws Exception {
-        return new RealJobs(this.base, this.creds);
+        return new RealJobs(this.api, this.creds);
     }
 
     /**
@@ -78,8 +84,6 @@ public final class RealJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public String xml() throws Exception {
-        return new PostRequest(
-            String.format("%s/api/xml?depth=1", this.base), this.creds.headers()
-        ).execute();
+        return new PostRequest(this.api, this.creds.headers()).execute();
     }
 }
