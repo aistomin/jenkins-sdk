@@ -41,4 +41,16 @@ public final class ITRealJobTest {
         );
         Assert.assertTrue(xml.endsWith("</job>"));
     }
+
+    /**
+     * Can list job's builds.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanListBuilds() throws Exception {
+        Assert.assertNotNull(
+            new TestJenkins().jobs().iterator().next().builds()
+        );
+    }
 }

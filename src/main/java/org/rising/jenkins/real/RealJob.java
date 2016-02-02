@@ -109,15 +109,10 @@ public final class RealJob implements Job {
      * Job builds.
      *
      * @return Builds.
-     * @todo: Let's implement this method and solve Issue #44.
+     * @checkstyle NonStaticMethodCheck (10 lines)
      */
     public Builds builds() {
-        throw new NotImplementedException(
-            String.format(
-                "build() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return new RealBuilds();
     }
 
     /**
