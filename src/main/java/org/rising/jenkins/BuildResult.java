@@ -15,50 +15,27 @@
  */
 package org.rising.jenkins;
 
-import java.util.Date;
-
 /**
- * Jenkins' job's build.
+ * Jenkins' job build result.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
- * @todo: Let's create implementation of this interface and solve Issue #119.
  */
-public interface Build extends APIObject {
+public enum BuildResult {
 
     /**
-     * Build's number.
-     *
-     * @return Build number.
+     * Build is successful.
      */
-    String number();
+    SUCCESS,
 
     /**
-     * Build's result.
-     *
-     * @return Build's result.
+     * Build failed.
      */
-    BuildResult result();
+    FAILURE,
 
     /**
-     * Build's date.
-     *
-     * @return Build's date.
+     * Build was cancelled.
      */
-    Date date();
-
-    /**
-     * Build's URL.
-     *
-     * @return URL string.
-     */
-    String url();
-
-    /**
-     * Build's details.
-     *
-     * @return Build's details.
-     */
-    BuildDetails details();
+    ABORTED
 }

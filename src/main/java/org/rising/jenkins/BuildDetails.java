@@ -15,50 +15,55 @@
  */
 package org.rising.jenkins;
 
-import java.util.Date;
-
 /**
- * Jenkins' job's build.
+ * Jenkins' job build details like: display name, url, duration etc.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
- * @todo: Let's create implementation of this interface and solve Issue #119.
+ * @todo: Let's create implementation of this interface and solve Issue #120.
  */
-public interface Build extends APIObject {
+public interface BuildDetails extends APIObject {
 
     /**
-     * Build's number.
+     * Build's full display name.
      *
-     * @return Build number.
+     * @return Full display name.
      */
-    String number();
+    String fullDisplayName();
 
     /**
-     * Build's result.
+     * Build's display name.
      *
-     * @return Build's result.
+     * @return Display name.
      */
-    BuildResult result();
+    String displayName();
 
     /**
-     * Build's date.
+     * Build's estimated duration in milliseconds.
      *
-     * @return Build's date.
+     * @return Build's estimated duration
      */
-    Date date();
+    Long estimated();
 
     /**
-     * Build's URL.
+     * Build's duration in milliseconds.
      *
-     * @return URL string.
+     * @return Build's duration
      */
-    String url();
+    Long duration();
 
     /**
-     * Build's details.
+     * Is build in process?
      *
-     * @return Build's details.
+     * @return Is build in process?
      */
-    BuildDetails details();
+    Boolean building();
+
+    /**
+     * Build's queue ID.
+     *
+     * @return Queue ID.
+     */
+    Long queue();
 }
