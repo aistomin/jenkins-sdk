@@ -15,7 +15,7 @@
  */
 package org.rising.jenkins.fake;
 
-import java.util.List;
+import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.Builds;
 import org.rising.jenkins.Job;
@@ -98,7 +98,7 @@ public final class FakeJob implements Job {
      * @return Job's parameters.
      * @todo: Let's implement this method and solve Issue #57.
      */
-    public List<JobParameter> parameters() {
+    public Iterator<JobParameter> parameters() {
         throw new NotImplementedException(
             String.format(
                 "parameters() method is not implemented for %s.",

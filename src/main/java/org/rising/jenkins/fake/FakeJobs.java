@@ -69,7 +69,7 @@ public final class FakeJobs implements Jobs {
     public Iterator<Job> iterator() throws Exception {
         throw new NotImplementedException(
             String.format(
-                "list() method is not implemented for %s.",
+                "iterator() method is not implemented for %s.",
                 this.getClass().getCanonicalName()
             )
         );

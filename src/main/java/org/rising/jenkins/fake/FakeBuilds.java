@@ -15,7 +15,7 @@
  */
 package org.rising.jenkins.fake;
 
-import java.util.List;
+import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.Build;
 import org.rising.jenkins.Builds;
@@ -30,16 +30,16 @@ import org.rising.jenkins.Builds;
 public final class FakeBuilds implements Builds {
 
     /**
-     * List of fake builds.
+     * Fake builds iterator.
      *
-     * @return List of fake builds.
+     * @return Fake builds iterator.
      * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #96.
      */
-    public List<Builds> list() throws Exception {
+    public Iterator<Builds> iterator() throws Exception {
         throw new NotImplementedException(
             String.format(
-                "list() method is not implemented for %s.",
+                "iterator() method is not implemented for %s.",
                 this.getClass().getCanonicalName()
             )
         );

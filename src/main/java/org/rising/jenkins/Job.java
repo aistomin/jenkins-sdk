@@ -15,7 +15,7 @@
  */
 package org.rising.jenkins;
 
-import java.util.List;
+import java.util.Iterator;
 
 /**
  * Jenkins' job.
@@ -60,5 +60,5 @@ public interface Job extends APIObject {
      *
      * @return Job's parameters.
      */
-    List<JobParameter> parameters();
+    Iterator<JobParameter> parameters();
 }

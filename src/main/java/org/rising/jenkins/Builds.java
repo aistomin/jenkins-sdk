@@ -15,7 +15,7 @@
  */
 package org.rising.jenkins;
 
-import java.util.List;
+import java.util.Iterator;
 
 /**
  * Jenkins' job's builds.
@@ -27,12 +27,12 @@ import java.util.List;
 public interface Builds extends APIObject {
 
     /**
-     * List all builds.
+     * Builds iterator.
      *
-     * @return List of the builds.
+     * @return Builds iterator.
      * @throws Exception If something goes wrong.
      */
-    List<Builds> list() throws Exception;
+    Iterator<Builds> iterator() throws Exception;
 
     /**
      * Last successful build.

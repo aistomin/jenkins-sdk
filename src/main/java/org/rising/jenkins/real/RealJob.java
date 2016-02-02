@@ -16,7 +16,7 @@
 package org.rising.jenkins.real;
 
 import java.net.URLEncoder;
-import java.util.List;
+import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.http.PostRequest;
 import org.rising.iterators.Transformation;
@@ -126,7 +126,7 @@ public final class RealJob implements Job {
      * @return Job's parameters.
      * @todo: Let's implement this method and solve Issue #43.
      */
-    public List<JobParameter> parameters() {
+    public Iterator<JobParameter> parameters() {
         throw new NotImplementedException(
             String.format(
                 "parameters() method is not implemented for %s.",
