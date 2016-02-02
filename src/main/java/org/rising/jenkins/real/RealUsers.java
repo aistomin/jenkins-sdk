@@ -16,11 +16,12 @@
 package org.rising.jenkins.real;
 
 import com.jcabi.xml.XMLDocument;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.http.PostRequest;
+import org.rising.iterators.EntityIterator;
 import org.rising.jenkins.Credentials;
 import org.rising.jenkins.User;
 import org.rising.jenkins.Users;
@@ -56,21 +57,18 @@ public final class RealUsers implements Users {
     }
 
     /**
-     * List all Jenkins users.
+     * Build iterator to run through existing users.
      *
-     * @return List of users.
+     * @return Users iterator.
      * @throws Exception If error occurred.
      */
-    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    public List<User> list() throws Exception {
+    public Iterator<User> iterator() throws Exception {
         final List<String> ids = new XMLDocument(this.xml())
             .xpath("//id/text()");
         Collections.sort(ids, String.CASE_INSENSITIVE_ORDER);
-        final List<User> result = new ArrayList<User>(ids.size());
-        for (final String username : ids) {
-            result.add(new RealUser(username, this.request(), this.creds));
-        }
-        return result;
+        return new EntityIterator<User, String>(
+            ids.iterator(), new RealUser.Transformer(this.request(), this.creds)
+        );
     }
 
     /**

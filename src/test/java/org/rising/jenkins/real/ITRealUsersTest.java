@@ -15,7 +15,7 @@
  */
 package org.rising.jenkins.real;
 
-import java.util.List;
+import java.util.Iterator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.rising.jenkins.User;
@@ -45,15 +45,15 @@ public final class ITRealUsersTest {
     }
 
     /**
-     * Can list Jenkins' users.
+     * Can iterate through Jenkins' users.
      *
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanListUsers() throws Exception {
-        final List<User> users = new TestJenkins().users().list();
-        Assert.assertEquals("\"system_builder", users.get(0).username());
-        Assert.assertEquals("admin", users.get(1).username());
-        Assert.assertEquals("integration", users.get(2).username());
+    public void testCanIterateThroughUsers() throws Exception {
+        final Iterator<User> iterator = new TestJenkins().users().iterator();
+        Assert.assertEquals("\"system_builder", iterator.next().username());
+        Assert.assertEquals("admin", iterator.next().username());
+        Assert.assertEquals("integration", iterator.next().username());
     }
 }

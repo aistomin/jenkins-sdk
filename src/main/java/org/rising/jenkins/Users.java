@@ -15,6 +15,7 @@
  */
 package org.rising.jenkins;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -27,12 +28,12 @@ import java.util.List;
 public interface Users extends APIObject {
 
     /**
-     * List all Jenkins users.
+     * Build iterator to run through existing users.
      *
-     * @return List of users.
+     * @return Users iterator.
      * @throws Exception If error occurred.
      */
-    List<User> list() throws Exception;
+    Iterator<User> iterator() throws Exception;
 
     /**
      * Find by Jenkins' user name.

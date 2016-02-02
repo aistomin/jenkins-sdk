@@ -15,6 +15,7 @@
  */
 package org.rising.jenkins.fake;
 
+import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.User;
@@ -60,16 +61,16 @@ public final class FakeUsers implements Users {
     }
 
     /**
-     * List fake users.
+     * Build iterator to run through fake users.
      *
-     * @return List of users.
+     * @return Users iterator.
      * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #63.
      */
-    public List<User> list() throws Exception {
+    public Iterator<User> iterator() throws Exception {
         throw new NotImplementedException(
             String.format(
-                "list() method is not implemented for %s.",
+                "iterator() method is not implemented for %s.",
                 this.getClass().getCanonicalName()
             )
         );

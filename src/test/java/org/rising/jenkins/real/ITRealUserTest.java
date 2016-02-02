@@ -28,7 +28,7 @@ import org.junit.Test;
 public final class ITRealUserTest {
 
     /**
-     * First username in test users list.
+     * First username in test users iterator.
      */
     private static final transient String USERNAME = "\"system_builder";
 
@@ -40,7 +40,7 @@ public final class ITRealUserTest {
     public void testCanReadUsername() throws Exception {
         Assert.assertEquals(
             ITRealUserTest.USERNAME,
-            new TestJenkins().users().list().get(0).username()
+            new TestJenkins().users().iterator().next().username()
         );
     }
 
@@ -51,7 +51,7 @@ public final class ITRealUserTest {
      */
     @Test
     public void testCanReadXML() throws Exception {
-        final String xml = new TestJenkins().users().list().get(0).xml();
+        final String xml = new TestJenkins().users().iterator().next().xml();
         Assert.assertTrue(xml.startsWith("<user>"));
         Assert.assertTrue(
             xml.contains(String.format("<id>%s</id>", ITRealUserTest.USERNAME))

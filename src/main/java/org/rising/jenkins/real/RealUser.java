@@ -18,6 +18,7 @@ package org.rising.jenkins.real;
 import java.net.URLEncoder;
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.http.PostRequest;
+import org.rising.iterators.Transformation;
 import org.rising.jenkins.Credentials;
 import org.rising.jenkins.User;
 
@@ -51,11 +52,10 @@ public final class RealUser implements User {
      * @param username User's username.
      * @param url API URL that returns users' details.
      * @param credentials Jenkins credentials
-     * @throws Exception If user was not constructed.
      */
     public RealUser(
         final String username, final String url, final Credentials credentials
-    ) throws Exception {
+    ) {
         this.api = url;
         this.creds = credentials;
         this.identifier = username;
@@ -156,5 +156,42 @@ public final class RealUser implements User {
                 )
             )
         );
+    }
+
+    /**
+     * Transformer for getting user by his id name.
+     */
+    public static final class Transformer implements
+        Transformation<User, String> {
+
+        /**
+         * API URL.
+         */
+        private final transient String api;
+
+        /**
+         * Jenkins credentials.
+         */
+        private final transient Credentials creds;
+
+        /**
+         * Ctor.
+         * @param url API URL.
+         * @param credentials Jenkins credentials.
+         */
+        public Transformer(final String url, final Credentials credentials) {
+            this.api = url;
+            this.creds = credentials;
+        }
+
+        /**
+         * Transform username to user.
+         *
+         * @param source Source object.
+         * @return Target object.
+         */
+        public User transform(final String source) {
+            return new RealUser(source, this.api, this.creds);
+        }
     }
 }
