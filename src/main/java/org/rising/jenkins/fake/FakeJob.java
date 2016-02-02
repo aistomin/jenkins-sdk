@@ -81,9 +81,10 @@ public final class FakeJob implements Job {
      * Fake job builds.
      *
      * @return Builds.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #56.
      */
-    public Builds builds() {
+    public Builds builds() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "builds() method is not implemented for %s.",

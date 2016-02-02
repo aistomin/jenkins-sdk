@@ -17,8 +17,10 @@ package org.rising.jenkins.real;
 
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
+import org.rising.http.PostRequest;
 import org.rising.jenkins.Build;
 import org.rising.jenkins.Builds;
+import org.rising.jenkins.Credentials;
 
 /**
  * Jenkins' job builds.
@@ -28,6 +30,27 @@ import org.rising.jenkins.Builds;
  * @since 1.0
  */
 public final class RealBuilds implements Builds {
+
+    /**
+     * Parent job's API URL.
+     */
+    private final transient String api;
+
+    /**
+     * Jenkins credentials.
+     */
+    private final transient Credentials creds;
+
+    /**
+     * Ctor.
+     *
+     * @param url Parent job's API URL.
+     * @param credentials Jenkins credentials.
+     */
+    public RealBuilds(final String url, final Credentials credentials) {
+        this.api = url;
+        this.creds = credentials;
+    }
 
     /**
      * Builds iterator.
@@ -131,14 +154,19 @@ public final class RealBuilds implements Builds {
      *
      * @return XML's string.
      * @throws Exception If reading XML was not successful.
-     * @todo: Let's implement this method and solve Issue #111.
      */
     public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "xml() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+        return new PostRequest(this.request(), this.creds.headers()).execute();
+    }
+
+    /**
+     * Creates API URL to request Jenkins' job builds data.
+     *
+     * @return URL string.
+     */
+    private String request() {
+        return String.format(
+            "%s%s", this.api, "/build&wrapper=builds"
         );
     }
 }

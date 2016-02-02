@@ -52,8 +52,9 @@ public interface Job extends APIObject {
      * Job builds.
      *
      * @return Builds.
+     * @throws Exception If reading builds is not successful.
      */
-    Builds builds();
+    Builds builds() throws Exception;
 
     /**
      * Job parameters.

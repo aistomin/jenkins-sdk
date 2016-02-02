@@ -109,10 +109,10 @@ public final class RealJob implements Job {
      * Job builds.
      *
      * @return Builds.
-     * @checkstyle NonStaticMethodCheck (10 lines)
+     * @throws Exception If reading builds is not successful.
      */
-    public Builds builds() {
-        return new RealBuilds();
+    public Builds builds() throws Exception {
+        return new RealBuilds(this.request(), this.creds);
     }
 
     /**
