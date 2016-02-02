@@ -19,8 +19,9 @@ public class Main {
             "<Jenkins URL>",
             new UsernamePasswordCredentials("<USERNAME>", "<PASSWORD>")
         );
-        List<User> users = jenkins.users().list();
-        for (User user : users) {
+        Iterator<User> users = jenkins.users().iterator();
+        while (users.hasNext()) {
+            User user = users.next();
             System.out.println(
                 "username: " + user.username() + ", email: " + user.email()
             );
