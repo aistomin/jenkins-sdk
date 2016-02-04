@@ -4,7 +4,7 @@ jdk:
   - openjdk7
 branches:
   only:
-    - gh-pages
+    - master
 env:
   global:
     - MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx2g"
