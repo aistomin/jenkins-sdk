@@ -21,7 +21,6 @@ package org.rising.jenkins;
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
- * @todo: Let's create implementation of this interface and solve Issue #120.
  */
 public interface BuildDetails extends APIObject {
 
@@ -42,14 +41,14 @@ public interface BuildDetails extends APIObject {
     /**
      * Build's estimated duration in milliseconds.
      *
-     * @return Build's estimated duration
+     * @return Build's estimated duration.
      */
     Long estimated();
 
     /**
      * Build's duration in milliseconds.
      *
-     * @return Build's duration
+     * @return Build's duration.
      */
     Long duration();
 

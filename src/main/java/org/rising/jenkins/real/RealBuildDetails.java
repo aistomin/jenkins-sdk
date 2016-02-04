@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rising.jenkins.fake;
+package org.rising.jenkins.real;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.rising.jenkins.BuildDetails;
 
 /**
- * Fake Jenkins' job build details like: display name, url, duration etc.
+ * Jenkins' job build details like: display name, url, duration etc.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class FakeBuildDetails implements BuildDetails {
+public final class RealBuildDetails implements BuildDetails {
 
     /**
-     * Fake build's full display name.
+     * Build's full display name.
      *
      * @return Full display name.
-     * @todo: Let's implement this method and solve Issue #123.
+     * @todo: Let's implement this method and solve Issue #130.
      */
     public String fullDisplayName() {
         throw new NotImplementedException(
@@ -43,10 +43,10 @@ public final class FakeBuildDetails implements BuildDetails {
     }
 
     /**
-     * Fake build's display name.
+     * Build's display name.
      *
      * @return Display name.
-     * @todo: Let's implement this method and solve Issue #124.
+     * @todo: Let's implement this method and solve Issue #131.
      */
     public String displayName() {
         throw new NotImplementedException(
@@ -58,10 +58,10 @@ public final class FakeBuildDetails implements BuildDetails {
     }
 
     /**
-     * Fake build's estimated duration in milliseconds.
+     * Build's estimated duration in milliseconds.
      *
      * @return Build's estimated duration.
-     * @todo: Let's implement this method and solve Issue #125.
+     * @todo: Let's implement this method and solve Issue #132.
      */
     public Long estimated() {
         throw new NotImplementedException(
@@ -73,10 +73,10 @@ public final class FakeBuildDetails implements BuildDetails {
     }
 
     /**
-     * Fake build's duration in milliseconds.
+     * Build's duration in milliseconds.
      *
      * @return Build's duration.
-     * @todo: Let's implement this method and solve Issue #126.
+     * @todo: Let's implement this method and solve Issue #133.
      */
     public Long duration() {
         throw new NotImplementedException(
@@ -88,10 +88,10 @@ public final class FakeBuildDetails implements BuildDetails {
     }
 
     /**
-     * Fake "in process" value.
+     * Is build in process?
      *
      * @return Is build in process?
-     * @todo: Let's implement this method and solve Issue #127.
+     * @todo: Let's implement this method and solve Issue #134.
      */
     public Boolean building() {
         throw new NotImplementedException(
@@ -103,10 +103,10 @@ public final class FakeBuildDetails implements BuildDetails {
     }
 
     /**
-     * Fake build's queue ID.
+     * Build's queue ID.
      *
      * @return Queue ID.
-     * @todo: Let's implement this method and solve Issue #128.
+     * @todo: Let's implement this method and solve Issue #135.
      */
     public Long queue() {
         throw new NotImplementedException(
@@ -118,11 +118,11 @@ public final class FakeBuildDetails implements BuildDetails {
     }
 
     /**
-     * Fake build details' XML representation.
+     * Build details' XML representation.
      *
      * @return XML's string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #129.
+     * @todo: Let's implement this method and solve Issue #136.
      */
     public String xml() throws Exception {
         throw new NotImplementedException(
