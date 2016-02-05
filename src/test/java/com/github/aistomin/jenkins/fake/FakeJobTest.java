@@ -15,6 +15,7 @@
  */
 package com.github.aistomin.jenkins.fake;
 
+import com.github.aistomin.xml.XMLString;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -28,11 +29,30 @@ import org.junit.Test;
 public final class FakeJobTest {
 
     /**
-     * Sample test.
+     * Can create fake instances providing only XML.
+     *
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testSample() throws Exception {
-        Assert.assertNotNull(new FakeJob());
+    public void testCanCreateWithXML() throws Exception {
+        final String xml = "<job><id><displayName>test</displayName></job>";
+        Assert.assertEquals(
+            xml, new FakeJob(new XMLString(xml)).xml()
+        );
+    }
+
+    /**
+     * Can read Fake job's XML.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadXML() throws Exception {
+        final String xml = new FakeJob().xml();
+        Assert.assertTrue(xml.startsWith("<job>"));
+        Assert.assertTrue(
+            xml.contains("<displayName>test-different-builds-job</displayName>")
+        );
+        Assert.assertTrue(xml.endsWith("</job>"));
     }
 }

@@ -28,7 +28,7 @@ import org.junit.Test;
 public final class FakeJobsTest {
 
     /**
-     * Can read Jenkins' XML.
+     * Can read fake jobs' XML.
      *
      * @throws Exception If something goes wrong.
      */

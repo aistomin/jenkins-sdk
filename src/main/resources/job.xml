@@ -1,0 +1,281 @@
+<job>
+    <description>This job we use for testing builds.</description>
+    <displayName>test-different-builds-job</displayName>
+    <name>test-different-builds-job</name>
+    <url>
+        https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/
+    </url>
+    <buildable>true</buildable>
+    <build>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#3</displayName>
+        <duration>268</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #3</fullDisplayName>
+        <id>3</id>
+        <keepLog>false</keepLog>
+        <number>3</number>
+        <queueId>3</queueId>
+        <result>SUCCESS</result>
+        <timestamp>1446599389986</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/3/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </build>
+    <build>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#2</displayName>
+        <duration>211</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #2</fullDisplayName>
+        <id>2</id>
+        <keepLog>false</keepLog>
+        <number>2</number>
+        <queueId>2</queueId>
+        <result>FAILURE</result>
+        <timestamp>1446599365453</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/2/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </build>
+    <build>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#1</displayName>
+        <duration>687</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #1</fullDisplayName>
+        <id>1</id>
+        <keepLog>false</keepLog>
+        <number>1</number>
+        <queueId>1</queueId>
+        <result>SUCCESS</result>
+        <timestamp>1446599262162</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/1/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </build>
+    <color>blue</color>
+    <firstBuild>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#1</displayName>
+        <duration>687</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #1</fullDisplayName>
+        <id>1</id>
+        <keepLog>false</keepLog>
+        <number>1</number>
+        <queueId>1</queueId>
+        <result>SUCCESS</result>
+        <timestamp>1446599262162</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/1/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </firstBuild>
+    <healthReport>
+        <description>
+            Build stability: 1 out of the last 3 builds failed.
+        </description>
+        <iconClassName>icon-health-60to79</iconClassName>
+        <iconUrl>health-60to79.png</iconUrl>
+        <score>66</score>
+    </healthReport>
+    <inQueue>false</inQueue>
+    <keepDependencies>false</keepDependencies>
+    <lastBuild>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#3</displayName>
+        <duration>268</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #3</fullDisplayName>
+        <id>3</id>
+        <keepLog>false</keepLog>
+        <number>3</number>
+        <queueId>3</queueId>
+        <result>SUCCESS</result>
+        <timestamp>1446599389986</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/3/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </lastBuild>
+    <lastCompletedBuild>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#3</displayName>
+        <duration>268</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #3</fullDisplayName>
+        <id>3</id>
+        <keepLog>false</keepLog>
+        <number>3</number>
+        <queueId>3</queueId>
+        <result>SUCCESS</result>
+        <timestamp>1446599389986</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/3/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </lastCompletedBuild>
+    <lastFailedBuild>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#2</displayName>
+        <duration>211</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #2</fullDisplayName>
+        <id>2</id>
+        <keepLog>false</keepLog>
+        <number>2</number>
+        <queueId>2</queueId>
+        <result>FAILURE</result>
+        <timestamp>1446599365453</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/2/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </lastFailedBuild>
+    <lastStableBuild>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#3</displayName>
+        <duration>268</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #3</fullDisplayName>
+        <id>3</id>
+        <keepLog>false</keepLog>
+        <number>3</number>
+        <queueId>3</queueId>
+        <result>SUCCESS</result>
+        <timestamp>1446599389986</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/3/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </lastStableBuild>
+    <lastSuccessfulBuild>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#3</displayName>
+        <duration>268</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #3</fullDisplayName>
+        <id>3</id>
+        <keepLog>false</keepLog>
+        <number>3</number>
+        <queueId>3</queueId>
+        <result>SUCCESS</result>
+        <timestamp>1446599389986</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/3/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </lastSuccessfulBuild>
+    <lastUnsuccessfulBuild>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#2</displayName>
+        <duration>211</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #2</fullDisplayName>
+        <id>2</id>
+        <keepLog>false</keepLog>
+        <number>2</number>
+        <queueId>2</queueId>
+        <result>FAILURE</result>
+        <timestamp>1446599365453</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/2/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </lastUnsuccessfulBuild>
+    <nextBuildNumber>4</nextBuildNumber>
+    <property/>
+    <property/>
+    <property/>
+    <property/>
+    <property/>
+    <property/>
+    <concurrentBuild>false</concurrentBuild>
+    <scm>
+        <type>hudson.scm.NullSCM</type>
+    </scm>
+</job>

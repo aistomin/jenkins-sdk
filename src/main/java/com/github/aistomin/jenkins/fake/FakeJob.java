@@ -19,6 +19,8 @@ import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.JobDetails;
 import com.github.aistomin.jenkins.JobParameter;
+import com.github.aistomin.xml.XML;
+import com.github.aistomin.xml.XMLResource;
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -30,6 +32,34 @@ import org.apache.commons.lang3.NotImplementedException;
  * @since 1.0
  */
 public final class FakeJob implements Job {
+
+    /**
+     * XML resource file name.
+     */
+    private static final String RESOURCE = "job.xml";
+
+    /**
+     * XML content that should be returned in xml() method.
+     */
+    private final transient XML content;
+
+    /**
+     * Default ctor.
+     *
+     * @throws Exception If reading XML was not successful.
+     */
+    public FakeJob() throws Exception {
+        this(new XMLResource(RESOURCE));
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param xml XML content that should be returned in xml() method.
+     */
+    public FakeJob(final XML xml) {
+        this.content = xml;
+    }
 
     /**
      * Job name.
@@ -116,11 +146,6 @@ public final class FakeJob implements Job {
      * @todo: Let's implement this method and solve Issue #58.
      */
     public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "xml() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.content.content();
     }
 }
