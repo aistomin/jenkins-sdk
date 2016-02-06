@@ -17,6 +17,8 @@ package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.Builds;
+import com.github.aistomin.xml.XML;
+import com.github.aistomin.xml.XMLResource;
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -28,6 +30,34 @@ import org.apache.commons.lang3.NotImplementedException;
  * @since 1.0
  */
 public final class FakeBuilds implements Builds {
+
+    /**
+     * XML resource file name.
+     */
+    private static final String RESOURCE = "builds.xml";
+
+    /**
+     * XML content that should be returned in xml() method.
+     */
+    private final transient XML content;
+
+    /**
+     * Default ctor.
+     *
+     * @throws Exception If reading XML was not successful.
+     */
+    public FakeBuilds() throws Exception {
+        this(new XMLResource(RESOURCE));
+    }
+
+    /**
+     * Ctor.
+     *
+     * @param xml XML content that should be returned in xml() method.
+     */
+    public FakeBuilds(final XML xml) {
+        this.content = xml;
+    }
 
     /**
      * Fake builds iterator.
@@ -131,14 +161,8 @@ public final class FakeBuilds implements Builds {
      *
      * @return XML's string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #102.
      */
     public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "xml() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.content.content();
     }
 }

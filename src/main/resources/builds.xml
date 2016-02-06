@@ -1,0 +1,77 @@
+<builds>
+    <build>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#3</displayName>
+        <duration>268</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #3</fullDisplayName>
+        <id>3</id>
+        <keepLog>false</keepLog>
+        <number>3</number>
+        <queueId>3</queueId>
+        <result>SUCCESS</result>
+        <timestamp>1446599389986</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/3/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </build>
+    <build>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#2</displayName>
+        <duration>211</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #2</fullDisplayName>
+        <id>2</id>
+        <keepLog>false</keepLog>
+        <number>2</number>
+        <queueId>2</queueId>
+        <result>FAILURE</result>
+        <timestamp>1446599365453</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/2/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </build>
+    <build>
+        <action>
+            <cause>
+                <shortDescription>Started by user Jenkins Admin</shortDescription>
+                <userId>admin</userId>
+                <userName>Jenkins Admin</userName>
+            </cause>
+        </action>
+        <building>false</building>
+        <displayName>#1</displayName>
+        <duration>687</duration>
+        <estimatedDuration>389</estimatedDuration>
+        <fullDisplayName>test-different-builds-job #1</fullDisplayName>
+        <id>1</id>
+        <keepLog>false</keepLog>
+        <number>1</number>
+        <queueId>1</queueId>
+        <result>SUCCESS</result>
+        <timestamp>1446599262162</timestamp>
+        <url>
+            https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/1/
+        </url>
+        <builtOn/>
+        <changeSet/>
+    </build>
+</builds>
