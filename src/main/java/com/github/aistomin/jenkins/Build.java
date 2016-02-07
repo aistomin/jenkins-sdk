@@ -22,7 +22,7 @@ import java.util.Date;
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
 public interface Build extends APIObject {
 

@@ -27,7 +27,7 @@ import org.apache.commons.lang3.NotImplementedException;
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
 public final class RealUser implements User {
 

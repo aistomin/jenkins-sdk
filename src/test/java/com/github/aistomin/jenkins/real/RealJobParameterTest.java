@@ -15,42 +15,33 @@
  */
 package com.github.aistomin.jenkins.real;
 
+import com.github.aistomin.jenkins.JobParameter;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests for RealJob.
+ * Jenkins job parameter.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class ITRealJobTest {
+public final class RealJobParameterTest {
 
     /**
-     * Can get job's XML.
-     *
-     * @throws Exception If something goes wrong.
+     * Can read parameter's details.
+     * @throws Exception If something is wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
-        final String xml = new TestJenkins().jobs().iterator().next().xml();
-        Assert.assertTrue(xml.startsWith("<job>"));
-        Assert.assertTrue(
-            xml.contains("<displayName>test-different-builds-job</displayName>")
+    public void testCanRead() throws Exception {
+        final String name = "some_parameter";
+        final String description = "My cool parameter";
+        final String type = "StringParameterDefinition";
+        final JobParameter parameter = new RealJobParameter(
+            name, type, description
         );
-        Assert.assertTrue(xml.endsWith("</job>"));
-    }
-
-    /**
-     * Can list job's builds.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanListBuilds() throws Exception {
-        Assert.assertNotNull(
-            new TestJenkins().jobs().iterator().next().builds()
-        );
+        Assert.assertEquals(name, parameter.name());
+        Assert.assertEquals(description, parameter.description());
+        Assert.assertEquals(type, parameter.type());
     }
 }

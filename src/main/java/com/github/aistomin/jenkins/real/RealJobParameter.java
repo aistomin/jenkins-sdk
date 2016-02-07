@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.aistomin.jenkins;
+package com.github.aistomin.jenkins.real;
+
+import com.github.aistomin.jenkins.JobParameter;
 
 /**
  * Jenkins job parameter.
@@ -22,25 +24,61 @@ package com.github.aistomin.jenkins;
  * @version $Id$
  * @since 0.1
  */
-public interface JobParameter {
+public final class RealJobParameter implements JobParameter {
+
+    /**
+     * Parameter's name.
+     */
+    private final transient String parameter;
+
+    /**
+     * Parameter's type.
+     */
+    private final transient String clazz;
+
+    /**
+     * Parameter's description.
+     */
+    private final transient String desc;
+
+    /**
+     * Ctor.
+     * @param name Parameter's name.
+     * @param type Parameter's type.
+     * @param description Parameter's description.
+     */
+    public RealJobParameter(
+        final String name, final String type, final String description
+    ) {
+        this.parameter = name;
+        this.clazz = type;
+        this.desc = description;
+    }
 
     /**
      * Parameter's name.
      *
      * @return Parameter's name.
      */
-    String name();
+    public String name() {
+        return this.parameter;
+    }
 
     /**
      * Parameter's type.
      *
      * @return Parameter's type.
      */
-    String type();
+    public String type() {
+        return this.clazz;
+    }
 
     /**
      * Parameter's description.
+     *
      * @return Parameter's description.
      */
-    String description();
+    public String description() {
+        return this.desc;
+    }
 }

@@ -20,7 +20,7 @@ package com.github.aistomin.jenkins;
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
 public interface APIObject {
 
