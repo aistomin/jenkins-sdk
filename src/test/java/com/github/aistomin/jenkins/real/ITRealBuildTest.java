@@ -13,51 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.aistomin.jenkins;
+package com.github.aistomin.jenkins.real;
 
-import java.util.Date;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * Jenkins' job's build.
+ * Integration tests for RealBuild class.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public interface Build extends APIObject {
+public final class ITRealBuildTest {
 
     /**
-     * Build's number.
-     *
-     * @return Build number.
+     * Sample test.
+     * @throws Exception If something happened.
      */
-    String number();
-
-    /**
-     * Build's result.
-     *
-     * @return Build's result.
-     */
-    BuildResult result();
-
-    /**
-     * Build's date.
-     *
-     * @return Build's date.
-     */
-    Date date();
-
-    /**
-     * Build's URL.
-     *
-     * @return URL string.
-     */
-    String url();
-
-    /**
-     * Build's details.
-     *
-     * @return Build's details.
-     */
-    BuildDetails details();
+    @Test
+    public void testSample() throws Exception {
+        Assert.assertNotNull(new RealBuild());
+    }
 }
