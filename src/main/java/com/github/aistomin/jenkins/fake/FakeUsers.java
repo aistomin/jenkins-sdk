@@ -47,7 +47,7 @@ public final class FakeUsers implements Users {
      * @throws Exception If reading XML was not successful.
      */
     public FakeUsers() throws Exception {
-        this(new XMLResource(RESOURCE));
+        this(new XMLResource(FakeUsers.RESOURCE));
     }
 
     /**

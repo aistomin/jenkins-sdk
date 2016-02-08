@@ -56,8 +56,8 @@ public final class FakeUser implements User {
      */
     public FakeUser() throws Exception {
         this(
-            new XMLResource(RESOURCE),
-            String.format(FORMAT, System.currentTimeMillis())
+            new XMLResource(FakeUser.RESOURCE),
+            String.format(FakeUser.FORMAT, System.currentTimeMillis())
         );
     }
 
@@ -67,7 +67,7 @@ public final class FakeUser implements User {
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeUser(final XML xml) {
-        this(xml, String.format(FORMAT, System.currentTimeMillis()));
+        this(xml, String.format(FakeUser.FORMAT, System.currentTimeMillis()));
     }
 
     /**
@@ -76,7 +76,7 @@ public final class FakeUser implements User {
      * @param username Username that should be returned in username() method.
      */
     public FakeUser(final String username) {
-        this(new XMLResource(RESOURCE), username);
+        this(new XMLResource(FakeUser.RESOURCE), username);
     }
 
     /**

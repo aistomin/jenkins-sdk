@@ -47,7 +47,7 @@ public final class FakeBuilds implements Builds {
      * @throws Exception If reading XML was not successful.
      */
     public FakeBuilds() throws Exception {
-        this(new XMLResource(RESOURCE));
+        this(new XMLResource(FakeBuilds.RESOURCE));
     }
 
     /**

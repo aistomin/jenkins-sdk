@@ -47,7 +47,7 @@ public final class FakeJobs implements Jobs {
      * @throws Exception If reading XML was not successful.
      */
     public FakeJobs() throws Exception {
-        this(new XMLResource(RESOURCE));
+        this(new XMLResource(FakeJobs.RESOURCE));
     }
 
     /**

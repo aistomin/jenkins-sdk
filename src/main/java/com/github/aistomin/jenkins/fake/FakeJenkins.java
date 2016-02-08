@@ -56,7 +56,10 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins() throws Exception {
-        this(new FakeJobs(), new FakeUsers(), new XMLResource(RESOURCE));
+        this(
+            new FakeJobs(), new FakeUsers(),
+            new XMLResource(FakeJenkins.RESOURCE)
+        );
     }
 
     /**
@@ -66,7 +69,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Jobs jobs) throws Exception {
-        this(jobs, new FakeUsers(), new XMLResource(RESOURCE));
+        this(jobs, new FakeUsers(), new XMLResource(FakeJenkins.RESOURCE));
     }
 
     /**
@@ -76,7 +79,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Users users) throws Exception {
-        this(new FakeJobs(), users, new XMLResource(RESOURCE));
+        this(new FakeJobs(), users, new XMLResource(FakeJenkins.RESOURCE));
     }
 
     /**
