@@ -16,12 +16,32 @@
 package com.github.aistomin.jenkins;
 
 /**
- * Jenkins' job's details like: name, description etc.
+ * Jenkins job details like: display name, description etc.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
- * @todo: Let's create this interface design and solve Issue #40.
  */
-public interface JobDetails extends APIObject {
+public interface JobDetails {
+
+    /**
+     * Job's display name.
+     *
+     * @return Display name.
+     */
+    String displayName();
+
+    /**
+     * Job's description.
+     *
+     * @return Description.
+     */
+    String description();
+
+    /**
+     * Is job buildable?
+     *
+     * @return Is job buildable?
+     */
+    Boolean buildable();
 }

@@ -15,33 +15,35 @@
  */
 package com.github.aistomin.jenkins.real;
 
-import com.github.aistomin.jenkins.JobParameter;
+import com.github.aistomin.jenkins.JobDetails;
+import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test for RealJobParameter.
+ * Test for RealJobDetails.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class RealJobParameterTest {
+public final class RealJobDetailsTest {
 
     /**
-     * Can read parameter's details.
+     * Can read job details.
+     *
      * @throws Exception If something is wrong.
      */
     @Test
-    public void testCanRead() throws Exception {
-        final String name = "some_parameter";
-        final String description = "My cool parameter";
-        final String type = "StringParameterDefinition";
-        final JobParameter parameter = new RealJobParameter(
-            name, type, description
+    public void testCanReadDetails() throws Exception {
+        final String name = "my-job";
+        final String description = "My cool job.";
+        final Boolean buildable = new Random().nextBoolean();
+        final JobDetails details = new RealJobDetails(
+            name, description, buildable
         );
-        Assert.assertEquals(name, parameter.name());
-        Assert.assertEquals(description, parameter.description());
-        Assert.assertEquals(type, parameter.type());
+        Assert.assertEquals(name, details.displayName());
+        Assert.assertEquals(description, details.description());
+        Assert.assertEquals(buildable, details.buildable());
     }
 }
