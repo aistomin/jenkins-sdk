@@ -22,7 +22,7 @@ package com.github.aistomin.jenkins;
  * @version $Id$
  * @since 0.1
  */
-public interface BuildDetails extends APIObject {
+public interface BuildDetails {
 
     /**
      * Build's full display name.

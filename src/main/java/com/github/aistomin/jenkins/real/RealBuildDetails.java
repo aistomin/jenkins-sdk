@@ -16,7 +16,6 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job build details like: display name, url, duration etc.
@@ -28,108 +27,109 @@ import org.apache.commons.lang3.NotImplementedException;
 public final class RealBuildDetails implements BuildDetails {
 
     /**
+     * Full display name.
+     */
+    private final transient String fname;
+
+    /**
+     * Normal display name.
+     */
+    private final transient String nname;
+
+    /**
+     * Estimated duration in milliseconds.
+     */
+    private final transient Long est;
+
+    /**
+     * Duration in milliseconds.
+     */
+    private final transient Long dur;
+
+    /**
+     * Is build in process?
+     */
+    private final transient Boolean inproc;
+
+    /**
+     * Build's queue ID.
+     */
+    private final transient Long number;
+
+    /**
+     * Ctor.
+     *
+     * @param full Full display name.
+     * @param normal Normal display name.
+     * @param estimation Estimated duration in milliseconds.
+     * @param duration Duration in milliseconds.
+     * @param building Is build in process?
+     * @param queue Build's queue ID.
+     * @checkstyle ParameterNumberCheck (50 lines)
+     */
+    public RealBuildDetails(
+        final String full, final String normal, final Long estimation,
+        final Long duration, final Boolean building, final Long queue
+    ) {
+        this.fname = full;
+        this.nname = normal;
+        this.est = estimation;
+        this.dur = duration;
+        this.inproc = building;
+        this.number = queue;
+    }
+
+    /**
      * Build's full display name.
      *
      * @return Full display name.
-     * @todo: Let's implement this method and solve Issue #130.
      */
     public String fullDisplayName() {
-        throw new NotImplementedException(
-            String.format(
-                "fullDisplayName() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.fname;
     }
 
     /**
      * Build's display name.
      *
      * @return Display name.
-     * @todo: Let's implement this method and solve Issue #131.
      */
     public String displayName() {
-        throw new NotImplementedException(
-            String.format(
-                "displayName() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.nname;
     }
 
     /**
      * Build's estimated duration in milliseconds.
      *
      * @return Build's estimated duration.
-     * @todo: Let's implement this method and solve Issue #132.
      */
     public Long estimated() {
-        throw new NotImplementedException(
-            String.format(
-                "estimated() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.est;
     }
 
     /**
      * Build's duration in milliseconds.
      *
      * @return Build's duration.
-     * @todo: Let's implement this method and solve Issue #133.
      */
     public Long duration() {
-        throw new NotImplementedException(
-            String.format(
-                "duration() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.dur;
     }
 
     /**
      * Is build in process?
      *
      * @return Is build in process?
-     * @todo: Let's implement this method and solve Issue #134.
      */
     public Boolean building() {
-        throw new NotImplementedException(
-            String.format(
-                "building() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.inproc;
     }
 
     /**
      * Build's queue ID.
      *
      * @return Queue ID.
-     * @todo: Let's implement this method and solve Issue #135.
      */
     public Long queue() {
-        throw new NotImplementedException(
-            String.format(
-                "queue() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
-    }
-
-    /**
-     * Build details' XML representation.
-     *
-     * @return XML's string.
-     * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #136.
-     */
-    public String xml() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "xml() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.number;
     }
 }
