@@ -15,10 +15,13 @@
  */
 package com.github.aistomin.jenkins.real;
 
+import com.github.aistomin.http.PostRequest;
 import com.github.aistomin.iterators.Transformation;
 import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.jenkins.BuildResult;
+import com.github.aistomin.jenkins.Credentials;
+import java.net.URLEncoder;
 import java.util.Date;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -32,6 +35,16 @@ import org.apache.commons.lang3.NotImplementedException;
 public final class RealBuild implements Build {
 
     /**
+     * API URL.
+     */
+    private final transient String api;
+
+    /**
+     * Jenkins credentials.
+     */
+    private final transient Credentials creds;
+
+    /**
      * Build's identifier.
      */
     private final transient String identifier;
@@ -39,9 +52,15 @@ public final class RealBuild implements Build {
     /**
      * Ctor.
      * @param number Build's number.
+     * @param url API URL.
+     * @param credentials Jenkins credentials.
      */
-    public RealBuild(final String number) {
+    public RealBuild(
+        final String number, final String url, final Credentials credentials
+    ) {
         this.identifier = number;
+        this.api = url;
+        this.creds = credentials;
     }
 
     /**
@@ -118,13 +137,25 @@ public final class RealBuild implements Build {
      *
      * @return XML's string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #162.
      */
     public String xml() throws Exception {
-        throw new NotImplementedException(
+        return new PostRequest(this.request(), this.creds.headers()).execute();
+    }
+
+    /**
+     * Creates API URL to request Jenkins' job data.
+     *
+     * @return URL string.
+     * @throws Exception If error occurred.
+     */
+    private String request() throws Exception {
+        return String.format(
+            "%s%s", this.api,
             String.format(
-                "xml() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
+                "/build[displayName=%s]",
+                URLEncoder.encode(
+                    String.format("'%s'", this.identifier), "UTF-8"
+                )
             )
         );
     }
@@ -136,14 +167,33 @@ public final class RealBuild implements Build {
         Transformation<Build, String> {
 
         /**
+         * API URL.
+         */
+        private final transient String api;
+
+        /**
+         * Jenkins credentials.
+         */
+        private final transient Credentials creds;
+
+        /**
+         * Ctor.
+         * @param url API URL.
+         * @param credentials Jenkins credentials.
+         */
+        public Transformer(final String url, final Credentials credentials) {
+            this.api = url;
+            this.creds = credentials;
+        }
+
+        /**
          * Transform build number to build.
          *
          * @param source Build number.
          * @return Job.
-         * @checkstyle NonStaticMethodCheck (50 lines)
          */
         public Build transform(final String source) {
-            return new RealBuild(source);
+            return new RealBuild(source, this.api, this.creds);
         }
     }
 }

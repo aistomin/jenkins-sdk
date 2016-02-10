@@ -67,7 +67,7 @@ public final class RealBuilds implements Builds {
             .xpath("//build/displayName/text()");
         Collections.sort(jobs, String.CASE_INSENSITIVE_ORDER);
         return new EntityIterator<Build, String>(
-            jobs.iterator(), new RealBuild.Transformer()
+            jobs.iterator(), new RealBuild.Transformer(this.api, this.creds)
         );
     }
 

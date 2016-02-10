@@ -28,6 +28,20 @@ import org.junit.Test;
 public final class ITRealBuildTest {
 
     /**
+     * Can get Jenkins' job build XML.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadXML() throws Exception {
+        final String xml = new TestJenkins().jobs().iterator().next().builds()
+            .iterator().next().xml();
+        Assert.assertTrue(xml.startsWith("<build>"));
+        Assert.assertTrue(xml.contains("<displayName>#1</displayName>"));
+        Assert.assertTrue(xml.endsWith("</build>"));
+    }
+
+    /**
      * Can read build's number.
      *
      * @throws Exception If something happened.
