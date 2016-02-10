@@ -1,0 +1,25 @@
+<build>
+    <action>
+        <cause>
+            <shortDescription>Started by user Jenkins Admin</shortDescription>
+            <userId>admin</userId>
+            <userName>Jenkins Admin</userName>
+        </cause>
+    </action>
+    <building>false</building>
+    <displayName>#1</displayName>
+    <duration>687</duration>
+    <estimatedDuration>389</estimatedDuration>
+    <fullDisplayName>test-different-builds-job #1</fullDisplayName>
+    <id>1</id>
+    <keepLog>false</keepLog>
+    <number>1</number>
+    <queueId>1</queueId>
+    <result>SUCCESS</result>
+    <timestamp>1446599262162</timestamp>
+    <url>
+        https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/1/
+    </url>
+    <builtOn/>
+    <changeSet/>
+</build>
