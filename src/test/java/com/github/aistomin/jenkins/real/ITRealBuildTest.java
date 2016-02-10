@@ -28,11 +28,12 @@ import org.junit.Test;
 public final class ITRealBuildTest {
 
     /**
-     * Sample test.
+     * Can read build's number.
      * @throws Exception If something happened.
      */
     @Test
-    public void testSample() throws Exception {
-        Assert.assertNotNull(new RealBuild());
+    public void testCanReadNumber() throws Exception {
+        final String number = "#1";
+        Assert.assertEquals(number, new RealBuild(number).number());
     }
 }

@@ -31,18 +31,25 @@ import org.apache.commons.lang3.NotImplementedException;
 public final class RealBuild implements Build {
 
     /**
+     * Build's identifier.
+     */
+    private final transient String identifier;
+
+    /**
+     * Ctor.
+     * @param number Build's number.
+     */
+    public RealBuild(final String number) {
+        this.identifier = number;
+    }
+
+    /**
      * Build's number.
      *
      * @return Build number.
-     * @todo: Let's implement this method and solve Issue #157.
      */
     public String number() {
-        throw new NotImplementedException(
-            String.format(
-                "number() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.identifier;
     }
 
     /**
