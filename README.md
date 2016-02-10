@@ -10,7 +10,7 @@ that is going to help developers to manipulate Jenkins instance using it's API.
 This SDK can be useful for developers who creates CI scripts or other environment
 software that needs to read information from Jenkins, trigger builds etc.
 
-Using classes from `org.rising.jenkins` and `org.rising.jenkins.real` you can 
+Using classes from `com.github.aistomin.jenkins` and `com.github.aistomin.jenkins.real` you can 
 manipulate with existing Jenkins installation. For example:
 ```java
 public class Main {
@@ -30,8 +30,8 @@ public class Main {
 }
 ```
 
-Using classes from `org.rising.jenkins.fake` you have possibility to create
-stubs/fakes of Jenkins installation.
+Using classes from `com.github.aistomin.jenkins.fake` you can create stubs/fakes
+of Jenkins installation.
 
 ## How to contribute?
 
