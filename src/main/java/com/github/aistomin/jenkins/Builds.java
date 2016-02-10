@@ -32,7 +32,7 @@ public interface Builds extends APIObject {
      * @return Builds iterator.
      * @throws Exception If something goes wrong.
      */
-    Iterator<Builds> iterator() throws Exception;
+    Iterator<Build> iterator() throws Exception;
 
     /**
      * Last successful build.

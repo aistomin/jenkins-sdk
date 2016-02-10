@@ -15,6 +15,7 @@
  */
 package com.github.aistomin.jenkins.real;
 
+import com.github.aistomin.iterators.Transformation;
 import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.jenkins.BuildResult;
@@ -126,5 +127,23 @@ public final class RealBuild implements Build {
                 this.getClass().getCanonicalName()
             )
         );
+    }
+
+    /**
+     * Transformer for getting build by it's name.
+     */
+    public static final class Transformer implements
+        Transformation<Build, String> {
+
+        /**
+         * Transform build number to build.
+         *
+         * @param source Build number.
+         * @return Job.
+         * @checkstyle NonStaticMethodCheck (50 lines)
+         */
+        public Build transform(final String source) {
+            return new RealBuild(source);
+        }
     }
 }

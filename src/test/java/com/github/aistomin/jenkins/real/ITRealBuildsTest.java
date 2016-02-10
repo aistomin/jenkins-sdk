@@ -15,6 +15,8 @@
  */
 package com.github.aistomin.jenkins.real;
 
+import com.github.aistomin.jenkins.Build;
+import java.util.Iterator;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -41,5 +43,18 @@ public final class ITRealBuildsTest {
             xml.contains("<fullDisplayName>test-different-builds-job #3")
         );
         Assert.assertTrue(xml.endsWith("</builds>"));
+    }
+
+    /**
+     * Can iterate through builds.
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanIterate() throws Exception {
+        final Iterator<Build> builds = new TestJenkins().jobs().iterator()
+            .next().builds().iterator();
+        Assert.assertEquals("#1", builds.next().number());
+        Assert.assertEquals("#2", builds.next().number());
+        Assert.assertEquals("#3", builds.next().number());
     }
 }

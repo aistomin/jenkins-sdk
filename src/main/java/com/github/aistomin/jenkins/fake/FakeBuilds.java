@@ -66,7 +66,7 @@ public final class FakeBuilds implements Builds {
      * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #96.
      */
-    public Iterator<Builds> iterator() throws Exception {
+    public Iterator<Build> iterator() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "iterator() method is not implemented for %s.",

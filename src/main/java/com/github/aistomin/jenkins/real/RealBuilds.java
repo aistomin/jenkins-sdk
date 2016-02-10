@@ -16,10 +16,14 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.http.PostRequest;
+import com.github.aistomin.iterators.EntityIterator;
 import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.jenkins.Credentials;
+import com.jcabi.xml.XMLDocument;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**
@@ -57,14 +61,13 @@ public final class RealBuilds implements Builds {
      *
      * @return Builds iterator.
      * @throws Exception If reading the builds was not successful.
-     * @todo: Let's implement this method and solve Issue #105.
      */
-    public Iterator<Builds> iterator() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "iterator() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+    public Iterator<Build> iterator() throws Exception {
+        final List<String> jobs = new XMLDocument(this.xml())
+            .xpath("//build/displayName/text()");
+        Collections.sort(jobs, String.CASE_INSENSITIVE_ORDER);
+        return new EntityIterator<Build, String>(
+            jobs.iterator(), new RealBuild.Transformer()
         );
     }
 

@@ -29,11 +29,15 @@ public final class ITRealBuildTest {
 
     /**
      * Can read build's number.
+     *
      * @throws Exception If something happened.
      */
     @Test
     public void testCanReadNumber() throws Exception {
-        final String number = "#1";
-        Assert.assertEquals(number, new RealBuild(number).number());
+        Assert.assertEquals(
+            "#1",
+            new TestJenkins().jobs().iterator().next().builds().iterator()
+                .next().number()
+        );
     }
 }
