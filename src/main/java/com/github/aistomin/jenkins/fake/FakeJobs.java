@@ -19,7 +19,9 @@ import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.Jobs;
 import com.github.aistomin.xml.XML;
 import com.github.aistomin.xml.XMLResource;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**
@@ -42,12 +44,21 @@ public final class FakeJobs implements Jobs {
     private final transient XML content;
 
     /**
-     * Default ctor.
-     *
-     * @throws Exception If reading XML was not successful.
+     * Fake jobs list that will be returned in iterator() method.
      */
-    public FakeJobs() throws Exception {
-        this(new XMLResource(FakeJobs.RESOURCE));
+    private final transient List<Job> iterable;
+
+    /**
+     * Default ctor.
+     */
+    public FakeJobs() {
+        this(
+            new XMLResource(
+                FakeJobs.RESOURCE
+            ), Arrays.asList(
+                (Job) new FakeJob(), new FakeJob(), new FakeJob()
+            )
+        );
     }
 
     /**
@@ -56,7 +67,35 @@ public final class FakeJobs implements Jobs {
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeJobs(final XML xml) {
+        this(
+            xml, Arrays.asList(
+                (Job) new FakeJob(), new FakeJob(), new FakeJob()
+            )
+        );
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param jobs Fake jobs list that will be returned in iterator() method.
+     */
+    public FakeJobs(final List<Job> jobs) {
+        this(
+            new XMLResource(
+                FakeJobs.RESOURCE
+            ), jobs
+        );
+    }
+
+    /**
+     * Primary ctor.
+     *
+     * @param xml XML content that should be returned in xml() method.
+     * @param jobs Fake jobs list that will be returned in iterator() method.
+     */
+    public FakeJobs(final XML xml, final List<Job> jobs) {
         this.content = xml;
+        this.iterable = jobs;
     }
 
     /**
@@ -64,15 +103,9 @@ public final class FakeJobs implements Jobs {
      *
      * @return Iterator of jobs.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #32.
      */
     public Iterator<Job> iterator() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "iterator() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.iterable.iterator();
     }
 
     /**

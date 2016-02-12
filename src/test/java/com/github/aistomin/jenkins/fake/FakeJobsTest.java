@@ -15,6 +15,11 @@
  */
 package com.github.aistomin.jenkins.fake;
 
+import com.github.aistomin.jenkins.Job;
+import com.github.aistomin.xml.XMLString;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,6 +31,33 @@ import org.junit.Test;
  * @since 0.1
  */
 public final class FakeJobsTest {
+
+    /**
+     * Can create fake jobs using fake XML.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanCreateWithXML() throws Exception {
+        final String xml = "<jobs></jobs>";
+        Assert.assertEquals(xml, new FakeJobs(new XMLString(xml)).xml());
+    }
+
+    /**
+     * Can create fake jobs using fake list of jobs.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanCreateWithJobs() throws Exception {
+        final List<Job> expected = new ArrayList<Job>(2);
+        expected.add(new FakeJob());
+        expected.add(new FakeJob());
+        final Iterator<Job> got = new FakeJobs(expected).iterator();
+        Assert.assertEquals(expected.get(0), got.next());
+        Assert.assertEquals(expected.get(1), got.next());
+        Assert.assertFalse(got.hasNext());
+    }
 
     /**
      * Can read fake jobs' XML.
@@ -41,5 +73,19 @@ public final class FakeJobsTest {
         Assert.assertTrue(
             xml.contains("<displayName>test-disabled-job</displayName>")
         );
+    }
+
+    /**
+     * Can iterate through jobs.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanIterate() throws Exception {
+        final Iterator<Job> iterator = new FakeJobs().iterator();
+        Assert.assertNotNull(iterator.next());
+        Assert.assertNotNull(iterator.next());
+        Assert.assertNotNull(iterator.next());
+        Assert.assertFalse(iterator.hasNext());
     }
 }

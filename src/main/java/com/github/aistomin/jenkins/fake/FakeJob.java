@@ -45,10 +45,8 @@ public final class FakeJob implements Job {
 
     /**
      * Default ctor.
-     *
-     * @throws Exception If reading XML was not successful.
      */
-    public FakeJob() throws Exception {
+    public FakeJob() {
         this(new XMLResource(FakeJob.RESOURCE));
     }
 
