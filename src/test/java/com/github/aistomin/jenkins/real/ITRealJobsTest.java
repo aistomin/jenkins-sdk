@@ -55,6 +55,19 @@ public final class ITRealJobsTest {
         final Iterator<Job> jobs = new TestJenkins().jobs().iterator();
         Assert.assertEquals("test-different-builds-job", jobs.next().name());
         Assert.assertEquals("test-disabled-job", jobs.next().name());
-        Assert.assertEquals("test-parametrised-job", jobs.next().name());
+    }
+
+    /**
+     * Can find Jenkins jobs by name.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanFindByName() throws Exception {
+        final String name = "test-parametrised-job";
+        final Iterator<Job> found = new TestJenkins().jobs()
+            .findByName(name);
+        Assert.assertEquals(name, found.next().name());
+        Assert.assertFalse(found.hasNext());
     }
 }

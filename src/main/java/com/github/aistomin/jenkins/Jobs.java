@@ -39,6 +39,7 @@ public interface Jobs extends APIObject {
      *
      * @param name Job's name.
      * @return Job.
+     * @throws Exception If error occurred.
      */
-    Job findByName(String name);
+    Iterator<Job> findByName(String name) throws Exception;
 }

@@ -80,9 +80,10 @@ public final class FakeJobs implements Jobs {
      *
      * @param name Job's name.
      * @return Job.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #33.
      */
-    public Job findByName(final String name) {
+    public Iterator<Job> findByName(final String name) throws Exception {
         throw new NotImplementedException(
             String.format(
                 "findByName() method is not implemented for %s.",

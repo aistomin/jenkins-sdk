@@ -24,7 +24,6 @@ import com.jcabi.xml.XMLDocument;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' jobs.
@@ -63,11 +62,9 @@ public final class RealJobs implements Jobs {
      * @throws Exception If error occurred.
      */
     public Iterator<Job> iterator() throws Exception {
-        final List<String> jobs = new XMLDocument(this.xml())
-            .xpath("//job/displayName/text()");
-        Collections.sort(jobs, String.CASE_INSENSITIVE_ORDER);
         return new EntityIterator<Job, String>(
-            jobs.iterator(), new RealJob.Transformer(this.api, this.creds)
+            RealJobs.parseJobs(this.xml()).iterator(),
+            new RealJob.Transformer(this.api, this.creds)
         );
     }
 
@@ -76,14 +73,20 @@ public final class RealJobs implements Jobs {
      *
      * @param name Job's name.
      * @return Job.
-     * @todo: Let's implement this method and solve Issue #31.
+     * @throws Exception If error occurred.
      */
-    public Job findByName(final String name) {
-        throw new NotImplementedException(
-            String.format(
-                "findByName() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+    public Iterator<Job> findByName(final String name) throws Exception {
+        return new EntityIterator<Job, String>(
+            RealJobs.parseJobs(
+                new PostRequest(
+                    this.url(
+                        String.format(
+                            "&xpath=hudson/job[displayName='%s']&wrapper=jobs",
+                            name
+                        )
+                    ), this.creds.headers()
+                ).execute()
+            ).iterator(), new RealJob.Transformer(this.api, this.creds)
         );
     }
 
@@ -94,17 +97,32 @@ public final class RealJobs implements Jobs {
      * @throws Exception If something goes wrong.
      */
     public String xml() throws Exception {
-        return new PostRequest(this.request(), this.creds.headers()).execute();
+        return new PostRequest(
+            this.url("&xpath=hudson/job&wrapper=jobs"), this.creds.headers()
+        ).execute();
     }
 
     /**
-     * Creates API URL to request Jenkins' jobs data.
-     *
+     * Create full Jenkins API URL.
+     * @param path URL path.
      * @return URL string.
      */
-    private String request() {
-        return String.format(
-            "%s%s", this.api, "&xpath=hudson/job&wrapper=jobs"
+    private String url(final String path) {
+        return String.format("%s%s", this.api, path);
+    }
+
+    /**
+     * Parse jobs from XML.
+     *
+     * @param xml XML string.
+     * @return Parsed job names.
+     * @throws Exception If something goes wrong.
+     */
+    private static List<String> parseJobs(final String xml) throws Exception {
+        final List<String> jobs = new XMLDocument(xml).xpath(
+            "//job/displayName/text()"
         );
+        Collections.sort(jobs, String.CASE_INSENSITIVE_ORDER);
+        return jobs;
     }
 }
