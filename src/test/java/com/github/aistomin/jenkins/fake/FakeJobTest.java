@@ -16,6 +16,7 @@
 package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.xml.XMLString;
+import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -29,6 +30,19 @@ import org.junit.Test;
 public final class FakeJobTest {
 
     /**
+     * Can create fake instances providing only job's name.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanCreateWithName() throws Exception {
+        final String name = UUID.randomUUID().toString();
+        final FakeJob job = new FakeJob(name);
+        Assert.assertEquals(name, job.name());
+        Assert.assertNotNull(job.xml());
+    }
+
+    /**
      * Can create fake instances providing only XML.
      *
      * @throws Exception If something goes wrong.
@@ -36,9 +50,9 @@ public final class FakeJobTest {
     @Test
     public void testCanCreateWithXML() throws Exception {
         final String xml = "<job><id><displayName>test</displayName></job>";
-        Assert.assertEquals(
-            xml, new FakeJob(new XMLString(xml)).xml()
-        );
+        final FakeJob job = new FakeJob(new XMLString(xml));
+        Assert.assertEquals(xml, job.xml());
+        Assert.assertNotNull(job.name());
     }
 
     /**
@@ -54,5 +68,15 @@ public final class FakeJobTest {
             xml.contains("<displayName>test-different-builds-job</displayName>")
         );
         Assert.assertTrue(xml.endsWith("</job>"));
+    }
+
+    /**
+     * Can read Fake job's name.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadName() throws Exception {
+        Assert.assertTrue(new FakeJob().name().startsWith("job"));
     }
 }

@@ -39,6 +39,11 @@ public final class FakeJob implements Job {
     private static final String RESOURCE = "job.xml";
 
     /**
+     * Unique job identifier.
+     */
+    private final transient String identifier;
+
+    /**
      * XML content that should be returned in xml() method.
      */
     private final transient XML content;
@@ -47,7 +52,7 @@ public final class FakeJob implements Job {
      * Default ctor.
      */
     public FakeJob() {
-        this(new XMLResource(FakeJob.RESOURCE));
+        this(FakeJob.defaultName(), new XMLResource(FakeJob.RESOURCE));
     }
 
     /**
@@ -56,6 +61,26 @@ public final class FakeJob implements Job {
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeJob(final XML xml) {
+        this(FakeJob.defaultName(), xml);
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param name Job name.
+     */
+    public FakeJob(final String name) {
+        this(name, new XMLResource(FakeJob.RESOURCE));
+    }
+
+    /**
+     * Primary ctor.
+     *
+     * @param name Job name.
+     * @param xml XML content that should be returned in xml() method.
+     */
+    public FakeJob(final String name, final XML xml) {
+        this.identifier = name;
         this.content = xml;
     }
 
@@ -64,15 +89,9 @@ public final class FakeJob implements Job {
      *
      * @return Job name.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #113.
      */
     public String name() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "name() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.identifier;
     }
 
     /**
@@ -145,5 +164,13 @@ public final class FakeJob implements Job {
      */
     public String xml() throws Exception {
         return this.content.content();
+    }
+
+    /**
+     * Construct default job name.
+     * @return Default job name.
+     */
+    private static String defaultName() {
+        return String.format("job%d", System.currentTimeMillis());
     }
 }
