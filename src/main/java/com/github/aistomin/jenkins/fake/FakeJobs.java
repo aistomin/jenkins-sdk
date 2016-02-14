@@ -19,10 +19,10 @@ import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.Jobs;
 import com.github.aistomin.xml.XML;
 import com.github.aistomin.xml.XMLResource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake Jenkins' jobs for tests.
@@ -114,15 +114,15 @@ public final class FakeJobs implements Jobs {
      * @param name Job's name.
      * @return Job.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #33.
      */
     public Iterator<Job> findByName(final String name) throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "findByName() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        final List<Job> result = new ArrayList<Job>(1);
+        for (final Job job : this.iterable) {
+            if (name.equals(job.name())) {
+                result.add(job);
+            }
+        }
+        return result.iterator();
     }
 
     /**

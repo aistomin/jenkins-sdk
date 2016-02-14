@@ -88,4 +88,20 @@ public final class FakeJobsTest {
         Assert.assertNotNull(iterator.next());
         Assert.assertFalse(iterator.hasNext());
     }
+
+    /**
+     * Can find job by name.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanFindByName() throws Exception {
+        final List<Job> jobs = new ArrayList<Job>(2);
+        jobs.add(new FakeJob("job1"));
+        final String name = "job2";
+        jobs.add(new FakeJob(name));
+        final Iterator<Job> found = new FakeJobs(jobs).findByName(name);
+        Assert.assertEquals(name, found.next().name());
+        Assert.assertFalse(found.hasNext());
+    }
 }
