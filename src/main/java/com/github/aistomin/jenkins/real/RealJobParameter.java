@@ -16,6 +16,7 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.JobParameter;
+import com.github.aistomin.xml.XML;
 
 /**
  * Jenkins job parameter.
@@ -27,58 +28,45 @@ import com.github.aistomin.jenkins.JobParameter;
 public final class RealJobParameter implements JobParameter {
 
     /**
-     * Parameter's name.
+     * XML content of build details.
      */
-    private final transient String parameter;
-
-    /**
-     * Parameter's type.
-     */
-    private final transient String clazz;
-
-    /**
-     * Parameter's description.
-     */
-    private final transient String desc;
+    private final transient XML content;
 
     /**
      * Ctor.
-     * @param name Parameter's name.
-     * @param type Parameter's type.
-     * @param description Parameter's description.
+     * @param xml XML content of build details.
      */
-    public RealJobParameter(
-        final String name, final String type, final String description
-    ) {
-        this.parameter = name;
-        this.clazz = type;
-        this.desc = description;
+    public RealJobParameter(final XML xml) {
+        this.content = xml;
     }
 
     /**
      * Parameter's name.
      *
      * @return Parameter's name.
+     * @throws Exception If error occurred.
      */
-    public String name() {
-        return this.parameter;
+    public String name() throws Exception {
+        return this.content.field("//parameterDefinition/name/text()");
     }
 
     /**
      * Parameter's type.
      *
      * @return Parameter's type.
+     * @throws Exception If error occurred.
      */
-    public String type() {
-        return this.clazz;
+    public String type() throws Exception {
+        return this.content.field("//parameterDefinition/type/text()");
     }
 
     /**
      * Parameter's description.
      *
      * @return Parameter's description.
+     * @throws Exception If error occurred.
      */
-    public String description() {
-        return this.desc;
+    public String description() throws Exception {
+        return this.content.field("//parameterDefinition/description/text()");
     }
 }

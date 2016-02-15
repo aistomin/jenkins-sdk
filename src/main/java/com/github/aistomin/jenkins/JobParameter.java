@@ -28,19 +28,23 @@ public interface JobParameter {
      * Parameter's name.
      *
      * @return Parameter's name.
+     * @throws Exception If error occurred.
      */
-    String name();
+    String name() throws Exception;
 
     /**
      * Parameter's type.
      *
      * @return Parameter's type.
+     * @throws Exception If error occurred.
      */
-    String type();
+    String type() throws Exception;
 
     /**
      * Parameter's description.
+     *
      * @return Parameter's description.
+     * @throws Exception If error occurred.
      */
-    String description();
+    String description() throws Exception;
 }

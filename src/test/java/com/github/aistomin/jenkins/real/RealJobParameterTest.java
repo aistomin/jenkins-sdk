@@ -16,6 +16,7 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.JobParameter;
+import com.github.aistomin.xml.XMLString;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -34,14 +35,22 @@ public final class RealJobParameterTest {
      */
     @Test
     public void testCanRead() throws Exception {
-        final String name = "some_parameter";
-        final String description = "My cool parameter";
-        final String type = "StringParameterDefinition";
         final JobParameter parameter = new RealJobParameter(
-            name, type, description
+            new XMLString(
+                new StringBuilder()
+                    .append("<parameterDefinition>")
+                    .append("<defaultParameterValue>")
+                    .append("<name>niceParameter</name><value/>")
+                    .append("</defaultParameterValue>")
+                    .append("<description>Nice parameter</description>")
+                    .append("<name>niceParameter</name>")
+                    .append("<type>StringParameterDefinition</type>")
+                    .append("</parameterDefinition>")
+                    .toString()
+            )
         );
-        Assert.assertEquals(name, parameter.name());
-        Assert.assertEquals(description, parameter.description());
-        Assert.assertEquals(type, parameter.type());
+        Assert.assertEquals("niceParameter", parameter.name());
+        Assert.assertEquals("Nice parameter", parameter.description());
+        Assert.assertEquals("StringParameterDefinition", parameter.type());
     }
 }
