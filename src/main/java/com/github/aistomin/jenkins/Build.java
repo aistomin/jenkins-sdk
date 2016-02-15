@@ -30,34 +30,39 @@ public interface Build extends APIObject {
      * Build's number.
      *
      * @return Build number.
+     * @throws Exception If error occurred.
      */
-    String number();
+    String number() throws Exception;
 
     /**
      * Build's result.
      *
      * @return Build's result.
+     * @throws Exception If error occurred.
      */
-    BuildResult result();
+    BuildResult result() throws Exception;
 
     /**
      * Build's date.
      *
      * @return Build's date.
+     * @throws Exception If error occurred.
      */
-    Date date();
+    Date date() throws Exception;
 
     /**
      * Build's URL.
      *
      * @return URL string.
+     * @throws Exception If error occurred.
      */
-    String url();
+    String url() throws Exception;
 
     /**
      * Build's details.
      *
      * @return Build's details.
+     * @throws Exception If error occurred.
      */
-    BuildDetails details();
+    BuildDetails details() throws Exception;
 }

@@ -63,11 +63,11 @@ public final class RealBuilds implements Builds {
      * @throws Exception If reading the builds was not successful.
      */
     public Iterator<Build> iterator() throws Exception {
-        final List<String> jobs = new XMLDocument(this.xml())
+        final List<String> builds = new XMLDocument(this.xml())
             .xpath("//build/displayName/text()");
-        Collections.sort(jobs, String.CASE_INSENSITIVE_ORDER);
+        Collections.sort(builds, String.CASE_INSENSITIVE_ORDER);
         return new EntityIterator<Build, String>(
-            jobs.iterator(), new RealBuild.Transformer(this.api, this.creds)
+            builds.iterator(), new RealBuild.Transformer(this.api, this.creds)
         );
     }
 

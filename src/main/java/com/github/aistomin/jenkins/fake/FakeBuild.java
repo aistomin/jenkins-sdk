@@ -64,9 +64,10 @@ public final class FakeBuild implements Build {
      * Fake build's number.
      *
      * @return Build number.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #151.
      */
-    public String number() {
+    public String number() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "number() method is not implemented for %s.",
@@ -79,9 +80,10 @@ public final class FakeBuild implements Build {
      * Fake build's result.
      *
      * @return Build's result.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #152.
      */
-    public BuildResult result() {
+    public BuildResult result() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "result() method is not implemented for %s.",
@@ -94,9 +96,10 @@ public final class FakeBuild implements Build {
      * Fake build's date.
      *
      * @return Build's date.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #153.
      */
-    public Date date() {
+    public Date date() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "date() method is not implemented for %s.",
@@ -109,9 +112,10 @@ public final class FakeBuild implements Build {
      * Fake build's URL.
      *
      * @return URL string.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #154.
      */
-    public String url() {
+    public String url() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "url() method is not implemented for %s.",
@@ -124,9 +128,10 @@ public final class FakeBuild implements Build {
      * Fake build's details.
      *
      * @return Build's details.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #155.
      */
-    public BuildDetails details() {
+    public BuildDetails details() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "details() method is not implemented for %s.",

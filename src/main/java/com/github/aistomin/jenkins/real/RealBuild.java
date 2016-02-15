@@ -21,6 +21,7 @@ import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.jenkins.BuildResult;
 import com.github.aistomin.jenkins.Credentials;
+import com.github.aistomin.xml.XMLString;
 import java.net.URLEncoder;
 import java.util.Date;
 import org.apache.commons.lang3.NotImplementedException;
@@ -67,8 +68,9 @@ public final class RealBuild implements Build {
      * Build's number.
      *
      * @return Build number.
+     * @throws Exception If error occurred.
      */
-    public String number() {
+    public String number() throws Exception {
         return this.identifier;
     }
 
@@ -76,9 +78,10 @@ public final class RealBuild implements Build {
      * Build's result.
      *
      * @return Build's result.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #158.
      */
-    public BuildResult result() {
+    public BuildResult result() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "result() method is not implemented for %s.",
@@ -91,9 +94,10 @@ public final class RealBuild implements Build {
      * Build's date.
      *
      * @return Build's date.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #159.
      */
-    public Date date() {
+    public Date date() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "date() method is not implemented for %s.",
@@ -106,9 +110,10 @@ public final class RealBuild implements Build {
      * Build's URL.
      *
      * @return URL string.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #160.
      */
-    public String url() {
+    public String url() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "url() method is not implemented for %s.",
@@ -121,15 +126,10 @@ public final class RealBuild implements Build {
      * Build's details.
      *
      * @return Build's details.
-     * @todo: Let's implement this method and solve Issue #161.
+     * @throws Exception If error occurred.
      */
-    public BuildDetails details() {
-        throw new NotImplementedException(
-            String.format(
-                "details() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+    public BuildDetails details() throws Exception {
+        return new RealBuildDetails(new XMLString(this.xml()));
     }
 
     /**

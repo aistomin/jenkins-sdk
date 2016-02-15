@@ -15,6 +15,7 @@
  */
 package com.github.aistomin.jenkins.real;
 
+import com.github.aistomin.jenkins.BuildDetails;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -52,6 +53,20 @@ public final class ITRealBuildTest {
             "#1",
             new TestJenkins().jobs().iterator().next().builds().iterator()
                 .next().number()
+        );
+    }
+
+    /**
+     * Can read build's details.
+     *
+     * @throws Exception If something happened.
+     */
+    @Test
+    public void testCanReadDetails() throws Exception {
+        final BuildDetails details = new TestJenkins().jobs().iterator().next()
+            .builds().iterator().next().details();
+        Assert.assertEquals(
+            "test-different-builds-job #1", details.fullDisplayName()
         );
     }
 }
