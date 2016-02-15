@@ -26,8 +26,18 @@ public interface XML {
 
     /**
      * XML string content.
+     *
      * @return XML string.
      * @throws Exception If reading XML was not successful.
      */
     String content() throws Exception;
+
+    /**
+     * Search field value by XPath.
+     *
+     * @param xpath XPath.
+     * @return Field's value.
+     * @throws Exception If reading XML was not successful.
+     */
+    String field(String xpath) throws Exception;
 }

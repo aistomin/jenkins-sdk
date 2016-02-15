@@ -15,6 +15,9 @@
  */
 package com.github.aistomin.xml;
 
+import com.jcabi.xml.XMLDocument;
+import java.util.List;
+
 /**
  * XML string.
  *
@@ -44,5 +47,23 @@ public final class XMLString implements XML {
      */
     public String content() throws Exception {
         return this.string;
+    }
+
+    /**
+     * Search field value by XPath.
+     *
+     * @param xpath XPath.
+     * @return Field's value.
+     * @throws Exception If reading XML was not successful.
+     */
+    public String field(final String xpath) throws Exception {
+        final List<String> values = new XMLDocument(this.string)
+            .xpath(xpath);
+        if (values.size() != 1) {
+            throw new IllegalStateException(
+                "Field not found in build's XML."
+            );
+        }
+        return values.get(0);
     }
 }

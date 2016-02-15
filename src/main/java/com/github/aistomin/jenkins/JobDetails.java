@@ -28,20 +28,23 @@ public interface JobDetails {
      * Job's display name.
      *
      * @return Display name.
+     * @throws Exception If error occurred.
      */
-    String displayName();
+    String displayName() throws Exception;
 
     /**
      * Job's description.
      *
      * @return Description.
+     * @throws Exception If error occurred.
      */
-    String description();
+    String description() throws Exception;
 
     /**
      * Is job buildable?
      *
      * @return Is job buildable?
+     * @throws Exception If error occurred.
      */
-    Boolean buildable();
+    Boolean buildable() throws Exception;
 }

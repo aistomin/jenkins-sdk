@@ -17,8 +17,6 @@ package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.xml.XML;
-import com.jcabi.xml.XMLDocument;
-import java.util.List;
 
 /**
  * Jenkins' job build details like: display name, url, duration etc.
@@ -50,7 +48,7 @@ public final class RealBuildDetails implements BuildDetails {
      * @throws Exception If error occurred.
      */
     public String fullDisplayName() throws Exception {
-        return this.xmlField("//build/fullDisplayName/text()");
+        return this.content.field("//build/fullDisplayName/text()");
     }
 
     /**
@@ -60,7 +58,7 @@ public final class RealBuildDetails implements BuildDetails {
      * @throws Exception If error occurred.
      */
     public String displayName() throws Exception {
-        return this.xmlField("//build/displayName/text()");
+        return this.content.field("//build/displayName/text()");
     }
 
     /**
@@ -71,7 +69,7 @@ public final class RealBuildDetails implements BuildDetails {
      */
     public Long estimated() throws Exception {
         return Long.parseLong(
-            this.xmlField("//build/estimatedDuration/text()")
+            this.content.field("//build/estimatedDuration/text()")
         );
     }
 
@@ -82,7 +80,7 @@ public final class RealBuildDetails implements BuildDetails {
      * @throws Exception If error occurred.
      */
     public Long duration() throws Exception {
-        return Long.parseLong(this.xmlField("//build/duration/text()"));
+        return Long.parseLong(this.content.field("//build/duration/text()"));
     }
 
     /**
@@ -92,7 +90,9 @@ public final class RealBuildDetails implements BuildDetails {
      * @throws Exception If error occurred.
      */
     public Boolean building() throws Exception {
-        return Boolean.parseBoolean(this.xmlField("//build/building/text()"));
+        return Boolean.parseBoolean(
+            this.content.field("//build/building/text()")
+        );
     }
 
     /**
@@ -102,24 +102,6 @@ public final class RealBuildDetails implements BuildDetails {
      * @throws Exception If error occurred.
      */
     public Long queue() throws Exception {
-        return Long.parseLong(this.xmlField("//build/queueId/text()"));
-    }
-
-    /**
-     * Load field value from XML.
-     *
-     * @param xpath XML xpath.
-     * @return Field's value.
-     * @throws Exception If error occurred.
-     */
-    private String xmlField(final String xpath) throws Exception {
-        final List<String> values = new XMLDocument(this.content.content())
-            .xpath(xpath);
-        if (values.size() != 1) {
-            throw new IllegalStateException(
-                "Field not found in build's XML."
-            );
-        }
-        return values.get(0);
+        return Long.parseLong(this.content.field("//build/queueId/text()"));
     }
 }

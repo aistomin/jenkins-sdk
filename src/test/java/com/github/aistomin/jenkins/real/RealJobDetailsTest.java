@@ -16,7 +16,7 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.JobDetails;
-import java.util.Random;
+import com.github.aistomin.xml.XMLResource;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -36,14 +36,13 @@ public final class RealJobDetailsTest {
      */
     @Test
     public void testCanReadDetails() throws Exception {
-        final String name = "my-job";
-        final String description = "My cool job.";
-        final Boolean buildable = new Random().nextBoolean();
         final JobDetails details = new RealJobDetails(
-            name, description, buildable
+            new XMLResource("job.xml")
         );
-        Assert.assertEquals(name, details.displayName());
-        Assert.assertEquals(description, details.description());
-        Assert.assertEquals(buildable, details.buildable());
+        Assert.assertEquals("test-different-builds-job", details.displayName());
+        Assert.assertEquals(
+            "This job we use for testing builds.", details.description()
+        );
+        Assert.assertTrue(details.buildable());
     }
 }

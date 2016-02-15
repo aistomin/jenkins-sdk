@@ -16,6 +16,7 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.JobDetails;
+import com.github.aistomin.xml.XML;
 
 /**
  * Jenkins job details like: display name, description etc.
@@ -27,60 +28,48 @@ import com.github.aistomin.jenkins.JobDetails;
 public final class RealJobDetails implements JobDetails {
 
     /**
-     * Job's display name.
+     * XML content of build details.
      */
-    private final transient String display;
-
-    /**
-     * Job's description.
-     */
-    private final transient String desc;
-
-    /**
-     * Is job buildable?
-     */
-    private final transient Boolean enabled;
+    private final transient XML content;
 
     /**
      * Ctor.
      *
-     * @param name Job's display name.
-     * @param description Job's description.
-     * @param buildable Is job buildable?
+     * @param xml XML content of build details.
      */
-    public RealJobDetails(
-        final String name, final String description,
-        final Boolean buildable
-    ) {
-        this.display = name;
-        this.desc = description;
-        this.enabled = buildable;
+    public RealJobDetails(final XML xml) {
+        this.content = xml;
     }
 
     /**
      * Job's display name.
      *
      * @return Display name.
+     * @throws Exception If error occurred.
      */
-    public String displayName() {
-        return this.display;
+    public String displayName() throws Exception {
+        return this.content.field("//job/displayName/text()");
     }
 
     /**
      * Job's description.
      *
      * @return Description.
+     * @throws Exception If error occurred.
      */
-    public String description() {
-        return this.desc;
+    public String description() throws Exception {
+        return this.content.field("//job/description/text()");
     }
 
     /**
      * Is job buildable?
      *
      * @return Is job buildable.
+     * @throws Exception If error occurred.
      */
-    public Boolean buildable() {
-        return this.enabled;
+    public Boolean buildable() throws Exception {
+        return Boolean.parseBoolean(
+            this.content.field("//job/buildable/text()")
+        );
     }
 }

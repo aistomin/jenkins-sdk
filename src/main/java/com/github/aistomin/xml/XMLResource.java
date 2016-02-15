@@ -15,6 +15,8 @@
  */
 package com.github.aistomin.xml;
 
+import com.jcabi.xml.XMLDocument;
+import java.util.List;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -49,5 +51,23 @@ public final class XMLResource implements XML {
             Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream(this.name)
         );
+    }
+
+    /**
+     * Search field value by XPath.
+     *
+     * @param xpath XPath.
+     * @return Field's value.
+     * @throws Exception If reading XML was not successful.
+     */
+    public String field(final String xpath) throws Exception {
+        final List<String> values = new XMLDocument(this.content())
+            .xpath(xpath);
+        if (values.size() != 1) {
+            throw new IllegalStateException(
+                "Field not found in build's XML."
+            );
+        }
+        return values.get(0);
     }
 }
