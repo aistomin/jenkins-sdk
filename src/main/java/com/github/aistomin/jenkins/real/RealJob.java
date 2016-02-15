@@ -22,6 +22,7 @@ import com.github.aistomin.jenkins.Credentials;
 import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.JobDetails;
 import com.github.aistomin.jenkins.JobParameter;
+import com.github.aistomin.xml.XMLString;
 import java.net.URLEncoder;
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
@@ -79,24 +80,20 @@ public final class RealJob implements Job {
      * Job details.
      *
      * @return Job details.
-     * @todo: Let's implement this method and solve Issue #46.
+     * @throws Exception If something goes wrong.
      */
-    public JobDetails details() {
-        throw new NotImplementedException(
-            String.format(
-                "details() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+    public JobDetails details() throws Exception {
+        return new RealJobDetails(new XMLString(this.xml()));
     }
 
     /**
      * Job URL.
      *
      * @return Job URL.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #45.
      */
-    public String url() {
+    public String url() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "url() method is not implemented for %s.",
@@ -119,9 +116,10 @@ public final class RealJob implements Job {
      * Job parameters.
      *
      * @return Job's parameters.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #43.
      */
-    public Iterator<JobParameter> parameters() {
+    public Iterator<JobParameter> parameters() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "parameters() method is not implemented for %s.",

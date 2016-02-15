@@ -15,6 +15,7 @@
  */
 package com.github.aistomin.jenkins.real;
 
+import com.github.aistomin.jenkins.JobDetails;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -52,5 +53,21 @@ public final class ITRealJobTest {
         Assert.assertNotNull(
             new TestJenkins().jobs().iterator().next().builds()
         );
+    }
+
+    /**
+     * Can read job's details.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadJobDetails() throws Exception {
+        final JobDetails details = new TestJenkins().jobs().iterator().next()
+            .details();
+        Assert.assertEquals("test-different-builds-job", details.displayName());
+        Assert.assertEquals(
+            "This job we use for testing builds.", details.description()
+        );
+        Assert.assertTrue(details.buildable());
     }
 }

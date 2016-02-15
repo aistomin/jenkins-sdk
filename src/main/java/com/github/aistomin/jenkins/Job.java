@@ -38,15 +38,17 @@ public interface Job extends APIObject {
      * Job details.
      *
      * @return Job details.
+     * @throws Exception If something goes wrong.
      */
-    JobDetails details();
+    JobDetails details() throws Exception;
 
     /**
      * Job URL.
      *
      * @return URL string.
+     * @throws Exception If something goes wrong.
      */
-    String url();
+    String url() throws Exception;
 
     /**
      * Job builds.
@@ -60,6 +62,7 @@ public interface Job extends APIObject {
      * Job parameters.
      *
      * @return Job's parameters.
+     * @throws Exception If something goes wrong.
      */
-    Iterator<JobParameter> parameters();
+    Iterator<JobParameter> parameters() throws Exception;
 }

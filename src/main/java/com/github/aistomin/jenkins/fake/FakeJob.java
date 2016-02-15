@@ -98,9 +98,10 @@ public final class FakeJob implements Job {
      * Fake job details.
      *
      * @return Job details.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #54.
      */
-    public JobDetails details() {
+    public JobDetails details() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "details() method is not implemented for %s.",
@@ -113,9 +114,10 @@ public final class FakeJob implements Job {
      * Fake job URL.
      *
      * @return URL string.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #55.
      */
-    public String url() {
+    public String url() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "url() method is not implemented for %s.",
@@ -144,9 +146,10 @@ public final class FakeJob implements Job {
      * Fake job parameters.
      *
      * @return Job's parameters.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #57.
      */
-    public Iterator<JobParameter> parameters() {
+    public Iterator<JobParameter> parameters() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "parameters() method is not implemented for %s.",
