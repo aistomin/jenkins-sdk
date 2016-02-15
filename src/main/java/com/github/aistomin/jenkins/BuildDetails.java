@@ -28,41 +28,47 @@ public interface BuildDetails {
      * Build's full display name.
      *
      * @return Full display name.
+     * @throws Exception If error occurred.
      */
-    String fullDisplayName();
+    String fullDisplayName() throws Exception;
 
     /**
      * Build's display name.
      *
      * @return Display name.
+     * @throws Exception If error occurred.
      */
-    String displayName();
+    String displayName() throws Exception;
 
     /**
      * Build's estimated duration in milliseconds.
      *
      * @return Build's estimated duration.
+     * @throws Exception If error occurred.
      */
-    Long estimated();
+    Long estimated() throws Exception;
 
     /**
      * Build's duration in milliseconds.
      *
      * @return Build's duration.
+     * @throws Exception If error occurred.
      */
-    Long duration();
+    Long duration() throws Exception;
 
     /**
      * Is build in process?
      *
      * @return Is build in process?
+     * @throws Exception If error occurred.
      */
-    Boolean building();
+    Boolean building() throws Exception;
 
     /**
      * Build's queue ID.
      *
      * @return Queue ID.
+     * @throws Exception If error occurred.
      */
-    Long queue();
+    Long queue() throws Exception;
 }

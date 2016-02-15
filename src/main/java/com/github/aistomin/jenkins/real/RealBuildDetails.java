@@ -16,6 +16,9 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
+import com.github.aistomin.xml.XML;
+import com.jcabi.xml.XMLDocument;
+import java.util.List;
 
 /**
  * Jenkins' job build details like: display name, url, duration etc.
@@ -27,109 +30,96 @@ import com.github.aistomin.jenkins.BuildDetails;
 public final class RealBuildDetails implements BuildDetails {
 
     /**
-     * Full display name.
+     * XML content of build details.
      */
-    private final transient String fname;
-
-    /**
-     * Normal display name.
-     */
-    private final transient String nname;
-
-    /**
-     * Estimated duration in milliseconds.
-     */
-    private final transient Long est;
-
-    /**
-     * Duration in milliseconds.
-     */
-    private final transient Long dur;
-
-    /**
-     * Is build in process?
-     */
-    private final transient Boolean inproc;
-
-    /**
-     * Build's queue ID.
-     */
-    private final transient Long number;
+    private final transient XML content;
 
     /**
      * Ctor.
      *
-     * @param full Full display name.
-     * @param normal Normal display name.
-     * @param estimation Estimated duration in milliseconds.
-     * @param duration Duration in milliseconds.
-     * @param building Is build in process?
-     * @param queue Build's queue ID.
-     * @checkstyle ParameterNumberCheck (50 lines)
+     * @param xml XML content of build details.
      */
-    public RealBuildDetails(
-        final String full, final String normal, final Long estimation,
-        final Long duration, final Boolean building, final Long queue
-    ) {
-        this.fname = full;
-        this.nname = normal;
-        this.est = estimation;
-        this.dur = duration;
-        this.inproc = building;
-        this.number = queue;
+    public RealBuildDetails(final XML xml) {
+        this.content = xml;
     }
 
     /**
      * Build's full display name.
      *
      * @return Full display name.
+     * @throws Exception If error occurred.
      */
-    public String fullDisplayName() {
-        return this.fname;
+    public String fullDisplayName() throws Exception {
+        return this.xmlField("//build/fullDisplayName/text()");
     }
 
     /**
      * Build's display name.
      *
      * @return Display name.
+     * @throws Exception If error occurred.
      */
-    public String displayName() {
-        return this.nname;
+    public String displayName() throws Exception {
+        return this.xmlField("//build/displayName/text()");
     }
 
     /**
      * Build's estimated duration in milliseconds.
      *
      * @return Build's estimated duration.
+     * @throws Exception If error occurred.
      */
-    public Long estimated() {
-        return this.est;
+    public Long estimated() throws Exception {
+        return Long.parseLong(
+            this.xmlField("//build/estimatedDuration/text()")
+        );
     }
 
     /**
      * Build's duration in milliseconds.
      *
      * @return Build's duration.
+     * @throws Exception If error occurred.
      */
-    public Long duration() {
-        return this.dur;
+    public Long duration() throws Exception {
+        return Long.parseLong(this.xmlField("//build/duration/text()"));
     }
 
     /**
      * Is build in process?
      *
      * @return Is build in process?
+     * @throws Exception If error occurred.
      */
-    public Boolean building() {
-        return this.inproc;
+    public Boolean building() throws Exception {
+        return Boolean.parseBoolean(this.xmlField("//build/building/text()"));
     }
 
     /**
      * Build's queue ID.
      *
      * @return Queue ID.
+     * @throws Exception If error occurred.
      */
-    public Long queue() {
-        return this.number;
+    public Long queue() throws Exception {
+        return Long.parseLong(this.xmlField("//build/queueId/text()"));
+    }
+
+    /**
+     * Load field value from XML.
+     *
+     * @param xpath XML xpath.
+     * @return Field's value.
+     * @throws Exception If error occurred.
+     */
+    private String xmlField(final String xpath) throws Exception {
+        final List<String> values = new XMLDocument(this.content.content())
+            .xpath(xpath);
+        if (values.size() != 1) {
+            throw new IllegalStateException(
+                "Field not found in build's XML."
+            );
+        }
+        return values.get(0);
     }
 }

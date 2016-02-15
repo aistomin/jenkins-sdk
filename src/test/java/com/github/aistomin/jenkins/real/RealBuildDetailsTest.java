@@ -16,7 +16,7 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
-import java.util.Random;
+import com.github.aistomin.xml.XMLResource;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -35,22 +35,17 @@ public final class RealBuildDetailsTest {
      * @throws Exception If something is not OK.
      */
     @Test
-    public void testCnReadDetails() throws Exception {
-        final Random random = new Random();
-        final String full = "full job name";
-        final String normal = "normal job name";
-        final Long estimation = Math.abs(random.nextLong());
-        final Long duration = Math.abs(random.nextLong());
-        final Boolean building = random.nextBoolean();
-        final Long queue = Math.abs(random.nextLong());
+    public void testCanReadDetails() throws Exception {
         final BuildDetails details = new RealBuildDetails(
-            full, normal, estimation, duration, building, queue
+            new XMLResource("build.xml")
         );
-        Assert.assertEquals(full, details.fullDisplayName());
-        Assert.assertEquals(normal, details.displayName());
-        Assert.assertEquals(estimation, details.estimated());
-        Assert.assertEquals(duration, details.duration());
-        Assert.assertEquals(building, details.building());
-        Assert.assertEquals(queue, details.queue());
+        Assert.assertEquals(
+            "test-different-builds-job #1", details.fullDisplayName()
+        );
+        Assert.assertEquals("#1", details.displayName());
+        Assert.assertEquals(Long.parseLong("389"), (long) details.estimated());
+        Assert.assertEquals(Long.parseLong("687"), (long) details.duration());
+        Assert.assertFalse(details.building());
+        Assert.assertEquals(1L, (long) details.queue());
     }
 }
