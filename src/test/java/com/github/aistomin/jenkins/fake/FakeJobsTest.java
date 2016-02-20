@@ -16,7 +16,7 @@
 package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.Job;
-import com.github.aistomin.xml.XmlString;
+import com.github.aistomin.xml.Xml1String;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -43,7 +43,7 @@ public final class FakeJobsTest {
     public void testCanCreateWithXml() throws Exception {
         final String xml = "<jobs></jobs>";
         MatcherAssert.assertThat(
-            new FakeJobs(new XmlString(xml)).xml(), new IsEqual<String>(xml)
+            new FakeJobs(new Xml1String(xml)).xml(), new IsEqual<String>(xml)
         );
     }
 

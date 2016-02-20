@@ -17,7 +17,7 @@ package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.User;
 import com.github.aistomin.xml.Xml1;
-import com.github.aistomin.xml.XmlResource;
+import com.github.aistomin.xml.Xml1Resource;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**
@@ -56,7 +56,7 @@ public final class FakeUser implements User {
      */
     public FakeUser() throws Exception {
         this(
-            new XmlResource(FakeUser.RESOURCE),
+            new Xml1Resource(FakeUser.RESOURCE),
             String.format(FakeUser.FORMAT, System.currentTimeMillis())
         );
     }
@@ -76,7 +76,7 @@ public final class FakeUser implements User {
      * @param username Username that should be returned in username() method.
      */
     public FakeUser(final String username) {
-        this(new XmlResource(FakeUser.RESOURCE), username);
+        this(new Xml1Resource(FakeUser.RESOURCE), username);
     }
 
     /**

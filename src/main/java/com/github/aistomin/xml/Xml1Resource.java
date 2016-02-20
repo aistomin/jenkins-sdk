@@ -17,27 +17,28 @@ package com.github.aistomin.xml;
 
 import com.jcabi.xml.XMLDocument;
 import java.util.List;
+import org.apache.commons.io.IOUtils;
 
 /**
- * XML string.
+ * XML file.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class XmlString implements Xml {
+public final class Xml1Resource implements Xml1 {
 
     /**
-     * XML string content.
+     * File name.
      */
-    private final transient String string;
+    private final transient String name;
 
     /**
      * Ctor.
-     * @param xml XML string content.
+     * @param file File name.
      */
-    public XmlString(final String xml) {
-        this.string = xml;
+    public Xml1Resource(final String file) {
+        this.name = file;
     }
 
     /**
@@ -46,7 +47,10 @@ public final class XmlString implements Xml {
      * @throws Exception If reading XML was not successful.
      */
     public String content() throws Exception {
-        return this.string;
+        return IOUtils.toString(
+            Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream(this.name)
+        );
     }
 
     /**
@@ -57,7 +61,7 @@ public final class XmlString implements Xml {
      * @throws Exception If reading XML was not successful.
      */
     public String field(final String xpath) throws Exception {
-        final List<String> values = new XMLDocument(this.string)
+        final List<String> values = new XMLDocument(this.content())
             .xpath(xpath);
         if (values.size() != 1) {
             throw new IllegalStateException(

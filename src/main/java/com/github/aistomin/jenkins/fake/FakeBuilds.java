@@ -18,7 +18,7 @@ package com.github.aistomin.jenkins.fake;
 import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.xml.Xml1;
-import com.github.aistomin.xml.XmlResource;
+import com.github.aistomin.xml.Xml1Resource;
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -47,7 +47,7 @@ public final class FakeBuilds implements Builds {
      * @throws Exception If reading XML was not successful.
      */
     public FakeBuilds() throws Exception {
-        this(new XmlResource(FakeBuilds.RESOURCE));
+        this(new Xml1Resource(FakeBuilds.RESOURCE));
     }
 
     /**

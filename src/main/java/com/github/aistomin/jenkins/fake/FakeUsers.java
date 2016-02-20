@@ -18,7 +18,7 @@ package com.github.aistomin.jenkins.fake;
 import com.github.aistomin.jenkins.User;
 import com.github.aistomin.jenkins.Users;
 import com.github.aistomin.xml.Xml1;
-import com.github.aistomin.xml.XmlResource;
+import com.github.aistomin.xml.Xml1Resource;
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -47,7 +47,7 @@ public final class FakeUsers implements Users {
      * @throws Exception If reading XML was not successful.
      */
     public FakeUsers() throws Exception {
-        this(new XmlResource(FakeUsers.RESOURCE));
+        this(new Xml1Resource(FakeUsers.RESOURCE));
     }
 
     /**

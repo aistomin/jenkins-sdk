@@ -20,7 +20,7 @@ import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.JobDetails;
 import com.github.aistomin.jenkins.JobParameter;
 import com.github.aistomin.xml.Xml1;
-import com.github.aistomin.xml.XmlResource;
+import com.github.aistomin.xml.Xml1Resource;
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -52,7 +52,7 @@ public final class FakeJob implements Job {
      * Default ctor.
      */
     public FakeJob() {
-        this(FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE));
+        this(FakeJob.defaultName(), new Xml1Resource(FakeJob.RESOURCE));
     }
 
     /**
@@ -70,7 +70,7 @@ public final class FakeJob implements Job {
      * @param name Job name.
      */
     public FakeJob(final String name) {
-        this(name, new XmlResource(FakeJob.RESOURCE));
+        this(name, new Xml1Resource(FakeJob.RESOURCE));
     }
 
     /**

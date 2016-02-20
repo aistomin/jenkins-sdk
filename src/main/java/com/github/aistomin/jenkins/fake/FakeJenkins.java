@@ -19,7 +19,7 @@ import com.github.aistomin.jenkins.Jenkins;
 import com.github.aistomin.jenkins.Jobs;
 import com.github.aistomin.jenkins.Users;
 import com.github.aistomin.xml.Xml1;
-import com.github.aistomin.xml.XmlResource;
+import com.github.aistomin.xml.Xml1Resource;
 
 /**
  * Fake Jenkins instance for tests.
@@ -58,7 +58,7 @@ public final class FakeJenkins implements Jenkins {
     public FakeJenkins() throws Exception {
         this(
             new FakeJobs(), new FakeUsers(),
-            new XmlResource(FakeJenkins.RESOURCE)
+            new Xml1Resource(FakeJenkins.RESOURCE)
         );
     }
 
@@ -69,7 +69,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Jobs jobs) throws Exception {
-        this(jobs, new FakeUsers(), new XmlResource(FakeJenkins.RESOURCE));
+        this(jobs, new FakeUsers(), new Xml1Resource(FakeJenkins.RESOURCE));
     }
 
     /**
@@ -79,7 +79,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Users users) throws Exception {
-        this(new FakeJobs(), users, new XmlResource(FakeJenkins.RESOURCE));
+        this(new FakeJobs(), users, new Xml1Resource(FakeJenkins.RESOURCE));
     }
 
     /**

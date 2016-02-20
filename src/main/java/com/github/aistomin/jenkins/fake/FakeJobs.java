@@ -18,7 +18,7 @@ package com.github.aistomin.jenkins.fake;
 import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.Jobs;
 import com.github.aistomin.xml.Xml1;
-import com.github.aistomin.xml.XmlResource;
+import com.github.aistomin.xml.Xml1Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -53,7 +53,7 @@ public final class FakeJobs implements Jobs {
      */
     public FakeJobs() {
         this(
-            new XmlResource(
+            new Xml1Resource(
                 FakeJobs.RESOURCE
             ), Arrays.asList(
                 (Job) new FakeJob(), new FakeJob(), new FakeJob()
@@ -81,7 +81,7 @@ public final class FakeJobs implements Jobs {
      */
     public FakeJobs(final List<Job> jobs) {
         this(
-            new XmlResource(
+            new Xml1Resource(
                 FakeJobs.RESOURCE
             ), jobs
         );

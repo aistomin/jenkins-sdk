@@ -15,7 +15,7 @@
  */
 package com.github.aistomin.jenkins.fake;
 
-import com.github.aistomin.xml.XmlString;
+import com.github.aistomin.xml.Xml1String;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public final class FakeBuildsTest {
     public void testCanCreateWithXml() throws Exception {
         final String xml = "<builds><build>#1</build></builds>";
         MatcherAssert.assertThat(
-            new FakeBuilds(new XmlString(xml)).xml(), new IsEqual<String>(xml)
+            new FakeBuilds(new Xml1String(xml)).xml(), new IsEqual<String>(xml)
         );
     }
 

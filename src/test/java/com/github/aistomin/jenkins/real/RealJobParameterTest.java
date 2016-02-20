@@ -16,7 +16,7 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.JobParameter;
-import com.github.aistomin.xml.XmlString;
+import com.github.aistomin.xml.Xml1String;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
@@ -37,7 +37,7 @@ public final class RealJobParameterTest {
     @Test
     public void testCanRead() throws Exception {
         final JobParameter parameter = new RealJobParameter(
-            new XmlString(
+            new Xml1String(
                 new StringBuilder()
                     .append("<parameterDefinition>")
                     .append("<defaultParameterValue>")
