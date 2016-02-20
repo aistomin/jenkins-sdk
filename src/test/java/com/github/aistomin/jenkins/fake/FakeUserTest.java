@@ -15,7 +15,7 @@
  */
 package com.github.aistomin.jenkins.fake;
 
-import com.github.aistomin.xml.Xml1String;
+import com.github.aistomin.xml.XmlString;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
@@ -40,7 +40,7 @@ public final class FakeUserTest {
     public void testCanCreateWithXml() throws Exception {
         final String xml = "<user><id>integration</id></user>";
         MatcherAssert.assertThat(
-            new FakeUser(new Xml1String(xml)).xml(), new IsEqual<String>(xml)
+            new FakeUser(new XmlString(xml)).xml(), new IsEqual<String>(xml)
         );
     }
 

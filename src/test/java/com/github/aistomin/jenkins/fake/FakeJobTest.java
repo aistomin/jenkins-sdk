@@ -15,7 +15,7 @@
  */
 package com.github.aistomin.jenkins.fake;
 
-import com.github.aistomin.xml.Xml1String;
+import com.github.aistomin.xml.XmlString;
 import java.util.UUID;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
@@ -52,7 +52,7 @@ public final class FakeJobTest {
     @Test
     public void testCanCreateWithXml() throws Exception {
         final String xml = "<job><id><displayName>test</displayName></job>";
-        final FakeJob job = new FakeJob(new Xml1String(xml));
+        final FakeJob job = new FakeJob(new XmlString(xml));
         MatcherAssert.assertThat(job.xml(), new IsEqual<String>(xml));
         MatcherAssert.assertThat(job.name(), new IsInstanceOf(String.class));
     }

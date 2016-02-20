@@ -24,7 +24,7 @@ import java.util.Iterator;
  * @version $Id$
  * @since 0.1
  */
-public interface Jobs extends ApiObject1 {
+public interface Jobs extends ApiObject {
 
     /**
      * Jenkins jobs iterator.

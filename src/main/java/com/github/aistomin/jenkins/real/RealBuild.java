@@ -21,7 +21,7 @@ import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.jenkins.BuildResult;
 import com.github.aistomin.jenkins.Credentials;
-import com.github.aistomin.xml.Xml1String;
+import com.github.aistomin.xml.XmlString;
 import java.net.URLEncoder;
 import java.util.Date;
 import org.apache.commons.lang3.NotImplementedException;
@@ -129,7 +129,7 @@ public final class RealBuild implements Build {
      * @throws Exception If error occurred.
      */
     public BuildDetails details() throws Exception {
-        return new RealBuildDetails(new Xml1String(this.xml()));
+        return new RealBuildDetails(new XmlString(this.xml()));
     }
 
     /**

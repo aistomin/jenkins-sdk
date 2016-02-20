@@ -18,7 +18,7 @@ package com.github.aistomin.jenkins.fake;
 import com.github.aistomin.jenkins.Jenkins;
 import com.github.aistomin.jenkins.Jobs;
 import com.github.aistomin.jenkins.Users;
-import com.github.aistomin.xml.Xml1String;
+import com.github.aistomin.xml.XmlString;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsInstanceOf;
@@ -97,7 +97,7 @@ public final class FakeJenkinsTest {
     @Test
     public void testConstructorWithXml() throws Exception {
         final String xml = "<jenkins></jenkins>";
-        final Jenkins jenkins = new FakeJenkins(new Xml1String(xml));
+        final Jenkins jenkins = new FakeJenkins(new XmlString(xml));
         MatcherAssert.assertThat(
             jenkins.jobs(), new IsInstanceOf(FakeJobs.class)
         );
@@ -116,7 +116,7 @@ public final class FakeJenkinsTest {
         final Jobs jobs = new FakeJobs();
         MatcherAssert.assertThat(
             new FakeJenkins(
-                jobs, new FakeUsers(), new Xml1String("<test>test</test>")
+                jobs, new FakeUsers(), new XmlString("<test>test</test>")
             ).jobs(), new IsEqual<Jobs>(jobs)
         );
     }
@@ -130,7 +130,7 @@ public final class FakeJenkinsTest {
         final Users users = new FakeUsers();
         MatcherAssert.assertThat(
             new FakeJenkins(
-                new FakeJobs(), users, new Xml1String("<jen>jen</jen>")
+                new FakeJobs(), users, new XmlString("<jen>jen</jen>")
             ).users(), new IsEqual<Users>(users)
         );
     }
@@ -144,7 +144,7 @@ public final class FakeJenkinsTest {
         final String xml = "<hudson></hudson>";
         MatcherAssert.assertThat(
             new FakeJenkins(
-                new FakeJobs(), new FakeUsers(), new Xml1String(xml)
+                new FakeJobs(), new FakeUsers(), new XmlString(xml)
             ).xml(), new IsEqual<String>(xml)
         );
     }

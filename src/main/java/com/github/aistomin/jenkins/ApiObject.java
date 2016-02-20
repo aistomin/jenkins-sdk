@@ -16,46 +16,19 @@
 package com.github.aistomin.jenkins;
 
 /**
- * Jenkins' user.
+ * Jenkins XML API object.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface User extends ApiObject {
+public interface ApiObject {
 
     /**
-     * Username. This name is ID of user that can not be changed.
+     * Object's XML representation.
      *
-     * @return Username.
+     * @return XML's string.
+     * @throws Exception If something goes wrong.
      */
-    String username();
-
-    /**
-     * User's full name.
-     *
-     * @return User's full name.
-     */
-    String fullName();
-
-    /**
-     * User's email.
-     *
-     * @return User's email.
-     */
-    String email();
-
-    /**
-     * User's Jenkins page URL.
-     *
-     * @return URL string.
-     */
-    String url();
-
-    /**
-     * User's description.
-     *
-     * @return Description string.
-     */
-    String description();
+    String xml() throws Exception;
 }

@@ -15,22 +15,43 @@
  */
 package com.github.aistomin.xml;
 
+import com.jcabi.xml.XMLDocument;
+import java.util.List;
+import org.apache.commons.io.IOUtils;
+
 /**
- * XML.
+ * XML file.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Xml1 {
+public final class XmlResource implements Xml {
+
+    /**
+     * File name.
+     */
+    private final transient String name;
+
+    /**
+     * Ctor.
+     * @param file File name.
+     */
+    public XmlResource(final String file) {
+        this.name = file;
+    }
 
     /**
      * XML string content.
-     *
      * @return XML string.
      * @throws Exception If reading XML was not successful.
      */
-    String content() throws Exception;
+    public String content() throws Exception {
+        return IOUtils.toString(
+            Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream(this.name)
+        );
+    }
 
     /**
      * Search field value by XPath.
@@ -39,5 +60,14 @@ public interface Xml1 {
      * @return Field's value.
      * @throws Exception If reading XML was not successful.
      */
-    String field(String xpath) throws Exception;
+    public String field(final String xpath) throws Exception {
+        final List<String> values = new XMLDocument(this.content())
+            .xpath(xpath);
+        if (values.size() != 1) {
+            throw new IllegalStateException(
+                "Field not found in build's XML."
+            );
+        }
+        return values.get(0);
+    }
 }

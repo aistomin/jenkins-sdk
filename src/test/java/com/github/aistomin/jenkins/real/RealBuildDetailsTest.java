@@ -16,7 +16,7 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
-import com.github.aistomin.xml.Xml1Resource;
+import com.github.aistomin.xml.XmlResource;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public final class RealBuildDetailsTest {
     @Test
     public void testCanReadDetails() throws Exception {
         final BuildDetails details = new RealBuildDetails(
-            new Xml1Resource("build.xml")
+            new XmlResource("build.xml")
         );
         MatcherAssert.assertThat(
             details.fullDisplayName(),

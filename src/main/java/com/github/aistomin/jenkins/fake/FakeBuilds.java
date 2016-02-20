@@ -17,8 +17,8 @@ package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.Builds;
-import com.github.aistomin.xml.Xml1;
-import com.github.aistomin.xml.Xml1Resource;
+import com.github.aistomin.xml.Xml;
+import com.github.aistomin.xml.XmlResource;
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -39,7 +39,7 @@ public final class FakeBuilds implements Builds {
     /**
      * XML content that should be returned in xml() method.
      */
-    private final transient Xml1 content;
+    private final transient Xml content;
 
     /**
      * Default ctor.
@@ -47,7 +47,7 @@ public final class FakeBuilds implements Builds {
      * @throws Exception If reading XML was not successful.
      */
     public FakeBuilds() throws Exception {
-        this(new Xml1Resource(FakeBuilds.RESOURCE));
+        this(new XmlResource(FakeBuilds.RESOURCE));
     }
 
     /**
@@ -55,7 +55,7 @@ public final class FakeBuilds implements Builds {
      *
      * @param xml XML content that should be returned in xml() method.
      */
-    public FakeBuilds(final Xml1 xml) {
+    public FakeBuilds(final Xml xml) {
         this.content = xml;
     }
 
