@@ -64,7 +64,7 @@ public interface Builds extends ApiObject {
      * @return Last unstable build.
      * @throws Exception If something goes wrong.
      */
-    Build lastUnstable() throws Exception;
+    Build lastUnsuccessful() throws Exception;
 
     /**
      * Find build by number.

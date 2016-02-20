@@ -130,10 +130,10 @@ public final class FakeBuilds implements Builds {
      * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #100.
      */
-    public Build lastUnstable() throws Exception {
+    public Build lastUnsuccessful() throws Exception {
         throw new NotImplementedException(
             String.format(
-                "lastUnstable() method is not implemented for %s.",
+                "lastUnsuccessful() method is not implemented for %s.",
                 this.getClass().getCanonicalName()
             )
         );

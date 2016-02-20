@@ -63,8 +63,10 @@ public final class ITRealBuildsTest {
         MatcherAssert.assertThat(
             builds.next().number(), new IsEqual<String>("#1")
         );
+        builds.next();
+        builds.next();
         MatcherAssert.assertThat(
-            builds.next().number(), new IsEqual<String>("#2")
+            builds.hasNext(), new IsEqual<Boolean>(false)
         );
     }
 
@@ -109,6 +111,20 @@ public final class ITRealBuildsTest {
         MatcherAssert.assertThat(
             last.details().fullDisplayName(),
             new IsEqual<String>("test-different-builds-job #2")
+        );
+    }
+
+    /**
+     * Can get last unsuccessful build.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanGetUnsuccessfulFailed() throws Exception {
+        final Build last = new TestJenkins().jobs().iterator()
+            .next().builds().lastUnsuccessful();
+        MatcherAssert.assertThat(
+            last.details().displayName(), new IsEqual<String>("#2")
         );
     }
 }
