@@ -16,7 +16,7 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
-import com.github.aistomin.xml.Xml;
+import com.github.aistomin.xml.Xml1;
 
 /**
  * Jenkins' job build details like: display name, url, duration etc.
@@ -30,14 +30,14 @@ public final class RealBuildDetails implements BuildDetails {
     /**
      * XML content of build details.
      */
-    private final transient Xml content;
+    private final transient Xml1 content;
 
     /**
      * Ctor.
      *
      * @param xml XML content of build details.
      */
-    public RealBuildDetails(final Xml xml) {
+    public RealBuildDetails(final Xml1 xml) {
         this.content = xml;
     }
 

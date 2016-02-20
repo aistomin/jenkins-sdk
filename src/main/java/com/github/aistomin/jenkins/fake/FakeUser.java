@@ -16,7 +16,7 @@
 package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.User;
-import com.github.aistomin.xml.Xml;
+import com.github.aistomin.xml.Xml1;
 import com.github.aistomin.xml.XmlResource;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -42,7 +42,7 @@ public final class FakeUser implements User {
     /**
      * XML content that should be returned in xml() method.
      */
-    private final transient Xml content;
+    private final transient Xml1 content;
 
     /**
      * Username that should be returned in username() method.
@@ -66,7 +66,7 @@ public final class FakeUser implements User {
      *
      * @param xml XML content that should be returned in xml() method.
      */
-    public FakeUser(final Xml xml) {
+    public FakeUser(final Xml1 xml) {
         this(xml, String.format(FakeUser.FORMAT, System.currentTimeMillis()));
     }
 
@@ -85,7 +85,7 @@ public final class FakeUser implements User {
      * @param xml XML content that should be returned in xml() method.
      * @param username Username that should be returned in username() method.
      */
-    public FakeUser(final Xml xml, final String username) {
+    public FakeUser(final Xml1 xml, final String username) {
         this.content = xml;
         this.identifier = username;
     }

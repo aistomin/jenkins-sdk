@@ -13,31 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.aistomin.xml;
+package com.github.aistomin.jenkins;
 
 /**
- * XML.
+ * Jenkins XML API object.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Xml {
+public interface ApiObject1 {
 
     /**
-     * XML string content.
+     * Object's XML representation.
      *
-     * @return XML string.
-     * @throws Exception If reading XML was not successful.
+     * @return XML's string.
+     * @throws Exception If something goes wrong.
      */
-    String content() throws Exception;
-
-    /**
-     * Search field value by XPath.
-     *
-     * @param xpath XPath.
-     * @return Field's value.
-     * @throws Exception If reading XML was not successful.
-     */
-    String field(String xpath) throws Exception;
+    String xml() throws Exception;
 }

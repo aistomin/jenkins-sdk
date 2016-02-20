@@ -24,7 +24,7 @@ import java.util.Date;
  * @version $Id$
  * @since 0.1
  */
-public interface Build extends ApiObject {
+public interface Build extends ApiObject1 {
 
     /**
      * Build's number.

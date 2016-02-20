@@ -22,7 +22,7 @@ package com.github.aistomin.jenkins;
  * @version $Id$
  * @since 0.1
  */
-public interface Jenkins extends ApiObject {
+public interface Jenkins extends ApiObject1 {
 
     /**
      * All the jobs of this Jenkins instance.

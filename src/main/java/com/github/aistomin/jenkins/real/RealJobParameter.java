@@ -16,7 +16,7 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.JobParameter;
-import com.github.aistomin.xml.Xml;
+import com.github.aistomin.xml.Xml1;
 
 /**
  * Jenkins job parameter.
@@ -30,13 +30,13 @@ public final class RealJobParameter implements JobParameter {
     /**
      * XML content of build details.
      */
-    private final transient Xml content;
+    private final transient Xml1 content;
 
     /**
      * Ctor.
      * @param xml XML content of build details.
      */
-    public RealJobParameter(final Xml xml) {
+    public RealJobParameter(final Xml1 xml) {
         this.content = xml;
     }
 

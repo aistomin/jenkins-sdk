@@ -24,7 +24,7 @@ import java.util.Iterator;
  * @version $Id$
  * @since 0.1
  */
-public interface Builds extends ApiObject {
+public interface Builds extends ApiObject1 {
 
     /**
      * Builds iterator.
