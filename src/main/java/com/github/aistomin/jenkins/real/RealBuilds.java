@@ -92,14 +92,12 @@ public final class RealBuilds implements Builds {
      *
      * @return Last failed build.
      * @throws Exception If reading the build was not successful.
-     * @todo: Let's implement this method and solve Issue #107.
      */
     public Build lastFailed() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "lastFailed() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+        return new RealBuild(
+            this.detailed().field(
+                "//lastFailedBuild/displayName/text()"
+            ), this.api, this.creds
         );
     }
 

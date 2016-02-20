@@ -96,4 +96,19 @@ public final class ITRealBuildsTest {
             last.details().displayName(), new IsEqual<String>("#3")
         );
     }
+
+    /**
+     * Can get last stable build.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanGetLastFailed() throws Exception {
+        final Build last = new TestJenkins().jobs().iterator()
+            .next().builds().lastFailed();
+        MatcherAssert.assertThat(
+            last.details().fullDisplayName(),
+            new IsEqual<String>("test-different-builds-job #2")
+        );
+    }
 }
