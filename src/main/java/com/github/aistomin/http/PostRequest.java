@@ -25,7 +25,7 @@ import org.apache.http.client.fluent.Request;
  * @version $Id$
  * @since 0.1
  */
-public final class PostRequest implements HttpRequest1 {
+public final class PostRequest implements HttpRequest {
 
     /**
      * Request's URL.
