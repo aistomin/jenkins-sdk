@@ -108,14 +108,12 @@ public final class RealBuilds implements Builds {
      *
      * @return Last stable build.
      * @throws Exception If reading the build was not successful.
-     * @todo: Let's implement this method and solve Issue #108.
      */
     public Build lastStable() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "lastStable() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+        return new RealBuild(
+            this.detailed().field(
+                "//lastStableBuild/displayName/text()"
+            ), this.api, this.creds
         );
     }
 

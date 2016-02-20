@@ -66,9 +66,6 @@ public final class ITRealBuildsTest {
         MatcherAssert.assertThat(
             builds.next().number(), new IsEqual<String>("#2")
         );
-        MatcherAssert.assertThat(
-            builds.next().number(), new IsEqual<String>("#3")
-        );
     }
 
     /**
@@ -83,6 +80,20 @@ public final class ITRealBuildsTest {
         MatcherAssert.assertThat(
             last.details().fullDisplayName(),
             new IsEqual<String>("test-different-builds-job #3")
+        );
+    }
+
+    /**
+     * Can get last stable build.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanGetLastStable() throws Exception {
+        final Build last = new TestJenkins().jobs().iterator()
+            .next().builds().lastStable();
+        MatcherAssert.assertThat(
+            last.details().displayName(), new IsEqual<String>("#3")
         );
     }
 }
