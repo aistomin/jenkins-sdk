@@ -15,45 +15,46 @@
  */
 package com.github.aistomin.xml;
 
+import com.jcabi.xml.XMLDocument;
+import java.util.List;
+
 /**
- * XML string.
+ * XPath.
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class XmlString implements Xml {
+public final class XPath {
 
     /**
-     * XML string content.
+     * XPath string.
      */
-    private final transient String string;
+    private final transient String path;
 
     /**
      * Ctor.
-     * @param xml XML string content.
-     */
-    public XmlString(final String xml) {
-        this.string = xml;
-    }
-
-    /**
-     * XML string content.
-     * @return XML string.
-     * @throws Exception If reading XML was not successful.
-     */
-    public String content() throws Exception {
-        return this.string;
-    }
-
-    /**
-     * Search field value by XPath.
      *
-     * @param xpath XPath.
-     * @return Field's value.
-     * @throws Exception If reading XML was not successful.
+     * @param xpath XPath string.
      */
-    public String field(final String xpath) throws Exception {
-        return new XPath(xpath).valueFrom(this.content());
+    public XPath(final String xpath) {
+        this.path = xpath;
+    }
+
+    /**
+     * Get value from xml using XPath.
+     *
+     * @param xml XML string.
+     * @return Value.
+     */
+    public String valueFrom(final String xml) {
+        final List<String> values = new XMLDocument(xml)
+            .xpath(this.path);
+        if (values.size() != 1) {
+            throw new IllegalStateException(
+                "Field not found in build's XML."
+            );
+        }
+        return values.get(0);
     }
 }
