@@ -20,6 +20,8 @@ import com.github.aistomin.iterators.EntityIterator;
 import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.jenkins.Credentials;
+import com.github.aistomin.xml.Xml;
+import com.github.aistomin.xml.XmlString;
 import com.jcabi.xml.XMLDocument;
 import java.util.Collections;
 import java.util.Iterator;
@@ -76,14 +78,12 @@ public final class RealBuilds implements Builds {
      *
      * @return Last successful build.
      * @throws Exception If reading the build was not successful.
-     * @todo: Let's implement this method and solve Issue #106.
      */
     public Build lastSuccessful() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "lastSuccessful() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+        return new RealBuild(
+            this.detailed().field(
+                "//lastSuccessfulBuild/displayName/text()"
+            ), this.api, this.creds
         );
     }
 
@@ -160,6 +160,18 @@ public final class RealBuilds implements Builds {
      */
     public String xml() throws Exception {
         return new PostRequest(this.request(), this.creds.headers()).execute();
+    }
+
+    /**
+     * Detailed Job XML.
+     *
+     * @return XML.
+     * @throws Exception If reading XML was not successful.
+     */
+    private Xml detailed() throws Exception {
+        return new XmlString(
+            new PostRequest(this.api, this.creds.headers()).execute()
+        );
     }
 
     /**
