@@ -24,7 +24,7 @@ import java.util.Iterator;
  * @version $Id$
  * @since 0.1
  */
-public interface Job extends APIObject {
+public interface Job extends ApiObject {
 
     /**
      * Job name.

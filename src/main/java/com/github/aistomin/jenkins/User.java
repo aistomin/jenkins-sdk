@@ -22,7 +22,7 @@ package com.github.aistomin.jenkins;
  * @version $Id$
  * @since 0.1
  */
-public interface User extends APIObject {
+public interface User extends ApiObject {
 
     /**
      * Username. This name is ID of user that can not be changed.

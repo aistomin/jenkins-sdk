@@ -15,7 +15,8 @@
  */
 package com.github.aistomin.jenkins.real;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 /**
@@ -38,9 +39,9 @@ public final class ITRealUserTest {
      */
     @Test
     public void testCanReadUsername() throws Exception {
-        Assert.assertEquals(
-            ITRealUserTest.USERNAME,
-            new TestJenkins().users().iterator().next().username()
+        MatcherAssert.assertThat(
+            new TestJenkins().users().iterator().next().username(),
+            new IsEqual<String>(ITRealUserTest.USERNAME)
         );
     }
 
@@ -50,12 +51,17 @@ public final class ITRealUserTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new TestJenkins().users().iterator().next().xml();
-        Assert.assertTrue(xml.startsWith("<user>"));
-        Assert.assertTrue(
-            xml.contains(String.format("<id>%s</id>", ITRealUserTest.USERNAME))
+        MatcherAssert.assertThat(
+            xml.startsWith("<user>"), new IsEqual<Boolean>(true)
         );
-        Assert.assertTrue(xml.endsWith("</user>"));
+        MatcherAssert.assertThat(
+            xml.contains(String.format("<id>%s</id>", ITRealUserTest.USERNAME)),
+            new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.endsWith("</user>"), new IsEqual<Boolean>(true)
+        );
     }
 }

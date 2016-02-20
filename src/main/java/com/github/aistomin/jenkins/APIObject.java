@@ -22,7 +22,7 @@ package com.github.aistomin.jenkins;
  * @version $Id$
  * @since 0.1
  */
-public interface APIObject {
+public interface ApiObject {
 
     /**
      * Object's XML representation.

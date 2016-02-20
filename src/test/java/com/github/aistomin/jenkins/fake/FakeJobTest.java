@@ -15,9 +15,11 @@
  */
 package com.github.aistomin.jenkins.fake;
 
-import com.github.aistomin.xml.XMLString;
+import com.github.aistomin.xml.XmlString;
 import java.util.UUID;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 /**
@@ -38,8 +40,8 @@ public final class FakeJobTest {
     public void testCanCreateWithName() throws Exception {
         final String name = UUID.randomUUID().toString();
         final FakeJob job = new FakeJob(name);
-        Assert.assertEquals(name, job.name());
-        Assert.assertNotNull(job.xml());
+        MatcherAssert.assertThat(job.name(), new IsEqual<String>(name));
+        MatcherAssert.assertThat(job.xml(), new IsInstanceOf(String.class));
     }
 
     /**
@@ -48,11 +50,11 @@ public final class FakeJobTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanCreateWithXML() throws Exception {
+    public void testCanCreateWithXml() throws Exception {
         final String xml = "<job><id><displayName>test</displayName></job>";
-        final FakeJob job = new FakeJob(new XMLString(xml));
-        Assert.assertEquals(xml, job.xml());
-        Assert.assertNotNull(job.name());
+        final FakeJob job = new FakeJob(new XmlString(xml));
+        MatcherAssert.assertThat(job.xml(), new IsEqual<String>(xml));
+        MatcherAssert.assertThat(job.name(), new IsInstanceOf(String.class));
     }
 
     /**
@@ -61,13 +63,19 @@ public final class FakeJobTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new FakeJob().xml();
-        Assert.assertTrue(xml.startsWith("<job>"));
-        Assert.assertTrue(
-            xml.contains("<displayName>test-different-builds-job</displayName>")
+        MatcherAssert.assertThat(
+            xml.startsWith("<job>"), new IsEqual<Boolean>(true)
         );
-        Assert.assertTrue(xml.endsWith("</job>"));
+        MatcherAssert.assertThat(
+            xml.contains(
+                "<displayName>test-different-builds-job</displayName>"
+            ), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.endsWith("</job>"), new IsEqual<Boolean>(true)
+        );
     }
 
     /**
@@ -77,6 +85,8 @@ public final class FakeJobTest {
      */
     @Test
     public void testCanReadName() throws Exception {
-        Assert.assertTrue(new FakeJob().name().startsWith("job"));
+        MatcherAssert.assertThat(
+            new FakeJob().name().startsWith("job"), new IsEqual<Boolean>(true)
+        );
     }
 }

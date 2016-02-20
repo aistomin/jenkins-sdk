@@ -17,8 +17,8 @@ package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.Jobs;
-import com.github.aistomin.xml.XML;
-import com.github.aistomin.xml.XMLResource;
+import com.github.aistomin.xml.Xml;
+import com.github.aistomin.xml.XmlResource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -41,7 +41,7 @@ public final class FakeJobs implements Jobs {
     /**
      * XML content that should be returned in xml() method.
      */
-    private final transient XML content;
+    private final transient Xml content;
 
     /**
      * Fake jobs list that will be returned in iterator() method.
@@ -53,7 +53,7 @@ public final class FakeJobs implements Jobs {
      */
     public FakeJobs() {
         this(
-            new XMLResource(
+            new XmlResource(
                 FakeJobs.RESOURCE
             ), Arrays.asList(
                 (Job) new FakeJob(), new FakeJob(), new FakeJob()
@@ -66,7 +66,7 @@ public final class FakeJobs implements Jobs {
      *
      * @param xml XML content that should be returned in xml() method.
      */
-    public FakeJobs(final XML xml) {
+    public FakeJobs(final Xml xml) {
         this(
             xml, Arrays.asList(
                 (Job) new FakeJob(), new FakeJob(), new FakeJob()
@@ -81,7 +81,7 @@ public final class FakeJobs implements Jobs {
      */
     public FakeJobs(final List<Job> jobs) {
         this(
-            new XMLResource(
+            new XmlResource(
                 FakeJobs.RESOURCE
             ), jobs
         );
@@ -93,7 +93,7 @@ public final class FakeJobs implements Jobs {
      * @param xml XML content that should be returned in xml() method.
      * @param jobs Fake jobs list that will be returned in iterator() method.
      */
-    public FakeJobs(final XML xml, final List<Job> jobs) {
+    public FakeJobs(final Xml xml, final List<Job> jobs) {
         this.content = xml;
         this.iterable = jobs;
     }

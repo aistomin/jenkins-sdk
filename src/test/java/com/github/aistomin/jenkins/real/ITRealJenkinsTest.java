@@ -15,7 +15,9 @@
  */
 package com.github.aistomin.jenkins.real;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 /**
@@ -33,13 +35,19 @@ public final class ITRealJenkinsTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new TestJenkins().xml();
-        Assert.assertTrue(xml.startsWith("<hudson>"));
-        Assert.assertTrue(
-            xml.contains("<displayName>test-different-builds-job</displayName>")
+        MatcherAssert.assertThat(
+            xml.startsWith("<hudson>"), new IsEqual<Boolean>(true)
         );
-        Assert.assertTrue(xml.endsWith("</hudson>"));
+        MatcherAssert.assertThat(
+            xml.contains(
+                "<displayName>test-different-builds-job</displayName>"
+            ), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.endsWith("</hudson>"), new IsEqual<Boolean>(true)
+        );
     }
 
     /**
@@ -49,7 +57,9 @@ public final class ITRealJenkinsTest {
      */
     @Test
     public void testCanListJobs() throws Exception {
-        Assert.assertNotNull(new TestJenkins().jobs());
+        MatcherAssert.assertThat(
+            new TestJenkins().jobs(), new IsInstanceOf(RealJobs.class)
+        );
     }
 
     /**
@@ -59,6 +69,8 @@ public final class ITRealJenkinsTest {
      */
     @Test
     public void testCanListUsers() throws Exception {
-        Assert.assertNotNull(new TestJenkins().users());
+        MatcherAssert.assertThat(
+            new TestJenkins().users(), new IsInstanceOf(RealUsers.class)
+        );
     }
 }

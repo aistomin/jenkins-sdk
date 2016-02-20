@@ -25,7 +25,7 @@ import java.util.List;
  * @version $Id$
  * @since 0.1
  */
-public final class XMLString implements XML {
+public final class XmlString implements Xml {
 
     /**
      * XML string content.
@@ -36,7 +36,7 @@ public final class XMLString implements XML {
      * Ctor.
      * @param xml XML string content.
      */
-    public XMLString(final String xml) {
+    public XmlString(final String xml) {
         this.string = xml;
     }
 

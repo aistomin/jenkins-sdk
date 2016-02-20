@@ -24,7 +24,7 @@ import java.util.Iterator;
  * @version $Id$
  * @since 0.1
  */
-public interface Users extends APIObject {
+public interface Users extends ApiObject {
 
     /**
      * Build iterator to run through existing users.

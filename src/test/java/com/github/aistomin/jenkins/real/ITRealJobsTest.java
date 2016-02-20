@@ -17,7 +17,8 @@ package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.Job;
 import java.util.Iterator;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 /**
@@ -35,13 +36,16 @@ public final class ITRealJobsTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new TestJenkins().jobs().xml();
-        Assert.assertTrue(
-            xml.contains("<displayName>test-different-builds-job</displayName>")
+        MatcherAssert.assertThat(
+            xml.contains(
+                "<displayName>test-different-builds-job</displayName>"
+            ), new IsEqual<Boolean>(true)
         );
-        Assert.assertTrue(
-            xml.contains("<displayName>test-disabled-job</displayName>")
+        MatcherAssert.assertThat(
+            xml.contains("<displayName>test-disabled-job</displayName>"),
+            new IsEqual<Boolean>(true)
         );
     }
 
@@ -53,8 +57,12 @@ public final class ITRealJobsTest {
     @Test
     public void testCanIterateThroughJobs() throws Exception {
         final Iterator<Job> jobs = new TestJenkins().jobs().iterator();
-        Assert.assertEquals("test-different-builds-job", jobs.next().name());
-        Assert.assertEquals("test-disabled-job", jobs.next().name());
+        MatcherAssert.assertThat(
+            jobs.next().name(), new IsEqual<String>("test-different-builds-job")
+        );
+        MatcherAssert.assertThat(
+            jobs.next().name(), new IsEqual<String>("test-disabled-job")
+        );
     }
 
     /**
@@ -67,7 +75,9 @@ public final class ITRealJobsTest {
         final String name = "test-parametrised-job";
         final Iterator<Job> found = new TestJenkins().jobs()
             .findByName(name);
-        Assert.assertEquals(name, found.next().name());
-        Assert.assertFalse(found.hasNext());
+        MatcherAssert.assertThat(
+            found.next().name(), new IsEqual<String>(name)
+        );
+        MatcherAssert.assertThat(found.hasNext(), new IsEqual<Boolean>(false));
     }
 }

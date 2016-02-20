@@ -21,10 +21,10 @@ import java.util.NoSuchElementException;
 /**
  * Decorator for iterator of class K to use it as a decorator of type T.
  *
- * @param <T> Target class.
- * @param <S> Source class.
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
+ * @param <T> Target class.
+ * @param <S> Source class.
  * @since 0.1
  */
 public class EntityIterator<T, S> implements Iterator<T> {

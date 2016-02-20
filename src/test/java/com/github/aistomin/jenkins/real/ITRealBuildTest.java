@@ -16,7 +16,8 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 /**
@@ -34,12 +35,19 @@ public final class ITRealBuildTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new TestJenkins().jobs().iterator().next().builds()
             .iterator().next().xml();
-        Assert.assertTrue(xml.startsWith("<build>"));
-        Assert.assertTrue(xml.contains("<displayName>#1</displayName>"));
-        Assert.assertTrue(xml.endsWith("</build>"));
+        MatcherAssert.assertThat(
+            xml.startsWith("<build>"), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.contains("<displayName>#1</displayName>"),
+            new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.endsWith("</build>"), new IsEqual<Boolean>(true)
+        );
     }
 
     /**
@@ -49,10 +57,9 @@ public final class ITRealBuildTest {
      */
     @Test
     public void testCanReadNumber() throws Exception {
-        Assert.assertEquals(
-            "#1",
+        MatcherAssert.assertThat(
             new TestJenkins().jobs().iterator().next().builds().iterator()
-                .next().number()
+                .next().number(), new IsEqual<String>("#1")
         );
     }
 
@@ -65,8 +72,9 @@ public final class ITRealBuildTest {
     public void testCanReadDetails() throws Exception {
         final BuildDetails details = new TestJenkins().jobs().iterator().next()
             .builds().iterator().next().details();
-        Assert.assertEquals(
-            "test-different-builds-job #1", details.fullDisplayName()
+        MatcherAssert.assertThat(
+            details.fullDisplayName(),
+            new IsEqual<String>("test-different-builds-job #1")
         );
     }
 }

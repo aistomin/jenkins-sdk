@@ -16,8 +16,9 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
-import com.github.aistomin.xml.XMLResource;
-import org.junit.Assert;
+import com.github.aistomin.xml.XmlResource;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 /**
@@ -37,15 +38,24 @@ public final class RealBuildDetailsTest {
     @Test
     public void testCanReadDetails() throws Exception {
         final BuildDetails details = new RealBuildDetails(
-            new XMLResource("build.xml")
+            new XmlResource("build.xml")
         );
-        Assert.assertEquals(
-            "test-different-builds-job #1", details.fullDisplayName()
+        MatcherAssert.assertThat(
+            details.fullDisplayName(),
+            new IsEqual<String>("test-different-builds-job #1")
         );
-        Assert.assertEquals("#1", details.displayName());
-        Assert.assertEquals(Long.parseLong("389"), (long) details.estimated());
-        Assert.assertEquals(Long.parseLong("687"), (long) details.duration());
-        Assert.assertFalse(details.building());
-        Assert.assertEquals(1L, (long) details.queue());
+        MatcherAssert.assertThat(
+            details.displayName(), new IsEqual<String>("#1")
+        );
+        MatcherAssert.assertThat(
+            details.estimated(), new IsEqual<Long>(Long.parseLong("389"))
+        );
+        MatcherAssert.assertThat(
+            details.duration(), new IsEqual<Long>(Long.parseLong("687"))
+        );
+        MatcherAssert.assertThat(
+            details.building(), new IsEqual<Boolean>(false)
+        );
+        MatcherAssert.assertThat(details.queue(), new IsEqual<Long>(1L));
     }
 }

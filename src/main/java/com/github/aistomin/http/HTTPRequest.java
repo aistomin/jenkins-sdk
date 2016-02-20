@@ -22,7 +22,7 @@ package com.github.aistomin.http;
  * @version $Id$
  * @since 0.1
  */
-public interface HTTPRequest {
+public interface HttpRequest {
 
     /**
      * Execute request.

@@ -76,13 +76,19 @@
             <artifactId>jcabi-xml</artifactId>
             <version>0.17.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>com.qulice</groupId>
                 <artifactId>qulice-maven-plugin</artifactId>
-                <version>0.15.4</version>
+                <version>0.16.2</version>
                 <configuration>
                     <license>file:${basedir}/LICENSE</license>
                     <excludes>
@@ -93,6 +99,8 @@
                         <exclude>xml:/src/main/resources/users.xml</exclude>
                         <exclude>xml:/src/main/resources/build.xml</exclude>
                         <exclude>xml:/src/main/resources/builds.xml</exclude>
+                        <!-- TODO: Let's solve #184 and re-enable FindBugs validation-->
+                        <exclude>findbugs:~com.github.aistomin.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

@@ -16,11 +16,13 @@
 package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.Job;
-import com.github.aistomin.xml.XMLString;
+import com.github.aistomin.xml.XmlString;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 /**
@@ -38,9 +40,11 @@ public final class FakeJobsTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanCreateWithXML() throws Exception {
+    public void testCanCreateWithXml() throws Exception {
         final String xml = "<jobs></jobs>";
-        Assert.assertEquals(xml, new FakeJobs(new XMLString(xml)).xml());
+        MatcherAssert.assertThat(
+            new FakeJobs(new XmlString(xml)).xml(), new IsEqual<String>(xml)
+        );
     }
 
     /**
@@ -54,9 +58,9 @@ public final class FakeJobsTest {
         expected.add(new FakeJob());
         expected.add(new FakeJob());
         final Iterator<Job> got = new FakeJobs(expected).iterator();
-        Assert.assertEquals(expected.get(0), got.next());
-        Assert.assertEquals(expected.get(1), got.next());
-        Assert.assertFalse(got.hasNext());
+        MatcherAssert.assertThat(got.next(), new IsEqual<Job>(expected.get(0)));
+        MatcherAssert.assertThat(got.next(), new IsEqual<Job>(expected.get(1)));
+        MatcherAssert.assertThat(got.hasNext(), new IsEqual<Boolean>(false));
     }
 
     /**
@@ -65,13 +69,16 @@ public final class FakeJobsTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new FakeJobs().xml();
-        Assert.assertTrue(
-            xml.contains("<displayName>test-different-builds-job</displayName>")
+        MatcherAssert.assertThat(
+            xml.contains(
+                "<displayName>test-different-builds-job</displayName>"
+            ), new IsEqual<Boolean>(true)
         );
-        Assert.assertTrue(
-            xml.contains("<displayName>test-disabled-job</displayName>")
+        MatcherAssert.assertThat(
+            xml.contains("<displayName>test-disabled-job</displayName>"),
+            new IsEqual<Boolean>(true)
         );
     }
 
@@ -83,10 +90,18 @@ public final class FakeJobsTest {
     @Test
     public void testCanIterate() throws Exception {
         final Iterator<Job> iterator = new FakeJobs().iterator();
-        Assert.assertNotNull(iterator.next());
-        Assert.assertNotNull(iterator.next());
-        Assert.assertNotNull(iterator.next());
-        Assert.assertFalse(iterator.hasNext());
+        MatcherAssert.assertThat(
+            iterator.next(), new IsInstanceOf(FakeJob.class)
+        );
+        MatcherAssert.assertThat(
+            iterator.next(), new IsInstanceOf(FakeJob.class)
+        );
+        MatcherAssert.assertThat(
+            iterator.next(), new IsInstanceOf(FakeJob.class)
+        );
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(false)
+        );
     }
 
     /**
@@ -101,7 +116,9 @@ public final class FakeJobsTest {
         final String name = "job2";
         jobs.add(new FakeJob(name));
         final Iterator<Job> found = new FakeJobs(jobs).findByName(name);
-        Assert.assertEquals(name, found.next().name());
-        Assert.assertFalse(found.hasNext());
+        MatcherAssert.assertThat(
+            found.next().name(), new IsEqual<String>(name)
+        );
+        MatcherAssert.assertThat(found.hasNext(), new IsEqual<Boolean>(false));
     }
 }

@@ -18,8 +18,10 @@ package com.github.aistomin.jenkins.fake;
 import com.github.aistomin.jenkins.Jenkins;
 import com.github.aistomin.jenkins.Jobs;
 import com.github.aistomin.jenkins.Users;
-import com.github.aistomin.xml.XMLString;
-import org.junit.Assert;
+import com.github.aistomin.xml.XmlString;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 /**
@@ -38,16 +40,24 @@ public final class FakeJenkinsTest {
     @Test
     public void testDefaultConstructor() throws Exception {
         final Jenkins jenkins = new FakeJenkins();
-        Assert.assertNotNull(jenkins.jobs());
-        Assert.assertNotNull(jenkins.users());
-        Assert.assertNotNull(jenkins.xml());
-        Assert.assertTrue(jenkins.xml().startsWith("<hudson>"));
-        Assert.assertTrue(
+        MatcherAssert.assertThat(
+            jenkins.jobs(), new IsInstanceOf(FakeJobs.class)
+        );
+        MatcherAssert.assertThat(
+            jenkins.users(), new IsInstanceOf(FakeUsers.class)
+        );
+        MatcherAssert.assertThat(jenkins.xml(), new IsInstanceOf(String.class));
+        MatcherAssert.assertThat(
+            jenkins.xml().startsWith("<hudson>"), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
             jenkins.xml().contains(
                 "https://cisdk-istomin.rhcloud.com/job/test-disabled-job/"
-            )
+            ), new IsEqual<Boolean>(true)
         );
-        Assert.assertTrue(jenkins.xml().endsWith("</hudson>"));
+        MatcherAssert.assertThat(
+            jenkins.xml().endsWith("</hudson>"), new IsEqual<Boolean>(true)
+        );
     }
 
     /**
@@ -58,9 +68,11 @@ public final class FakeJenkinsTest {
     public void testConstructorWithUsers() throws Exception {
         final Users users = new FakeUsers();
         final Jenkins jenkins = new FakeJenkins(users);
-        Assert.assertNotNull(jenkins.jobs());
-        Assert.assertNotNull(jenkins.xml());
-        Assert.assertEquals(users, jenkins.users());
+        MatcherAssert.assertThat(
+            jenkins.jobs(), new IsInstanceOf(FakeJobs.class)
+        );
+        MatcherAssert.assertThat(jenkins.xml(), new IsInstanceOf(String.class));
+        MatcherAssert.assertThat(jenkins.users(), new IsEqual<Users>(users));
     }
 
     /**
@@ -71,9 +83,11 @@ public final class FakeJenkinsTest {
     public void testConstructorWithJobs() throws Exception {
         final Jobs jobs = new FakeJobs();
         final Jenkins jenkins = new FakeJenkins(jobs);
-        Assert.assertNotNull(jenkins.users());
-        Assert.assertNotNull(jenkins.xml());
-        Assert.assertEquals(jobs, jenkins.jobs());
+        MatcherAssert.assertThat(
+            jenkins.users(), new IsInstanceOf(FakeUsers.class)
+        );
+        MatcherAssert.assertThat(jenkins.xml(), new IsInstanceOf(String.class));
+        MatcherAssert.assertThat(jenkins.jobs(), new IsEqual<Jobs>(jobs));
     }
 
     /**
@@ -81,12 +95,16 @@ public final class FakeJenkinsTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testConstructorWithXML() throws Exception {
+    public void testConstructorWithXml() throws Exception {
         final String xml = "<jenkins></jenkins>";
-        final Jenkins jenkins = new FakeJenkins(new XMLString(xml));
-        Assert.assertNotNull(jenkins.jobs());
-        Assert.assertNotNull(jenkins.users());
-        Assert.assertEquals(xml, jenkins.xml());
+        final Jenkins jenkins = new FakeJenkins(new XmlString(xml));
+        MatcherAssert.assertThat(
+            jenkins.jobs(), new IsInstanceOf(FakeJobs.class)
+        );
+        MatcherAssert.assertThat(
+            jenkins.users(), new IsInstanceOf(FakeUsers.class)
+        );
+        MatcherAssert.assertThat(jenkins.xml(), new IsEqual<String>(xml));
     }
 
     /**
@@ -96,11 +114,10 @@ public final class FakeJenkinsTest {
     @Test
     public void testCanListJobs() throws Exception {
         final Jobs jobs = new FakeJobs();
-        Assert.assertEquals(
-            jobs,
+        MatcherAssert.assertThat(
             new FakeJenkins(
-                jobs, new FakeUsers(), new XMLString("<test>test</test>")
-            ).jobs()
+                jobs, new FakeUsers(), new XmlString("<test>test</test>")
+            ).jobs(), new IsEqual<Jobs>(jobs)
         );
     }
 
@@ -111,11 +128,10 @@ public final class FakeJenkinsTest {
     @Test
     public void testCanListUsers() throws Exception {
         final Users users = new FakeUsers();
-        Assert.assertEquals(
-            users,
+        MatcherAssert.assertThat(
             new FakeJenkins(
-                new FakeJobs(), users, new XMLString("<jen>jen</jen>")
-            ).users()
+                new FakeJobs(), users, new XmlString("<jen>jen</jen>")
+            ).users(), new IsEqual<Users>(users)
         );
     }
 
@@ -124,13 +140,12 @@ public final class FakeJenkinsTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = "<hudson></hudson>";
-        Assert.assertEquals(
-            xml,
+        MatcherAssert.assertThat(
             new FakeJenkins(
-                new FakeJobs(), new FakeUsers(), new XMLString(xml)
-            ).xml()
+                new FakeJobs(), new FakeUsers(), new XmlString(xml)
+            ).xml(), new IsEqual<String>(xml)
         );
     }
 }

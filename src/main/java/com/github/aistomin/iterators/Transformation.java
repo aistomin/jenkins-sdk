@@ -18,10 +18,10 @@ package com.github.aistomin.iterators;
 /**
  * Transformation that transforms one object to another.
  *
- * @param <T> Target class.
- * @param <S> Source class.
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
+ * @param <T> Target class.
+ * @param <S> Source class.
  * @since 0.1
  */
 public interface Transformation<T, S> {

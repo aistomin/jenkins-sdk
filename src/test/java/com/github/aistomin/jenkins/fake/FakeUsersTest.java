@@ -15,7 +15,8 @@
  */
 package com.github.aistomin.jenkins.fake;
 
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 /**
@@ -33,12 +34,17 @@ public final class FakeUsersTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new FakeUsers().xml();
-        Assert.assertTrue(xml.startsWith("<people>"));
-        Assert.assertTrue(
-            xml.contains("<fullName>Integration Test</fullName>")
+        MatcherAssert.assertThat(
+            xml.startsWith("<people>"), new IsEqual<Boolean>(true)
         );
-        Assert.assertTrue(xml.endsWith("</people>"));
+        MatcherAssert.assertThat(
+            xml.contains("<fullName>Integration Test</fullName>"),
+            new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.endsWith("</people>"), new IsEqual<Boolean>(true)
+        );
     }
 }

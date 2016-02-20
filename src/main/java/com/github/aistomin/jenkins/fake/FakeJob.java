@@ -19,8 +19,8 @@ import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.JobDetails;
 import com.github.aistomin.jenkins.JobParameter;
-import com.github.aistomin.xml.XML;
-import com.github.aistomin.xml.XMLResource;
+import com.github.aistomin.xml.Xml;
+import com.github.aistomin.xml.XmlResource;
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -46,13 +46,13 @@ public final class FakeJob implements Job {
     /**
      * XML content that should be returned in xml() method.
      */
-    private final transient XML content;
+    private final transient Xml content;
 
     /**
      * Default ctor.
      */
     public FakeJob() {
-        this(FakeJob.defaultName(), new XMLResource(FakeJob.RESOURCE));
+        this(FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE));
     }
 
     /**
@@ -60,7 +60,7 @@ public final class FakeJob implements Job {
      *
      * @param xml XML content that should be returned in xml() method.
      */
-    public FakeJob(final XML xml) {
+    public FakeJob(final Xml xml) {
         this(FakeJob.defaultName(), xml);
     }
 
@@ -70,7 +70,7 @@ public final class FakeJob implements Job {
      * @param name Job name.
      */
     public FakeJob(final String name) {
-        this(name, new XMLResource(FakeJob.RESOURCE));
+        this(name, new XmlResource(FakeJob.RESOURCE));
     }
 
     /**
@@ -79,7 +79,7 @@ public final class FakeJob implements Job {
      * @param name Job name.
      * @param xml XML content that should be returned in xml() method.
      */
-    public FakeJob(final String name, final XML xml) {
+    public FakeJob(final String name, final Xml xml) {
         this.identifier = name;
         this.content = xml;
     }

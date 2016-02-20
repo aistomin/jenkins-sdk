@@ -22,7 +22,7 @@ package com.github.aistomin.xml;
  * @version $Id$
  * @since 0.1
  */
-public interface XML {
+public interface Xml {
 
     /**
      * XML string content.

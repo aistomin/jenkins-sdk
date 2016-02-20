@@ -26,7 +26,7 @@ import org.apache.commons.io.IOUtils;
  * @version $Id$
  * @since 0.1
  */
-public final class XMLResource implements XML {
+public final class XmlResource implements Xml {
 
     /**
      * File name.
@@ -37,7 +37,7 @@ public final class XMLResource implements XML {
      * Ctor.
      * @param file File name.
      */
-    public XMLResource(final String file) {
+    public XmlResource(final String file) {
         this.name = file;
     }
 

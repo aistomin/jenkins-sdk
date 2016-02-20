@@ -15,9 +15,11 @@
  */
 package com.github.aistomin.jenkins.fake;
 
-import com.github.aistomin.xml.XMLString;
+import com.github.aistomin.xml.XmlString;
 import java.util.Random;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 /**
@@ -35,10 +37,10 @@ public final class FakeUserTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanCreateWithXML() throws Exception {
+    public void testCanCreateWithXml() throws Exception {
         final String xml = "<user><id>integration</id></user>";
-        Assert.assertEquals(
-            xml, new FakeUser(new XMLString(xml)).xml()
+        MatcherAssert.assertThat(
+            new FakeUser(new XmlString(xml)).xml(), new IsEqual<String>(xml)
         );
     }
 
@@ -52,7 +54,9 @@ public final class FakeUserTest {
         final String username = String.format(
             "username%d", new Random().nextInt(1000)
         );
-        Assert.assertEquals(username, new FakeUser(username).username());
+        MatcherAssert.assertThat(
+            new FakeUser(username).username(), new IsEqual<String>(username)
+        );
     }
 
     /**
@@ -61,13 +65,17 @@ public final class FakeUserTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new FakeUser().xml();
-        Assert.assertTrue(xml.startsWith("<user>"));
-        Assert.assertTrue(
-            xml.contains("<id>integration</id>")
+        MatcherAssert.assertThat(
+            xml.startsWith("<user>"), new IsEqual<Boolean>(true)
         );
-        Assert.assertTrue(xml.endsWith("</user>"));
+        MatcherAssert.assertThat(
+            xml.contains("<id>integration</id>"), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.endsWith("</user>"), new IsEqual<Boolean>(true)
+        );
     }
 
     /**
@@ -78,7 +86,9 @@ public final class FakeUserTest {
     @Test
     public void testCanReadUsername() throws Exception {
         final String username = new FakeUser().username();
-        Assert.assertNotNull(username);
-        Assert.assertTrue(username.startsWith("user"));
+        MatcherAssert.assertThat(username, new IsInstanceOf(String.class));
+        MatcherAssert.assertThat(
+            username.startsWith("user"), new IsEqual<Boolean>(true)
+        );
     }
 }

@@ -19,7 +19,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 /**
@@ -49,11 +50,21 @@ public final class EntityIteratorTest {
                 }
             }
         );
-        Assert.assertTrue(iterator.hasNext());
-        Assert.assertEquals(paths.get(0), iterator.next().getAbsolutePath());
-        Assert.assertTrue(iterator.hasNext());
-        Assert.assertEquals(paths.get(1), iterator.next().getAbsolutePath());
-        Assert.assertFalse(iterator.hasNext());
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            iterator.next().getAbsolutePath(), new IsEqual<String>(paths.get(0))
+        );
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            iterator.next().getAbsolutePath(), new IsEqual<String>(paths.get(1))
+        );
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(false)
+        );
     }
 
     /**
@@ -74,10 +85,14 @@ public final class EntityIteratorTest {
                 }
             }
         );
-        Assert.assertTrue(iterator.hasNext());
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(true)
+        );
         iterator.next();
         iterator.remove();
-        Assert.assertEquals(1, paths.size());
-        Assert.assertTrue(paths.get(0).endsWith("test4.txt"));
+        MatcherAssert.assertThat(paths.size(), new IsEqual<Integer>(1));
+        MatcherAssert.assertThat(
+            paths.get(0).endsWith("test4.txt"), new IsEqual<Boolean>(true)
+        );
     }
 }

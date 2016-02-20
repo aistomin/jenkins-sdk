@@ -17,7 +17,8 @@ package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.Build;
 import java.util.Iterator;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 /**
@@ -35,14 +36,19 @@ public final class ITRealBuildsTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new TestJenkins().jobs().iterator().next().builds()
             .xml();
-        Assert.assertTrue(xml.startsWith("<builds>"));
-        Assert.assertTrue(
-            xml.contains("<fullDisplayName>test-different-builds-job #3")
+        MatcherAssert.assertThat(
+            xml.startsWith("<builds>"), new IsEqual<Boolean>(true)
         );
-        Assert.assertTrue(xml.endsWith("</builds>"));
+        MatcherAssert.assertThat(
+            xml.contains("<fullDisplayName>test-different-builds-job #3"),
+            new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.endsWith("</builds>"), new IsEqual<Boolean>(true)
+        );
     }
 
     /**
@@ -53,8 +59,14 @@ public final class ITRealBuildsTest {
     public void testCanIterate() throws Exception {
         final Iterator<Build> builds = new TestJenkins().jobs().iterator()
             .next().builds().iterator();
-        Assert.assertEquals("#1", builds.next().number());
-        Assert.assertEquals("#2", builds.next().number());
-        Assert.assertEquals("#3", builds.next().number());
+        MatcherAssert.assertThat(
+            builds.next().number(), new IsEqual<String>("#1")
+        );
+        MatcherAssert.assertThat(
+            builds.next().number(), new IsEqual<String>("#2")
+        );
+        MatcherAssert.assertThat(
+            builds.next().number(), new IsEqual<String>("#3")
+        );
     }
 }

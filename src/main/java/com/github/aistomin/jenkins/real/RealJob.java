@@ -22,7 +22,7 @@ import com.github.aistomin.jenkins.Credentials;
 import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.JobDetails;
 import com.github.aistomin.jenkins.JobParameter;
-import com.github.aistomin.xml.XMLString;
+import com.github.aistomin.xml.XmlString;
 import java.net.URLEncoder;
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
@@ -83,7 +83,7 @@ public final class RealJob implements Job {
      * @throws Exception If something goes wrong.
      */
     public JobDetails details() throws Exception {
-        return new RealJobDetails(new XMLString(this.xml()));
+        return new RealJobDetails(new XmlString(this.xml()));
     }
 
     /**

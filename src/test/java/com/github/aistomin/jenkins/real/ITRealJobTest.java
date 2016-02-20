@@ -16,7 +16,9 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.JobDetails;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 /**
@@ -34,13 +36,19 @@ public final class ITRealJobTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new TestJenkins().jobs().iterator().next().xml();
-        Assert.assertTrue(xml.startsWith("<job>"));
-        Assert.assertTrue(
-            xml.contains("<displayName>test-different-builds-job</displayName>")
+        MatcherAssert.assertThat(
+            xml.startsWith("<job>"), new IsEqual<Boolean>(true)
         );
-        Assert.assertTrue(xml.endsWith("</job>"));
+        MatcherAssert.assertThat(
+            xml.contains(
+                "<displayName>test-different-builds-job</displayName>"
+            ), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.endsWith("</job>"), new IsEqual<Boolean>(true)
+        );
     }
 
     /**
@@ -50,8 +58,9 @@ public final class ITRealJobTest {
      */
     @Test
     public void testCanListBuilds() throws Exception {
-        Assert.assertNotNull(
-            new TestJenkins().jobs().iterator().next().builds()
+        MatcherAssert.assertThat(
+            new TestJenkins().jobs().iterator().next().builds(),
+            new IsInstanceOf(RealBuilds.class)
         );
     }
 
@@ -64,10 +73,16 @@ public final class ITRealJobTest {
     public void testCanReadJobDetails() throws Exception {
         final JobDetails details = new TestJenkins().jobs().iterator().next()
             .details();
-        Assert.assertEquals("test-different-builds-job", details.displayName());
-        Assert.assertEquals(
-            "This job we use for testing builds.", details.description()
+        MatcherAssert.assertThat(
+            details.displayName(),
+            new IsEqual<String>("test-different-builds-job")
         );
-        Assert.assertTrue(details.buildable());
+        MatcherAssert.assertThat(
+            details.description(),
+            new IsEqual<String>("This job we use for testing builds.")
+        );
+        MatcherAssert.assertThat(
+            details.buildable(), new IsEqual<Boolean>(true)
+        );
     }
 }

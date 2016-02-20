@@ -17,8 +17,8 @@ package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.User;
 import com.github.aistomin.jenkins.Users;
-import com.github.aistomin.xml.XML;
-import com.github.aistomin.xml.XMLResource;
+import com.github.aistomin.xml.Xml;
+import com.github.aistomin.xml.XmlResource;
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -39,7 +39,7 @@ public final class FakeUsers implements Users {
     /**
      * XML content that should be returned in xml() method.
      */
-    private final transient XML content;
+    private final transient Xml content;
 
     /**
      * Default ctor.
@@ -47,7 +47,7 @@ public final class FakeUsers implements Users {
      * @throws Exception If reading XML was not successful.
      */
     public FakeUsers() throws Exception {
-        this(new XMLResource(FakeUsers.RESOURCE));
+        this(new XmlResource(FakeUsers.RESOURCE));
     }
 
     /**
@@ -55,7 +55,7 @@ public final class FakeUsers implements Users {
      *
      * @param xml XML content that should be returned in xml() method.
      */
-    public FakeUsers(final XML xml) {
+    public FakeUsers(final Xml xml) {
         this.content = xml;
     }
 

@@ -16,8 +16,9 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.JobDetails;
-import com.github.aistomin.xml.XMLResource;
-import org.junit.Assert;
+import com.github.aistomin.xml.XmlResource;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 /**
@@ -37,12 +38,18 @@ public final class RealJobDetailsTest {
     @Test
     public void testCanReadDetails() throws Exception {
         final JobDetails details = new RealJobDetails(
-            new XMLResource("job.xml")
+            new XmlResource("job.xml")
         );
-        Assert.assertEquals("test-different-builds-job", details.displayName());
-        Assert.assertEquals(
-            "This job we use for testing builds.", details.description()
+        MatcherAssert.assertThat(
+            details.displayName(),
+            new IsEqual<String>("test-different-builds-job")
         );
-        Assert.assertTrue(details.buildable());
+        MatcherAssert.assertThat(
+            details.description(),
+            new IsEqual<String>("This job we use for testing builds.")
+        );
+        MatcherAssert.assertThat(
+            details.buildable(), new IsEqual<Boolean>(true)
+        );
     }
 }

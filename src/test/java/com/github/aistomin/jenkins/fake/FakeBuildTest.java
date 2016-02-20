@@ -15,8 +15,9 @@
  */
 package com.github.aistomin.jenkins.fake;
 
-import com.github.aistomin.xml.XMLString;
-import org.junit.Assert;
+import com.github.aistomin.xml.XmlString;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 /**
@@ -34,10 +35,10 @@ public final class FakeBuildTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanCreateWithXML() throws Exception {
+    public void testCanCreateWithXml() throws Exception {
         final String xml = "<build><displayName>#1</displayName></build>";
-        Assert.assertEquals(
-            xml, new FakeBuild(new XMLString(xml)).xml()
+        MatcherAssert.assertThat(
+            new FakeBuild(new XmlString(xml)).xml(), new IsEqual<String>(xml)
         );
     }
 
@@ -47,10 +48,17 @@ public final class FakeBuildTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new FakeBuild().xml();
-        Assert.assertTrue(xml.startsWith("<build>"));
-        Assert.assertTrue(xml.contains("<displayName>#1</displayName>"));
-        Assert.assertTrue(xml.endsWith("</build>"));
+        MatcherAssert.assertThat(
+            xml.startsWith("<build>"), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.contains("<displayName>#1</displayName>"),
+            new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.endsWith("</build>"), new IsEqual<Boolean>(true)
+        );
     }
 }

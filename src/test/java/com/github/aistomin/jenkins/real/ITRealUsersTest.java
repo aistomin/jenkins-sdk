@@ -17,7 +17,8 @@ package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.User;
 import java.util.Iterator;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 /**
@@ -35,13 +36,18 @@ public final class ITRealUsersTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanReadXML() throws Exception {
+    public void testCanReadXml() throws Exception {
         final String xml = new TestJenkins().users().xml();
-        Assert.assertTrue(xml.startsWith("<people>"));
-        Assert.assertTrue(
-            xml.contains("<fullName>Integration Test</fullName>")
+        MatcherAssert.assertThat(
+            xml.startsWith("<people>"), new IsEqual<Boolean>(true)
         );
-        Assert.assertTrue(xml.endsWith("</people>"));
+        MatcherAssert.assertThat(
+            xml.contains("<fullName>Integration Test</fullName>"),
+            new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            xml.endsWith("</people>"), new IsEqual<Boolean>(true)
+        );
     }
 
     /**
@@ -52,8 +58,14 @@ public final class ITRealUsersTest {
     @Test
     public void testCanIterateThroughUsers() throws Exception {
         final Iterator<User> iterator = new TestJenkins().users().iterator();
-        Assert.assertEquals("\"system_builder", iterator.next().username());
-        Assert.assertEquals("admin", iterator.next().username());
-        Assert.assertEquals("integration", iterator.next().username());
+        MatcherAssert.assertThat(
+            iterator.next().username(), new IsEqual<String>("\"system_builder")
+        );
+        MatcherAssert.assertThat(
+            iterator.next().username(), new IsEqual<String>("admin")
+        );
+        MatcherAssert.assertThat(
+            iterator.next().username(), new IsEqual<String>("integration")
+        );
     }
 }
