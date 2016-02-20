@@ -98,7 +98,7 @@ public final class ITRealBuildsTest {
     }
 
     /**
-     * Can get last stable build.
+     * Can get last failed build.
      *
      * @throws Exception If something goes wrong.
      */
