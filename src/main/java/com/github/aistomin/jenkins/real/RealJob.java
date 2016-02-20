@@ -91,15 +91,9 @@ public final class RealJob implements Job {
      *
      * @return Job URL.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #45.
      */
     public String url() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "url() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return new XmlString(this.xml()).field("//job/url/text()");
     }
 
     /**

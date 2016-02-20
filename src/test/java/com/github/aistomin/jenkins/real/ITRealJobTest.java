@@ -15,7 +15,9 @@
  */
 package com.github.aistomin.jenkins.real;
 
+import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.JobDetails;
+import java.util.Iterator;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsInstanceOf;
@@ -83,6 +85,23 @@ public final class ITRealJobTest {
         );
         MatcherAssert.assertThat(
             details.buildable(), new IsEqual<Boolean>(true)
+        );
+    }
+
+    /**
+     * Can read job's URL.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadUrl() throws Exception {
+        final Iterator<Job> jobs = new TestJenkins().jobs().iterator();
+        jobs.next();
+        MatcherAssert.assertThat(
+            jobs.next().url(),
+            new IsEqual<Object>(
+                "https://cisdk-istomin.rhcloud.com/job/test-disabled-job/"
+            )
         );
     }
 }
