@@ -77,4 +77,19 @@ public final class ITRealBuildTest {
             new IsEqual<String>("test-different-builds-job #1")
         );
     }
+
+    /**
+     * Can read build's url.
+     *
+     * @throws Exception If something happened.
+     */
+    @Test
+    public void testCanReadUrl() throws Exception {
+        MatcherAssert.assertThat(
+            new TestJenkins().jobs().iterator().next()
+                .builds().iterator().next().url()
+                .endsWith("job/test-different-builds-job/1/"),
+            new IsEqual<Boolean>(true)
+        );
+    }
 }

@@ -111,15 +111,9 @@ public final class RealBuild implements Build {
      *
      * @return URL string.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #160.
      */
     public String url() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "url() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return new XmlString(this.xml()).field("//build/url/text()");
     }
 
     /**
