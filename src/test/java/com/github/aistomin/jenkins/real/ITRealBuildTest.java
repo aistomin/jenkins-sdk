@@ -16,8 +16,10 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
+import java.util.Date;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 /**
@@ -90,6 +92,20 @@ public final class ITRealBuildTest {
                 .builds().iterator().next().url()
                 .endsWith("job/test-different-builds-job/1/"),
             new IsEqual<Boolean>(true)
+        );
+    }
+
+    /**
+     * Can read build's date.
+     *
+     * @throws Exception If something happened.
+     */
+    @Test
+    public void testCanReadDate() throws Exception {
+        MatcherAssert.assertThat(
+            new TestJenkins().jobs().iterator().next()
+                .builds().iterator().next().date(),
+            new IsInstanceOf(Date.class)
         );
     }
 }

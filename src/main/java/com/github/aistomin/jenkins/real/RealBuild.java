@@ -95,13 +95,11 @@ public final class RealBuild implements Build {
      *
      * @return Build's date.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #159.
      */
     public Date date() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "date() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
+        return new Date(
+            Long.parseLong(
+                new XmlString(this.xml()).field("//build/timestamp/text()")
             )
         );
     }
