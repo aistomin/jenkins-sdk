@@ -24,7 +24,6 @@ import com.github.aistomin.jenkins.Credentials;
 import com.github.aistomin.xml.XmlString;
 import java.net.URLEncoder;
 import java.util.Date;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job build.
@@ -79,14 +78,10 @@ public final class RealBuild implements Build {
      *
      * @return Build's result.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #158.
      */
     public BuildResult result() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "result() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+        return BuildResult.valueOf(
+            new XmlString(this.xml()).field("//build/result/text()")
         );
     }
 
