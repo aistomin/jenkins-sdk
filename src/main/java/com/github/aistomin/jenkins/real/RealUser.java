@@ -97,15 +97,9 @@ public final class RealUser implements User {
      *
      * @return URL string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #81.
      */
     public String url() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "url() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return new XmlString(this.xml()).field("//user/absoluteUrl/text()");
     }
 
     /**

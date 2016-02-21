@@ -76,6 +76,21 @@ public final class ITRealUserTest {
     }
 
     /**
+     * Can read user's URL.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadUrl() throws Exception {
+        MatcherAssert.assertThat(
+            new TestJenkins().users().iterator().next().url(),
+            new IsEqual<String>(
+                "https://cisdk-istomin.rhcloud.com/user/%22system_builder"
+            )
+        );
+    }
+
+    /**
      * Can read Jenkins' user XML.
      *
      * @throws Exception If something goes wrong.
