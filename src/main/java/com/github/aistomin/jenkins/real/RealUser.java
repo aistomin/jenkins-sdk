@@ -19,6 +19,7 @@ import com.github.aistomin.http.PostRequest;
 import com.github.aistomin.iterators.Transformation;
 import com.github.aistomin.jenkins.Credentials;
 import com.github.aistomin.jenkins.User;
+import com.github.aistomin.xml.XmlString;
 import java.net.URLEncoder;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -65,8 +66,9 @@ public final class RealUser implements User {
      * Username. This name is ID of user that can not be changed.
      *
      * @return Username.
+     * @throws Exception If something goes wrong.
      */
-    public String username() {
+    public String username() throws Exception {
         return this.identifier;
     }
 
@@ -74,24 +76,20 @@ public final class RealUser implements User {
      * Jenkins user's full name.
      *
      * @return User's full name.
-     * @todo: Let's implement this method and solve Issue #79.
+     * @throws Exception If something goes wrong.
      */
-    public String fullName() {
-        throw new NotImplementedException(
-            String.format(
-                "fullName() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+    public String fullName() throws Exception {
+        return new XmlString(this.xml()).field("//user/fullName/text()");
     }
 
     /**
      * Jenkins user's email.
      *
      * @return User's email.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #80.
      */
-    public String email() {
+    public String email() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "email() method is not implemented for %s.",
@@ -104,9 +102,10 @@ public final class RealUser implements User {
      * User's Jenkins page URL.
      *
      * @return URL string.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #81.
      */
-    public String url() {
+    public String url() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "url() method is not implemented for %s.",
@@ -119,9 +118,10 @@ public final class RealUser implements User {
      * Jenkins user's description.
      *
      * @return Description string.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #82.
      */
-    public String description() {
+    public String description() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "description() method is not implemented for %s.",

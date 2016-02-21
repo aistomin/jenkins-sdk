@@ -28,34 +28,39 @@ public interface User extends ApiObject {
      * Username. This name is ID of user that can not be changed.
      *
      * @return Username.
+     * @throws Exception If error occurred.
      */
-    String username();
+    String username() throws Exception;
 
     /**
      * User's full name.
      *
      * @return User's full name.
+     * @throws Exception If error occurred.
      */
-    String fullName();
+    String fullName() throws Exception;
 
     /**
      * User's email.
      *
      * @return User's email.
+     * @throws Exception If error occurred.
      */
-    String email();
+    String email() throws Exception;
 
     /**
      * User's Jenkins page URL.
      *
      * @return URL string.
+     * @throws Exception If error occurred.
      */
-    String url();
+    String url() throws Exception;
 
     /**
      * User's description.
      *
      * @return Description string.
+     * @throws Exception If error occurred.
      */
-    String description();
+    String description() throws Exception;
 }

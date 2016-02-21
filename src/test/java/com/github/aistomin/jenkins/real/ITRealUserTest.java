@@ -35,12 +35,26 @@ public final class ITRealUserTest {
 
     /**
      * Can read user's username.
+     *
      * @throws Exception If something goes wrong.
      */
     @Test
     public void testCanReadUsername() throws Exception {
         MatcherAssert.assertThat(
             new TestJenkins().users().iterator().next().username(),
+            new IsEqual<String>(ITRealUserTest.USERNAME)
+        );
+    }
+
+    /**
+     * Can read user's full name.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadFullName() throws Exception {
+        MatcherAssert.assertThat(
+            new TestJenkins().users().iterator().next().fullName(),
             new IsEqual<String>(ITRealUserTest.USERNAME)
         );
     }

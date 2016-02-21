@@ -94,8 +94,9 @@ public final class FakeUser implements User {
      * Fake username.
      *
      * @return Username.
+     * @throws Exception If something goes wrong.
      */
-    public String username() {
+    public String username() throws Exception {
         return this.identifier;
     }
 
@@ -103,9 +104,10 @@ public final class FakeUser implements User {
      * Fake user's full name.
      *
      * @return User's full name.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #73.
      */
-    public String fullName() {
+    public String fullName() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "fullName() method is not implemented for %s.",
@@ -118,9 +120,10 @@ public final class FakeUser implements User {
      * Fake user's email.
      *
      * @return User's email.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #74.
      */
-    public String email() {
+    public String email() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "email() method is not implemented for %s.",
@@ -133,9 +136,10 @@ public final class FakeUser implements User {
      * Fake user's URL.
      *
      * @return URL string.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #75.
      */
-    public String url() {
+    public String url() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "url() method is not implemented for %s.",
@@ -148,9 +152,10 @@ public final class FakeUser implements User {
      * Fake user's description.
      *
      * @return Description string.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #76.
      */
-    public String description() {
+    public String description() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "description() method is not implemented for %s.",
