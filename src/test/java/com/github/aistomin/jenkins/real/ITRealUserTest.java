@@ -15,6 +15,8 @@
  */
 package com.github.aistomin.jenkins.real;
 
+import com.github.aistomin.jenkins.User;
+import java.util.Iterator;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
@@ -56,6 +58,20 @@ public final class ITRealUserTest {
         MatcherAssert.assertThat(
             new TestJenkins().users().iterator().next().fullName(),
             new IsEqual<String>(ITRealUserTest.USERNAME)
+        );
+    }
+
+    /**
+     * Can read user's email.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadEmail() throws Exception {
+        final Iterator<User> users = new TestJenkins().users().iterator();
+        users.next();
+        MatcherAssert.assertThat(
+            users.next().email(), new IsEqual<String>("changeme@changeme.com")
         );
     }
 

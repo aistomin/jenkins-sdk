@@ -87,15 +87,9 @@ public final class RealUser implements User {
      *
      * @return User's email.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #80.
      */
     public String email() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "email() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return new XmlString(this.xml()).field("//property/address/text()");
     }
 
     /**
