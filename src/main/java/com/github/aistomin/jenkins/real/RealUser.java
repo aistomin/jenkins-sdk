@@ -21,7 +21,6 @@ import com.github.aistomin.jenkins.Credentials;
 import com.github.aistomin.jenkins.User;
 import com.github.aistomin.xml.XmlString;
 import java.net.URLEncoder;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' user.
@@ -107,15 +106,9 @@ public final class RealUser implements User {
      *
      * @return Description string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #82.
      */
     public String description() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "description() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return new XmlString(this.xml()).field("//user/description/text()");
     }
 
     /**

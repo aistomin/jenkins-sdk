@@ -91,6 +91,19 @@ public final class ITRealUserTest {
     }
 
     /**
+     * Can read user's account description.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadDescription() throws Exception {
+        MatcherAssert.assertThat(
+            new TestJenkins().users().iterator().next().description(),
+            new IsEqual<String>("System user")
+        );
+    }
+
+    /**
      * Can read Jenkins' user XML.
      *
      * @throws Exception If something goes wrong.
