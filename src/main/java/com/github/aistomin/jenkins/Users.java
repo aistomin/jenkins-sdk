@@ -39,22 +39,25 @@ public interface Users extends ApiObject {
      *
      * @param username Username(aka ID).
      * @return User.
+     * @throws Exception If error occurred.
      */
-    User findByUsername(String username);
+    Iterator<User> findByUsername(String username) throws Exception;
 
     /**
      * Find by Jenkins' user email.
      *
      * @param email Username(aka ID).
      * @return Iterator of users who match the criteria.
+     * @throws Exception If error occurred.
      */
-    Iterator<User> findByEmail(String email);
+    Iterator<User> findByEmail(String email) throws Exception;
 
     /**
      * Find by Jenkins' user full name.
      *
      * @param name Full name or part of it.
      * @return Iterator of users who match the criteria.
+     * @throws Exception If error occurred.
      */
-    Iterator<User> findByFullName(String name);
+    Iterator<User> findByFullName(String name) throws Exception;
 }

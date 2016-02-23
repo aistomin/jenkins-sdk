@@ -76,14 +76,22 @@ public final class RealUsers implements Users {
      *
      * @param username Username(aka ID).
      * @return User.
-     * @todo: Let's implement this method and solve Issue #68.
+     * @throws Exception If error occurred.
      */
-    public User findByUsername(final String username) {
-        throw new NotImplementedException(
-            String.format(
-                "findByUsername() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+    public Iterator<User> findByUsername(
+        final String username
+    ) throws Exception {
+        return new EntityIterator<User, String>(
+            RealUsers.parseUsers(
+                new PostRequest(
+                    this.url(
+                        String.format(
+                            "&xpath=people/user/user[id='%s']&wrapper=users",
+                            username
+                        )
+                    ), this.creds.headers()
+                ).execute()
+            ).iterator(), new RealUser.Transformer(this.request(), this.creds)
         );
     }
 
@@ -92,9 +100,10 @@ public final class RealUsers implements Users {
      *
      * @param email Username(aka ID).
      * @return Iterator of users who match the criteria.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #69.
      */
-    public Iterator<User> findByEmail(final String email) {
+    public Iterator<User> findByEmail(final String email) throws Exception {
         throw new NotImplementedException(
             String.format(
                 "findByEmail() method is not implemented for %s.",
@@ -108,9 +117,10 @@ public final class RealUsers implements Users {
      *
      * @param name Full name or part of it.
      * @return Iterator of users who match the criteria.
+     * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve Issue #70.
      */
-    public Iterator<User> findByFullName(final String name) {
+    public Iterator<User> findByFullName(final String name) throws Exception {
         throw new NotImplementedException(
             String.format(
                 "findByFullName() method is not implemented for %s.",
@@ -139,5 +149,29 @@ public final class RealUsers implements Users {
             "%s/%s", this.base,
             "asynchPeople/api/xml?depth=3"
         );
+    }
+
+    /**
+     * Create full Jenkins API URL.
+     * @param path URL path.
+     * @return URL string.
+     */
+    private String url(final String path) {
+        return String.format("%s%s", this.request(), path);
+    }
+
+    /**
+     * Parse users from XML.
+     *
+     * @param xml XML string.
+     * @return Parsed users names.
+     * @throws Exception If something goes wrong.
+     */
+    private static List<String> parseUsers(final String xml) throws Exception {
+        final List<String> jobs = new XMLDocument(xml).xpath(
+            "//user/id/text()"
+        );
+        Collections.sort(jobs, String.CASE_INSENSITIVE_ORDER);
+        return jobs;
     }
 }

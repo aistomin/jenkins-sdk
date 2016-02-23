@@ -80,9 +80,12 @@ public final class FakeUsers implements Users {
      *
      * @param username Username(aka ID).
      * @return User.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #64.
      */
-    public User findByUsername(final String username) {
+    public Iterator<User> findByUsername(
+        final String username
+    ) throws Exception {
         throw new NotImplementedException(
             String.format(
                 "findByUsername() method is not implemented for %s.",
@@ -96,9 +99,10 @@ public final class FakeUsers implements Users {
      *
      * @param email Username(aka ID).
      * @return Iterator of users who match the criteria.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #65.
      */
-    public Iterator<User> findByEmail(final String email) {
+    public Iterator<User> findByEmail(final String email) throws Exception {
         throw new NotImplementedException(
             String.format(
                 "findByEmail() method is not implemented for %s.",
@@ -112,9 +116,10 @@ public final class FakeUsers implements Users {
      *
      * @param name Full name or part of it.
      * @return Iterator of users who match the criteria.
+     * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #66.
      */
-    public Iterator<User> findByFullName(final String name) {
+    public Iterator<User> findByFullName(final String name) throws Exception {
         throw new NotImplementedException(
             String.format(
                 "findByFullName() method is not implemented for %s.",

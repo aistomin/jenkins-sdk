@@ -64,8 +64,22 @@ public final class ITRealUsersTest {
         MatcherAssert.assertThat(
             iterator.next().username(), new IsEqual<String>("admin")
         );
+    }
+
+    /**
+     * Can find user by username.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanFindByUsername() throws Exception {
+        final String username = "integration";
+        final Iterator<User> users = new TestJenkins().users()
+            .findByUsername(username);
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(true));
         MatcherAssert.assertThat(
-            iterator.next().username(), new IsEqual<String>("integration")
+            users.next().username(), new IsEqual<String>(username)
         );
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(false));
     }
 }
