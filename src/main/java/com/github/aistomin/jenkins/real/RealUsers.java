@@ -21,6 +21,7 @@ import com.github.aistomin.jenkins.Credentials;
 import com.github.aistomin.jenkins.User;
 import com.github.aistomin.jenkins.Users;
 import com.jcabi.xml.XMLDocument;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -81,18 +82,7 @@ public final class RealUsers implements Users {
     public Iterator<User> findByUsername(
         final String username
     ) throws Exception {
-        return new EntityIterator<User, String>(
-            RealUsers.parseUsers(
-                new PostRequest(
-                    this.url(
-                        String.format(
-                            "&xpath=people/user/user[id='%s']&wrapper=users",
-                            username
-                        )
-                    ), this.creds.headers()
-                ).execute()
-            ).iterator(), new RealUser.Transformer(this.request(), this.creds)
-        );
+        return this.findBy("id", username);
     }
 
     /**
@@ -118,15 +108,9 @@ public final class RealUsers implements Users {
      * @param name Full name or part of it.
      * @return Iterator of users who match the criteria.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #70.
      */
     public Iterator<User> findByFullName(final String name) throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "findByFullName() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.findBy("fullName", name);
     }
 
     /**
@@ -137,6 +121,31 @@ public final class RealUsers implements Users {
      */
     public String xml() throws Exception {
         return new PostRequest(this.request(), this.creds.headers()).execute();
+    }
+
+    /**
+     * Find user.
+     *
+     * @param field Search parameter's field.
+     * @param value Search parameter's value.
+     * @return Users.
+     * @throws Exception If something goes wrong.
+     */
+    private Iterator<User> findBy(
+        final String field, final String value
+    ) throws Exception {
+        return new EntityIterator<User, String>(
+            RealUsers.parseUsers(
+                new PostRequest(
+                    this.url(
+                        String.format(
+                            "&xpath=people/user/user[%s='%s']&wrapper=users",
+                            field, URLEncoder.encode(value, "UTF-8")
+                        )
+                    ), this.creds.headers()
+                ).execute()
+            ).iterator(), new RealUser.Transformer(this.request(), this.creds)
+        );
     }
 
     /**

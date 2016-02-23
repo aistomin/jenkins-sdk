@@ -82,4 +82,21 @@ public final class ITRealUsersTest {
         );
         MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(false));
     }
+
+    /**
+     * Can find user by full user name.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanFindByFullName() throws Exception {
+        final String name = "Integration Test";
+        final Iterator<User> users = new TestJenkins().users()
+            .findByFullName(name);
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(true));
+        MatcherAssert.assertThat(
+            users.next().fullName(), new IsEqual<String>(name)
+        );
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(false));
+    }
 }
