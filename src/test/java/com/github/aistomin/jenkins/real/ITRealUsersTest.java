@@ -99,4 +99,21 @@ public final class ITRealUsersTest {
         );
         MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(false));
     }
+
+    /**
+     * Can find user by user's email.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanFindByEmail() throws Exception {
+        final String email = "andrej.istomin.ikeen@gmail.com";
+        final Iterator<User> users = new TestJenkins().users()
+            .findByEmail(email);
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(true));
+        MatcherAssert.assertThat(
+            users.next().email(), new IsEqual<String>(email)
+        );
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(false));
+    }
 }

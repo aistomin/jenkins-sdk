@@ -25,7 +25,6 @@ import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' users.
@@ -91,14 +90,22 @@ public final class RealUsers implements Users {
      * @param email Username(aka ID).
      * @return Iterator of users who match the criteria.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #69.
      */
     public Iterator<User> findByEmail(final String email) throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "findByEmail() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+        return new EntityIterator<User, String>(
+            RealUsers.parseUsers(
+                new PostRequest(
+                    this.url(
+                        String.format(
+                            "&xpath=people/user/user[%s]&wrapper=users",
+                            String.format(
+                                "property[address='%s']",
+                                RealUsers.encode(email)
+                            )
+                        )
+                    ), this.creds.headers()
+                ).execute()
+            ).iterator(), new RealUser.Transformer(this.request(), this.creds)
         );
     }
 
@@ -140,7 +147,7 @@ public final class RealUsers implements Users {
                     this.url(
                         String.format(
                             "&xpath=people/user/user[%s='%s']&wrapper=users",
-                            field, URLEncoder.encode(value, "UTF-8")
+                            field, RealUsers.encode(value)
                         )
                     ), this.creds.headers()
                 ).execute()
@@ -182,5 +189,16 @@ public final class RealUsers implements Users {
         );
         Collections.sort(jobs, String.CASE_INSENSITIVE_ORDER);
         return jobs;
+    }
+
+    /**
+     * Encode string.
+     *
+     * @param str String.
+     * @return Encoded string.
+     * @throws Exception If something goes wrong.
+     */
+    private static String encode(final String str) throws Exception {
+        return URLEncoder.encode(str, "UTF-8");
     }
 }
