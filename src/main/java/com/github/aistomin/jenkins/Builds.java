@@ -73,5 +73,5 @@ public interface Builds extends ApiObject {
      * @return Build.
      * @throws Exception If something goes wrong.
      */
-    Build find(String number) throws Exception;
+    Iterator<Build> findByNumber(String number) throws Exception;
 }

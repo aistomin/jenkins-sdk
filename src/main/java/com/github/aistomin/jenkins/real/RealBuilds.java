@@ -20,13 +20,12 @@ import com.github.aistomin.iterators.EntityIterator;
 import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.jenkins.Credentials;
-import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlString;
 import com.jcabi.xml.XMLDocument;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job builds.
@@ -65,8 +64,7 @@ public final class RealBuilds implements Builds {
      * @throws Exception If reading the builds was not successful.
      */
     public Iterator<Build> iterator() throws Exception {
-        final List<String> builds = new XMLDocument(this.xml())
-            .xpath("//build/displayName/text()");
+        final List<String> builds = RealBuilds.parseBuild(this.xml());
         Collections.sort(builds, String.CASE_INSENSITIVE_ORDER);
         return new EntityIterator<Build, String>(
             builds.iterator(), new RealBuild.Transformer(this.api, this.creds)
@@ -81,7 +79,9 @@ public final class RealBuilds implements Builds {
      */
     public Build lastSuccessful() throws Exception {
         return new RealBuild(
-            this.detailed().field(
+            new XmlString(
+                new PostRequest(this.api, this.creds.headers()).execute()
+            ).field(
                 "//lastSuccessfulBuild/displayName/text()"
             ), this.api, this.creds
         );
@@ -95,7 +95,9 @@ public final class RealBuilds implements Builds {
      */
     public Build lastFailed() throws Exception {
         return new RealBuild(
-            this.detailed().field(
+            new XmlString(
+                new PostRequest(this.api, this.creds.headers()).execute()
+            ).field(
                 "//lastFailedBuild/displayName/text()"
             ), this.api, this.creds
         );
@@ -109,7 +111,9 @@ public final class RealBuilds implements Builds {
      */
     public Build lastStable() throws Exception {
         return new RealBuild(
-            this.detailed().field(
+            new XmlString(
+                new PostRequest(this.api, this.creds.headers()).execute()
+            ).field(
                 "//lastStableBuild/displayName/text()"
             ), this.api, this.creds
         );
@@ -123,7 +127,9 @@ public final class RealBuilds implements Builds {
      */
     public Build lastUnsuccessful() throws Exception {
         return new RealBuild(
-            this.detailed().field(
+            new XmlString(
+                new PostRequest(this.api, this.creds.headers()).execute()
+            ).field(
                 "//lastUnsuccessfulBuild/displayName/text()"
             ), this.api, this.creds
         );
@@ -135,14 +141,19 @@ public final class RealBuilds implements Builds {
      * @param number Build's number.
      * @return Build.
      * @throws Exception If reading the build was not successful.
-     * @todo: Let's implement this method and solve Issue #110.
      */
-    public Build find(final String number) throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "find() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+    public Iterator<Build> findByNumber(final String number) throws Exception {
+        return new EntityIterator<Build, String>(
+            RealBuilds.parseBuild(
+                new PostRequest(
+                    this.url(
+                        String.format(
+                            "/build[displayName='%s']",
+                            URLEncoder.encode(number, "UTF-8")
+                        )
+                    ), this.creds.headers()
+                ).execute()
+            ).iterator(), new RealBuild.Transformer(this.api, this.creds)
         );
     }
 
@@ -157,25 +168,35 @@ public final class RealBuilds implements Builds {
     }
 
     /**
-     * Detailed Job XML.
-     *
-     * @return XML.
-     * @throws Exception If reading XML was not successful.
-     */
-    private Xml detailed() throws Exception {
-        return new XmlString(
-            new PostRequest(this.api, this.creds.headers()).execute()
-        );
-    }
-
-    /**
      * Creates API URL to request Jenkins' job builds data.
      *
      * @return URL string.
      */
     private String request() {
-        return String.format(
-            "%s%s", this.api, "/build&wrapper=builds"
+        return this.url("/build&wrapper=builds");
+    }
+
+    /**
+     * Create full Jenkins API URL.
+     * @param path URL path.
+     * @return URL string.
+     */
+    private String url(final String path) {
+        return String.format("%s%s", this.api, path);
+    }
+
+    /**
+     * Parse users from XML.
+     *
+     * @param xml XML string.
+     * @return Parsed users names.
+     * @throws Exception If something goes wrong.
+     */
+    private static List<String> parseBuild(final String xml) throws Exception {
+        final List<String> builds = new XMLDocument(xml).xpath(
+            "//build/displayName/text()"
         );
+        Collections.sort(builds, String.CASE_INSENSITIVE_ORDER);
+        return builds;
     }
 }

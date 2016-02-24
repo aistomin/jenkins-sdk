@@ -184,11 +184,11 @@ public final class RealUsers implements Users {
      * @throws Exception If something goes wrong.
      */
     private static List<String> parseUsers(final String xml) throws Exception {
-        final List<String> jobs = new XMLDocument(xml).xpath(
+        final List<String> users = new XMLDocument(xml).xpath(
             "//user/id/text()"
         );
-        Collections.sort(jobs, String.CASE_INSENSITIVE_ORDER);
-        return jobs;
+        Collections.sort(users, String.CASE_INSENSITIVE_ORDER);
+        return users;
     }
 
     /**

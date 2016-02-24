@@ -61,7 +61,8 @@ public final class ITRealBuildsTest {
         final Iterator<Build> builds = new TestJenkins().jobs().iterator()
             .next().builds().iterator();
         MatcherAssert.assertThat(
-            builds.next().number(), new IsEqual<String>("#1")
+            builds.next().details().fullDisplayName(),
+            new IsEqual<String>("test-different-builds-job #1")
         );
         builds.next();
         builds.next();
@@ -126,5 +127,22 @@ public final class ITRealBuildsTest {
         MatcherAssert.assertThat(
             last.details().displayName(), new IsEqual<String>("#2")
         );
+    }
+
+    /**
+     * Can get find build by it's number.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanFindByNumber() throws Exception {
+        final String number = "#1";
+        final Iterator<Build> found = new TestJenkins().jobs().iterator()
+            .next().builds().findByNumber(number);
+        MatcherAssert.assertThat(found.hasNext(), new IsEqual<Boolean>(true));
+        MatcherAssert.assertThat(
+            found.next().number(), new IsEqual<String>(number)
+        );
+        MatcherAssert.assertThat(found.hasNext(), new IsEqual<Boolean>(false));
     }
 }

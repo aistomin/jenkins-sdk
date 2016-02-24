@@ -147,10 +147,10 @@ public final class FakeBuilds implements Builds {
      * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #101.
      */
-    public Build find(final String number) throws Exception {
+    public Iterator<Build> findByNumber(final String number) throws Exception {
         throw new NotImplementedException(
             String.format(
-                "find() method is not implemented for %s.",
+                "findByNumber() method is not implemented for %s.",
                 this.getClass().getCanonicalName()
             )
         );
