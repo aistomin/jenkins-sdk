@@ -17,6 +17,7 @@ package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.JobDetails;
+import com.github.aistomin.jenkins.JobParameter;
 import java.util.Iterator;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
@@ -103,5 +104,27 @@ public final class ITRealJobTest {
                 "https://cisdk-istomin.rhcloud.com/job/test-disabled-job/"
             )
         );
+    }
+
+    /**
+     * Can read job's parameters.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadParameters() throws Exception {
+        final Iterator<Job> jobs = new TestJenkins().jobs().findByName(
+            "test-parametrised-job"
+        );
+        final Iterator<JobParameter> params = jobs.next().parameters();
+        MatcherAssert.assertThat(params.hasNext(), new IsEqual<Boolean>(true));
+        MatcherAssert.assertThat(
+            params.next().name(), new IsEqual<String>("stringParameter")
+        );
+        MatcherAssert.assertThat(params.hasNext(), new IsEqual<Boolean>(true));
+        MatcherAssert.assertThat(
+            params.next().name(), new IsEqual<String>("boolParam")
+        );
+        MatcherAssert.assertThat(params.hasNext(), new IsEqual<Boolean>(false));
     }
 }

@@ -16,6 +16,7 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.http.PostRequest;
+import com.github.aistomin.iterators.EntityIterator;
 import com.github.aistomin.iterators.Transformation;
 import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.jenkins.Credentials;
@@ -23,9 +24,10 @@ import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.JobDetails;
 import com.github.aistomin.jenkins.JobParameter;
 import com.github.aistomin.xml.XmlString;
+import com.jcabi.xml.XML;
+import com.jcabi.xml.XMLDocument;
 import java.net.URLEncoder;
 import java.util.Iterator;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job.
@@ -111,14 +113,12 @@ public final class RealJob implements Job {
      *
      * @return Job's parameters.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #43.
      */
     public Iterator<JobParameter> parameters() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "parameters() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
+        return new EntityIterator<JobParameter, XML>(
+            new XMLDocument(
+                this.xml("action/parameterDefinition&wrapper=parameters")
+            ).nodes("/parameters/*").iterator(), new ParamTransformer()
         );
     }
 
@@ -130,6 +130,21 @@ public final class RealJob implements Job {
      */
     public String xml() throws Exception {
         return new PostRequest(this.request(), this.creds.headers()).execute();
+    }
+
+    /**
+     * Get XML for path.
+     *
+     * @param path API path.
+     * @return XML's string.
+     * @throws Exception If something goes wrong.
+     */
+    private String xml(final String path) throws Exception {
+        return new PostRequest(
+            String.format(
+                "%s/%s", this.request(), path
+            ), this.creds.headers()
+        ).execute();
     }
 
     /**
@@ -184,6 +199,26 @@ public final class RealJob implements Job {
          */
         public Job transform(final String source) {
             return new RealJob(source, this.api, this.creds);
+        }
+    }
+
+    /**
+     * JobParameter transformer.
+     */
+    private static final class ParamTransformer implements
+        Transformation<JobParameter, XML> {
+
+        /**
+         * Transform XML to JobParameter.
+         *
+         * @param source Source object.
+         * @return JobParameter.
+         * @checkstyle NonStaticMethodCheck (500 lines)
+         */
+        public JobParameter transform(final XML source) {
+            return new RealJobParameter(
+                new XmlString(source.toString())
+            );
         }
     }
 }
