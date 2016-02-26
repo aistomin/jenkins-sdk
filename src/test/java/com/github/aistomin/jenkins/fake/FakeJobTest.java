@@ -18,6 +18,7 @@ package com.github.aistomin.jenkins.fake;
 import com.github.aistomin.jenkins.JobDetails;
 import com.github.aistomin.jenkins.real.RealJobDetails;
 import com.github.aistomin.xml.XmlString;
+import java.net.URL;
 import java.util.UUID;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
@@ -76,6 +77,20 @@ public final class FakeJobTest {
     }
 
     /**
+     * Can create with URL.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanCreateWithUrl() throws Exception {
+        final URL url = new URL("http", "localhost", 8080, "/my-job");
+        final FakeJob job = new FakeJob(url);
+        MatcherAssert.assertThat(
+            job.url(), new IsEqual<String>(url.toString())
+        );
+    }
+
+    /**
      * Can read Fake job's XML.
      *
      * @throws Exception If something goes wrong.
@@ -118,6 +133,19 @@ public final class FakeJobTest {
         MatcherAssert.assertThat(
             new FakeJob().details().displayName(),
             new IsEqual<String>("test-different-builds-job")
+        );
+    }
+
+    /**
+     * Can read Fake job's URL.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadUrl() throws Exception {
+        MatcherAssert.assertThat(
+            new FakeJob().url(),
+            new IsInstanceOf(String.class)
         );
     }
 }

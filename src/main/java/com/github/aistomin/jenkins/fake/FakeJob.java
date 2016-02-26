@@ -22,6 +22,7 @@ import com.github.aistomin.jenkins.JobParameter;
 import com.github.aistomin.jenkins.real.RealJobDetails;
 import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
+import java.net.URL;
 import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -55,12 +56,18 @@ public final class FakeJob implements Job {
     private final transient JobDetails detailed;
 
     /**
+     * Job's URL that will be returned in url() method.
+     */
+    private final transient String uri;
+
+    /**
      * Default ctor.
      */
     public FakeJob() {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
-            new RealJobDetails(new XmlResource(FakeJob.RESOURCE))
+            new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
+            FakeJob.defaultUrl()
         );
     }
 
@@ -70,7 +77,10 @@ public final class FakeJob implements Job {
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeJob(final Xml xml) {
-        this(FakeJob.defaultName(), xml, new RealJobDetails(xml));
+        this(
+            FakeJob.defaultName(), xml, new RealJobDetails(xml),
+            FakeJob.defaultUrl()
+        );
     }
 
     /**
@@ -81,7 +91,8 @@ public final class FakeJob implements Job {
     public FakeJob(final String name) {
         this(
             name, new XmlResource(FakeJob.RESOURCE),
-            new RealJobDetails(new XmlResource(FakeJob.RESOURCE))
+            new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
+            FakeJob.defaultUrl()
         );
     }
 
@@ -93,7 +104,20 @@ public final class FakeJob implements Job {
     public FakeJob(final JobDetails details) {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
-            details
+            details, FakeJob.defaultUrl()
+        );
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param url Job's URL that will be returned in url() method.
+     */
+    public FakeJob(final URL url) {
+        this(
+            FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
+            new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
+            url.toString()
         );
     }
 
@@ -103,11 +127,17 @@ public final class FakeJob implements Job {
      * @param name Job name.
      * @param xml XML content that should be returned in xml() method.
      * @param details Job details that will be returned in details() method.
+     * @param url Job's URL that will be returned to url()
+     * @checkstyle ParameterNumberCheck (500 lines)
      */
-    public FakeJob(final String name, final Xml xml, final JobDetails details) {
+    public FakeJob(
+        final String name, final Xml xml, final JobDetails details,
+        final String url
+    ) {
         this.identifier = name;
         this.content = xml;
         this.detailed = details;
+        this.uri = url;
     }
 
     /**
@@ -135,15 +165,9 @@ public final class FakeJob implements Job {
      *
      * @return URL string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #55.
      */
     public String url() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "url() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.uri;
     }
 
     /**
@@ -194,5 +218,13 @@ public final class FakeJob implements Job {
      */
     private static String defaultName() {
         return String.format("job%d", System.currentTimeMillis());
+    }
+
+    /**
+     * Construct default job URL.
+     * @return Default job  URL.
+     */
+    private static String defaultUrl() {
+        return String.format("http://my-jenkins.com/%s", FakeJob.defaultName());
     }
 }
