@@ -1,0 +1,9 @@
+<parameterDefinition>
+    <defaultParameterValue>
+        <name>niceParameter</name>
+        <value/>
+    </defaultParameterValue>
+    <description/>
+    <name>niceParameter</name>
+    <type>StringParameterDefinition</type>
+</parameterDefinition>

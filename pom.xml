@@ -92,13 +92,14 @@
                 <configuration>
                     <license>file:${basedir}/LICENSE</license>
                     <excludes>
+                        <exclude>xml:/src/main/resources/build.xml</exclude>
+                        <exclude>xml:/src/main/resources/builds.xml</exclude>
                         <exclude>xml:/src/main/resources/jenkins.xml</exclude>
                         <exclude>xml:/src/main/resources/job.xml</exclude>
+                        <exclude>xml:/src/main/resources/job-param.xml</exclude>
                         <exclude>xml:/src/main/resources/jobs.xml</exclude>
                         <exclude>xml:/src/main/resources/user.xml</exclude>
                         <exclude>xml:/src/main/resources/users.xml</exclude>
-                        <exclude>xml:/src/main/resources/build.xml</exclude>
-                        <exclude>xml:/src/main/resources/builds.xml</exclude>
                         <!-- TODO: Let's solve #184 and re-enable FindBugs validation-->
                         <exclude>findbugs:~com.github.aistomin.*</exclude>
                     </excludes>

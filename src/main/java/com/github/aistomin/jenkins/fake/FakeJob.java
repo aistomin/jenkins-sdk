@@ -20,11 +20,13 @@ import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.JobDetails;
 import com.github.aistomin.jenkins.JobParameter;
 import com.github.aistomin.jenkins.real.RealJobDetails;
+import com.github.aistomin.jenkins.real.RealJobParameter;
 import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
-import org.apache.commons.lang3.NotImplementedException;
+import java.util.List;
 
 /**
  * Fake jenkins' job.
@@ -66,13 +68,18 @@ public final class FakeJob implements Job {
     private final transient Builds bds;
 
     /**
+     * Job's parameters that will be returned in parameters() method.
+     */
+    private final transient List<JobParameter> params;
+
+    /**
      * Default ctor.
      */
     public FakeJob() {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            FakeJob.defaultUrl(), new FakeBuilds()
+            FakeJob.defaultUrl(), new FakeBuilds(), FakeJob.defaultParams()
         );
     }
 
@@ -84,7 +91,7 @@ public final class FakeJob implements Job {
     public FakeJob(final Xml xml) {
         this(
             FakeJob.defaultName(), xml, new RealJobDetails(xml),
-            FakeJob.defaultUrl(), new FakeBuilds()
+            FakeJob.defaultUrl(), new FakeBuilds(), FakeJob.defaultParams()
         );
     }
 
@@ -97,7 +104,7 @@ public final class FakeJob implements Job {
         this(
             name, new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            FakeJob.defaultUrl(), new FakeBuilds()
+            FakeJob.defaultUrl(), new FakeBuilds(), FakeJob.defaultParams()
         );
     }
 
@@ -109,7 +116,8 @@ public final class FakeJob implements Job {
     public FakeJob(final JobDetails details) {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
-            details, FakeJob.defaultUrl(), new FakeBuilds()
+            details, FakeJob.defaultUrl(), new FakeBuilds(),
+            FakeJob.defaultParams()
         );
     }
 
@@ -122,7 +130,7 @@ public final class FakeJob implements Job {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            url.toString(), new FakeBuilds()
+            url.toString(), new FakeBuilds(), FakeJob.defaultParams()
         );
     }
 
@@ -135,7 +143,21 @@ public final class FakeJob implements Job {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            FakeJob.defaultUrl(), builds
+            FakeJob.defaultUrl(), builds, FakeJob.defaultParams()
+        );
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param parameters Job's parameters that will be returned in parameters()
+     *  method.
+     */
+    public FakeJob(final List<JobParameter> parameters) {
+        this(
+            FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
+            new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
+            FakeJob.defaultUrl(), new FakeBuilds(), parameters
         );
     }
 
@@ -147,17 +169,21 @@ public final class FakeJob implements Job {
      * @param details Job details that will be returned in details() method.
      * @param url Job's URL that will be returned in url() method.
      * @param builds Job's builds that will be returned in builds() method.
+     * @param parameters Job's parameters that will be returned in parameters()
+     *  method.
      * @checkstyle ParameterNumberCheck (500 lines)
      */
     public FakeJob(
         final String name, final Xml xml, final JobDetails details,
-        final String url, final Builds builds
+        final String url, final Builds builds,
+        final List<JobParameter> parameters
     ) {
         this.identifier = name;
         this.content = xml;
         this.detailed = details;
         this.uri = url;
         this.bds = builds;
+        this.params = parameters;
     }
 
     /**
@@ -205,15 +231,9 @@ public final class FakeJob implements Job {
      *
      * @return Job's parameters.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #57.
      */
     public Iterator<JobParameter> parameters() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "parameters() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.params.iterator();
     }
 
     /**
@@ -228,6 +248,7 @@ public final class FakeJob implements Job {
 
     /**
      * Construct default job name.
+     *
      * @return Default job name.
      */
     private static String defaultName() {
@@ -236,9 +257,21 @@ public final class FakeJob implements Job {
 
     /**
      * Construct default job URL.
+     *
      * @return Default job  URL.
      */
     private static String defaultUrl() {
         return String.format("http://my-jenkins.com/%s", FakeJob.defaultName());
+    }
+
+    /**
+     * Construct default job parameters.
+     *
+     * @return Default job  URL.
+     */
+    private static List<JobParameter> defaultParams() {
+        final List<JobParameter> params = new ArrayList<JobParameter>(1);
+        params.add(new RealJobParameter(new XmlResource("job-param.xml")));
+        return params;
     }
 }

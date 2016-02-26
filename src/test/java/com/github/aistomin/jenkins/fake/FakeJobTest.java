@@ -17,13 +17,19 @@ package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.jenkins.JobDetails;
+import com.github.aistomin.jenkins.JobParameter;
 import com.github.aistomin.jenkins.real.RealJobDetails;
+import com.github.aistomin.jenkins.real.RealJobParameter;
 import com.github.aistomin.xml.XmlString;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsInstanceOf;
+import org.hamcrest.core.IsSame;
 import org.junit.Test;
 
 /**
@@ -32,6 +38,7 @@ import org.junit.Test;
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
+ * @checkstyle ClassDataAbstractionCouplingCheck (1000 lines)
  */
 public final class FakeJobTest {
 
@@ -106,6 +113,28 @@ public final class FakeJobTest {
     }
 
     /**
+     * Can create with parameters.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanCreateWithParameters() throws Exception {
+        final List<JobParameter> params = new ArrayList<JobParameter>(1);
+        params.add(new RealJobParameter(new XmlString("<param></param>")));
+        final FakeJob job = new FakeJob(params);
+        final Iterator<JobParameter> parameters = job.parameters();
+        MatcherAssert.assertThat(
+            parameters.hasNext(), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            parameters.next(), new IsSame<JobParameter>(params.get(0))
+        );
+        MatcherAssert.assertThat(
+            parameters.hasNext(), new IsEqual<Boolean>(false)
+        );
+    }
+
+    /**
      * Can read Fake job's XML.
      *
      * @throws Exception If something goes wrong.
@@ -148,32 +177,6 @@ public final class FakeJobTest {
         MatcherAssert.assertThat(
             new FakeJob().details().displayName(),
             new IsEqual<String>("test-different-builds-job")
-        );
-    }
-
-    /**
-     * Can read Fake job's URL.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanReadUrl() throws Exception {
-        MatcherAssert.assertThat(
-            new FakeJob().url(),
-            new IsInstanceOf(String.class)
-        );
-    }
-
-    /**
-     * Can read Fake job's builds.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanReadBuilds() throws Exception {
-        MatcherAssert.assertThat(
-            new FakeJob().builds(),
-            new IsInstanceOf(Builds.class)
         );
     }
 }
