@@ -15,6 +15,7 @@
  */
 package com.github.aistomin.jenkins.fake;
 
+import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.jenkins.JobDetails;
 import com.github.aistomin.jenkins.real.RealJobDetails;
 import com.github.aistomin.xml.XmlString;
@@ -91,6 +92,20 @@ public final class FakeJobTest {
     }
 
     /**
+     * Can create with builds.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanCreateWithBuilds() throws Exception {
+        final FakeBuilds builds = new FakeBuilds();
+        final FakeJob job = new FakeJob(builds);
+        MatcherAssert.assertThat(
+            job.builds(), new IsEqual<Builds>(builds)
+        );
+    }
+
+    /**
      * Can read Fake job's XML.
      *
      * @throws Exception If something goes wrong.
@@ -146,6 +161,19 @@ public final class FakeJobTest {
         MatcherAssert.assertThat(
             new FakeJob().url(),
             new IsInstanceOf(String.class)
+        );
+    }
+
+    /**
+     * Can read Fake job's builds.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadBuilds() throws Exception {
+        MatcherAssert.assertThat(
+            new FakeJob().builds(),
+            new IsInstanceOf(Builds.class)
         );
     }
 }

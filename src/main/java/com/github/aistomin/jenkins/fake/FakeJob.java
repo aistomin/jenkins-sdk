@@ -61,13 +61,18 @@ public final class FakeJob implements Job {
     private final transient String uri;
 
     /**
+     * Job's builds that will be returned in builds() method.
+     */
+    private final transient Builds bds;
+
+    /**
      * Default ctor.
      */
     public FakeJob() {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            FakeJob.defaultUrl()
+            FakeJob.defaultUrl(), new FakeBuilds()
         );
     }
 
@@ -79,7 +84,7 @@ public final class FakeJob implements Job {
     public FakeJob(final Xml xml) {
         this(
             FakeJob.defaultName(), xml, new RealJobDetails(xml),
-            FakeJob.defaultUrl()
+            FakeJob.defaultUrl(), new FakeBuilds()
         );
     }
 
@@ -92,7 +97,7 @@ public final class FakeJob implements Job {
         this(
             name, new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            FakeJob.defaultUrl()
+            FakeJob.defaultUrl(), new FakeBuilds()
         );
     }
 
@@ -104,7 +109,7 @@ public final class FakeJob implements Job {
     public FakeJob(final JobDetails details) {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
-            details, FakeJob.defaultUrl()
+            details, FakeJob.defaultUrl(), new FakeBuilds()
         );
     }
 
@@ -117,7 +122,20 @@ public final class FakeJob implements Job {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            url.toString()
+            url.toString(), new FakeBuilds()
+        );
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param builds Job's builds that will be returned in builds() method.
+     */
+    public FakeJob(final Builds builds) {
+        this(
+            FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
+            new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
+            FakeJob.defaultUrl(), builds
         );
     }
 
@@ -127,17 +145,19 @@ public final class FakeJob implements Job {
      * @param name Job name.
      * @param xml XML content that should be returned in xml() method.
      * @param details Job details that will be returned in details() method.
-     * @param url Job's URL that will be returned to url()
+     * @param url Job's URL that will be returned in url() method.
+     * @param builds Job's builds that will be returned in builds() method.
      * @checkstyle ParameterNumberCheck (500 lines)
      */
     public FakeJob(
         final String name, final Xml xml, final JobDetails details,
-        final String url
+        final String url, final Builds builds
     ) {
         this.identifier = name;
         this.content = xml;
         this.detailed = details;
         this.uri = url;
+        this.bds = builds;
     }
 
     /**
@@ -175,15 +195,9 @@ public final class FakeJob implements Job {
      *
      * @return Builds.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #56.
      */
     public Builds builds() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "builds() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.bds;
     }
 
     /**
