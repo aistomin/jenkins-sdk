@@ -19,6 +19,7 @@ import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.JobDetails;
 import com.github.aistomin.jenkins.JobParameter;
+import com.github.aistomin.jenkins.real.RealJobDetails;
 import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
 import java.util.Iterator;
@@ -49,10 +50,18 @@ public final class FakeJob implements Job {
     private final transient Xml content;
 
     /**
+     * Job details that will be returned in details() method.
+     */
+    private final transient JobDetails detailed;
+
+    /**
      * Default ctor.
      */
     public FakeJob() {
-        this(FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE));
+        this(
+            FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
+            new RealJobDetails(new XmlResource(FakeJob.RESOURCE))
+        );
     }
 
     /**
@@ -61,7 +70,7 @@ public final class FakeJob implements Job {
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeJob(final Xml xml) {
-        this(FakeJob.defaultName(), xml);
+        this(FakeJob.defaultName(), xml, new RealJobDetails(xml));
     }
 
     /**
@@ -70,7 +79,22 @@ public final class FakeJob implements Job {
      * @param name Job name.
      */
     public FakeJob(final String name) {
-        this(name, new XmlResource(FakeJob.RESOURCE));
+        this(
+            name, new XmlResource(FakeJob.RESOURCE),
+            new RealJobDetails(new XmlResource(FakeJob.RESOURCE))
+        );
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param details Job details that will be returned in details() method.
+     */
+    public FakeJob(final JobDetails details) {
+        this(
+            FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
+            details
+        );
     }
 
     /**
@@ -78,10 +102,12 @@ public final class FakeJob implements Job {
      *
      * @param name Job name.
      * @param xml XML content that should be returned in xml() method.
+     * @param details Job details that will be returned in details() method.
      */
-    public FakeJob(final String name, final Xml xml) {
+    public FakeJob(final String name, final Xml xml, final JobDetails details) {
         this.identifier = name;
         this.content = xml;
+        this.detailed = details;
     }
 
     /**
@@ -99,15 +125,9 @@ public final class FakeJob implements Job {
      *
      * @return Job details.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #54.
      */
     public JobDetails details() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "details() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.detailed;
     }
 
     /**
@@ -163,7 +183,6 @@ public final class FakeJob implements Job {
      *
      * @return XML's string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #58.
      */
     public String xml() throws Exception {
         return this.content.content();

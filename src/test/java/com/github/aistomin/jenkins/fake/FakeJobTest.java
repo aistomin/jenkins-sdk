@@ -15,6 +15,8 @@
  */
 package com.github.aistomin.jenkins.fake;
 
+import com.github.aistomin.jenkins.JobDetails;
+import com.github.aistomin.jenkins.real.RealJobDetails;
 import com.github.aistomin.xml.XmlString;
 import java.util.UUID;
 import org.hamcrest.MatcherAssert;
@@ -58,6 +60,22 @@ public final class FakeJobTest {
     }
 
     /**
+     * Can create with job details.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanCreateWithDetails() throws Exception {
+        final RealJobDetails details = new RealJobDetails(
+            new XmlString("<job></job>")
+        );
+        final FakeJob job = new FakeJob(details);
+        MatcherAssert.assertThat(
+            job.details(), new IsEqual<JobDetails>(details)
+        );
+    }
+
+    /**
      * Can read Fake job's XML.
      *
      * @throws Exception If something goes wrong.
@@ -87,6 +105,19 @@ public final class FakeJobTest {
     public void testCanReadName() throws Exception {
         MatcherAssert.assertThat(
             new FakeJob().name().startsWith("job"), new IsEqual<Boolean>(true)
+        );
+    }
+
+    /**
+     * Can read Fake job's details.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadDetails() throws Exception {
+        MatcherAssert.assertThat(
+            new FakeJob().details().displayName(),
+            new IsEqual<String>("test-different-builds-job")
         );
     }
 }
