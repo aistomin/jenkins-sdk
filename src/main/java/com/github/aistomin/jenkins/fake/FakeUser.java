@@ -55,13 +55,19 @@ public final class FakeUser implements User {
     private final transient String full;
 
     /**
+     * User's email which will be returned in email() method.
+     */
+    private final transient String mail;
+
+    /**
      * Default ctor.
      */
     public FakeUser() {
         this(
             new XmlResource(FakeUser.RESOURCE),
             String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            String.format(FakeUser.FORMAT, System.currentTimeMillis())
+            String.format(FakeUser.FORMAT, System.currentTimeMillis()),
+            FakeUser.defaultEmail()
         );
     }
 
@@ -73,7 +79,8 @@ public final class FakeUser implements User {
     public FakeUser(final Xml xml) {
         this(
             xml, String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            String.format(FakeUser.FORMAT, System.currentTimeMillis())
+            String.format(FakeUser.FORMAT, System.currentTimeMillis()),
+            FakeUser.defaultEmail()
         );
     }
 
@@ -85,7 +92,8 @@ public final class FakeUser implements User {
     public FakeUser(final String username) {
         this(
             new XmlResource(FakeUser.RESOURCE), username,
-            String.format(FakeUser.FORMAT, System.currentTimeMillis())
+            String.format(FakeUser.FORMAT, System.currentTimeMillis()),
+            FakeUser.defaultEmail()
         );
     }
 
@@ -95,11 +103,17 @@ public final class FakeUser implements User {
      * @param xml XML content that should be returned in xml() method.
      * @param username Username that should be returned in username() method.
      * @param name User's full name which will be returned in fullName() method.
+     * @param email User's email which will be returned in email() method.
+     * @checkstyle ParameterNumberCheck (500 lines)
      */
-    public FakeUser(final Xml xml, final String username, final String name) {
+    public FakeUser(
+        final Xml xml, final String username, final String name,
+        final String email
+    ) {
         this.content = xml;
         this.identifier = username;
         this.full = name;
+        this.mail = email;
     }
 
     /**
@@ -127,15 +141,9 @@ public final class FakeUser implements User {
      *
      * @return User's email.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #74.
      */
     public String email() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "email() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.mail;
     }
 
     /**
@@ -178,5 +186,13 @@ public final class FakeUser implements User {
      */
     public String xml() throws Exception {
         return this.content.content();
+    }
+
+    /**
+     * Default email.
+     * @return Email.
+     */
+    private static String defaultEmail() {
+        return String.format("email%d@gmail.com", System.currentTimeMillis());
     }
 }

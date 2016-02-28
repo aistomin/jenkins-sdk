@@ -79,7 +79,7 @@ public final class FakeUserTest {
     }
 
     /**
-     * Can get user's username.
+     * Can read user's username.
      *
      * @throws Exception If something goes wrong.
      */
@@ -90,7 +90,7 @@ public final class FakeUserTest {
     }
 
     /**
-     * Can get user's full name.
+     * Can read user's full name.
      *
      * @throws Exception If something goes wrong.
      */
@@ -98,5 +98,16 @@ public final class FakeUserTest {
     public void testCanReadFullName() throws Exception {
         final String name = new FakeUser().fullName();
         MatcherAssert.assertThat(name, new IsInstanceOf(String.class));
+    }
+
+    /**
+     * Can read user's email.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadEmail() throws Exception {
+        final String email = new FakeUser().email();
+        MatcherAssert.assertThat(email, new IsInstanceOf(String.class));
     }
 }
