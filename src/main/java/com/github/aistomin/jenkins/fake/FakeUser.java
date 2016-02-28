@@ -51,10 +51,8 @@ public final class FakeUser implements User {
 
     /**
      * Default ctor.
-     *
-     * @throws Exception If reading XML was not successful.
      */
-    public FakeUser() throws Exception {
+    public FakeUser() {
         this(
             new XmlResource(FakeUser.RESOURCE),
             String.format(FakeUser.FORMAT, System.currentTimeMillis())

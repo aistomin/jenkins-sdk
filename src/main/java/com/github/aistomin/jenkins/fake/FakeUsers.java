@@ -19,7 +19,9 @@ import com.github.aistomin.jenkins.User;
 import com.github.aistomin.jenkins.Users;
 import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**
@@ -42,12 +44,17 @@ public final class FakeUsers implements Users {
     private final transient Xml content;
 
     /**
+     * List of users that will be used for iteration and search.
+     */
+    private final transient List<User> users;
+
+    /**
      * Default ctor.
      *
      * @throws Exception If reading XML was not successful.
      */
     public FakeUsers() throws Exception {
-        this(new XmlResource(FakeUsers.RESOURCE));
+        this(new XmlResource(FakeUsers.RESOURCE), FakeUsers.defaultUsers());
     }
 
     /**
@@ -56,7 +63,27 @@ public final class FakeUsers implements Users {
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeUsers(final Xml xml) {
+        this(xml, FakeUsers.defaultUsers());
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param list List of users that will be used for iteration and search.
+     */
+    public FakeUsers(final List<User> list) {
+        this(new XmlResource(FakeUsers.RESOURCE), list);
+    }
+
+    /**
+     * Primary ctor.
+     *
+     * @param xml XML content that should be returned in xml() method.
+     * @param list List of users that will be used for iteration and search.
+     */
+    public FakeUsers(final Xml xml, final List<User> list) {
         this.content = xml;
+        this.users = list;
     }
 
     /**
@@ -64,15 +91,9 @@ public final class FakeUsers implements Users {
      *
      * @return Users iterator.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #63.
      */
     public Iterator<User> iterator() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "iterator() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.users.iterator();
     }
 
     /**
@@ -136,5 +157,17 @@ public final class FakeUsers implements Users {
      */
     public String xml() throws Exception {
         return this.content.content();
+    }
+
+    /**
+     * Default users list.
+     *
+     * @return List of users.
+     */
+    private static List<User> defaultUsers() {
+        final List<User> users = new ArrayList<User>(2);
+        users.add(new FakeUser());
+        users.add(new FakeUser());
+        return users;
     }
 }
