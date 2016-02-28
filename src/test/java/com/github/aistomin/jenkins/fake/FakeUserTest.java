@@ -87,8 +87,16 @@ public final class FakeUserTest {
     public void testCanReadUsername() throws Exception {
         final String username = new FakeUser().username();
         MatcherAssert.assertThat(username, new IsInstanceOf(String.class));
-        MatcherAssert.assertThat(
-            username.startsWith("user"), new IsEqual<Boolean>(true)
-        );
+    }
+
+    /**
+     * Can get user's full name.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadFullName() throws Exception {
+        final String name = new FakeUser().fullName();
+        MatcherAssert.assertThat(name, new IsInstanceOf(String.class));
     }
 }

@@ -50,11 +50,17 @@ public final class FakeUser implements User {
     private final transient String identifier;
 
     /**
+     * User's full name which will be returned in fullName() method.
+     */
+    private final transient String full;
+
+    /**
      * Default ctor.
      */
     public FakeUser() {
         this(
             new XmlResource(FakeUser.RESOURCE),
+            String.format(FakeUser.FORMAT, System.currentTimeMillis()),
             String.format(FakeUser.FORMAT, System.currentTimeMillis())
         );
     }
@@ -65,7 +71,10 @@ public final class FakeUser implements User {
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeUser(final Xml xml) {
-        this(xml, String.format(FakeUser.FORMAT, System.currentTimeMillis()));
+        this(
+            xml, String.format(FakeUser.FORMAT, System.currentTimeMillis()),
+            String.format(FakeUser.FORMAT, System.currentTimeMillis())
+        );
     }
 
     /**
@@ -74,7 +83,10 @@ public final class FakeUser implements User {
      * @param username Username that should be returned in username() method.
      */
     public FakeUser(final String username) {
-        this(new XmlResource(FakeUser.RESOURCE), username);
+        this(
+            new XmlResource(FakeUser.RESOURCE), username,
+            String.format(FakeUser.FORMAT, System.currentTimeMillis())
+        );
     }
 
     /**
@@ -82,10 +94,12 @@ public final class FakeUser implements User {
      *
      * @param xml XML content that should be returned in xml() method.
      * @param username Username that should be returned in username() method.
+     * @param name User's full name which will be returned in fullName() method.
      */
-    public FakeUser(final Xml xml, final String username) {
+    public FakeUser(final Xml xml, final String username, final String name) {
         this.content = xml;
         this.identifier = username;
+        this.full = name;
     }
 
     /**
@@ -103,15 +117,9 @@ public final class FakeUser implements User {
      *
      * @return User's full name.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #73.
      */
     public String fullName() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "fullName() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.full;
     }
 
     /**
