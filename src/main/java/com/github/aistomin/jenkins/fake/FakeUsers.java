@@ -102,23 +102,23 @@ public final class FakeUsers implements Users {
      * @param username Username(aka ID).
      * @return User.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #64.
      */
     public Iterator<User> findByUsername(
         final String username
     ) throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "findByUsername() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        final List<User> result = new ArrayList<User>(1);
+        for (final User user : this.users) {
+            if (username.equals(user.username())) {
+                result.add(user);
+            }
+        }
+        return result.iterator();
     }
 
     /**
      * Find fake user by Jenkins' user email.
      *
-     * @param email Username(aka ID).
+     * @param email User's email.
      * @return Iterator of users who match the criteria.
      * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve Issue #65.
