@@ -138,15 +138,15 @@ public final class FakeUsers implements Users {
      * @param name Full name or part of it.
      * @return Iterator of users who match the criteria.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #66.
      */
     public Iterator<User> findByFullName(final String name) throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "findByFullName() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        final List<User> result = new ArrayList<User>(1);
+        for (final User user : this.users) {
+            if (name.equals(user.fullName())) {
+                result.add(user);
+            }
+        }
+        return result.iterator();
     }
 
     /**

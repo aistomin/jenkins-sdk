@@ -129,4 +129,27 @@ public final class FakeUsersTest {
             iterator.hasNext(), new IsEqual<Boolean>(false)
         );
     }
+
+    /**
+     * Can find user by full name.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanFindByFullName() throws Exception {
+        final List<User> users = new ArrayList<User>(2);
+        users.add(new FakeUser());
+        Thread.sleep(2);
+        final FakeUser user = new FakeUser();
+        users.add(user);
+        final Iterator<User> iterator = new FakeUsers(users)
+            .findByFullName(user.fullName());
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(iterator.next(), new IsEqual<User>(user));
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(false)
+        );
+    }
 }
