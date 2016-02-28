@@ -22,7 +22,6 @@ import com.github.aistomin.xml.XmlResource;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake Jenkins' users for tests.
@@ -121,15 +120,15 @@ public final class FakeUsers implements Users {
      * @param email User's email.
      * @return Iterator of users who match the criteria.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #65.
      */
     public Iterator<User> findByEmail(final String email) throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "findByEmail() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        final List<User> result = new ArrayList<User>(1);
+        for (final User user : this.users) {
+            if (email.equals(user.email())) {
+                result.add(user);
+            }
+        }
+        return result.iterator();
     }
 
     /**
