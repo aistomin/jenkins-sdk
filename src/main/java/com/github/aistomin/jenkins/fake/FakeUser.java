@@ -60,6 +60,11 @@ public final class FakeUser implements User {
     private final transient String mail;
 
     /**
+     * User's profile URL that will be returned in url() method.
+     */
+    private final transient String uri;
+
+    /**
      * Default ctor.
      */
     public FakeUser() {
@@ -67,7 +72,7 @@ public final class FakeUser implements User {
             new XmlResource(FakeUser.RESOURCE),
             String.format(FakeUser.FORMAT, System.currentTimeMillis()),
             String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            FakeUser.defaultEmail()
+            FakeUser.defaultEmail(), FakeUser.defaultUrl()
         );
     }
 
@@ -80,7 +85,7 @@ public final class FakeUser implements User {
         this(
             xml, String.format(FakeUser.FORMAT, System.currentTimeMillis()),
             String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            FakeUser.defaultEmail()
+            FakeUser.defaultEmail(), FakeUser.defaultUrl()
         );
     }
 
@@ -93,7 +98,7 @@ public final class FakeUser implements User {
         this(
             new XmlResource(FakeUser.RESOURCE), username,
             String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            FakeUser.defaultEmail()
+            FakeUser.defaultEmail(), FakeUser.defaultUrl()
         );
     }
 
@@ -104,16 +109,18 @@ public final class FakeUser implements User {
      * @param username Username that should be returned in username() method.
      * @param name User's full name which will be returned in fullName() method.
      * @param email User's email which will be returned in email() method.
+     * @param url User's profile URL that will be returned in url() method.
      * @checkstyle ParameterNumberCheck (500 lines)
      */
     public FakeUser(
         final Xml xml, final String username, final String name,
-        final String email
+        final String email, final String url
     ) {
         this.content = xml;
         this.identifier = username;
         this.full = name;
         this.mail = email;
+        this.uri = url;
     }
 
     /**
@@ -151,15 +158,9 @@ public final class FakeUser implements User {
      *
      * @return URL string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #75.
      */
     public String url() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "url() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.uri;
     }
 
     /**
@@ -194,5 +195,13 @@ public final class FakeUser implements User {
      */
     private static String defaultEmail() {
         return String.format("email%d@gmail.com", System.currentTimeMillis());
+    }
+
+    /**
+     * Default user's profile URL.
+     * @return Email.
+     */
+    private static String defaultUrl() {
+        return String.format("http://localhost/%s", System.currentTimeMillis());
     }
 }
