@@ -18,6 +18,7 @@ package com.github.aistomin.jenkins.fake;
 import com.github.aistomin.xml.XmlString;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 /**
@@ -30,15 +31,16 @@ import org.junit.Test;
 public final class FakeBuildTest {
 
     /**
-     * Can create fake instances providing only XML.
+     * Can create fake instances with default ctor.
      *
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanCreateWithXml() throws Exception {
-        final String xml = "<build><displayName>#1</displayName></build>";
+    public void testCanCreateWithDefaultCtor() throws Exception {
+        final FakeBuild build = new FakeBuild();
+        MatcherAssert.assertThat(build.xml(), new IsInstanceOf(String.class));
         MatcherAssert.assertThat(
-            new FakeBuild(new XmlString(xml)).xml(), new IsEqual<String>(xml)
+            build.number(), new IsInstanceOf(String.class)
         );
     }
 
@@ -49,7 +51,9 @@ public final class FakeBuildTest {
      */
     @Test
     public void testCanReadXml() throws Exception {
-        final String xml = new FakeBuild().xml();
+        final String xml = new FakeBuild(
+            new XmlString("<build><displayName>#1</displayName></build>")
+        ).xml();
         MatcherAssert.assertThat(
             xml.startsWith("<build>"), new IsEqual<Boolean>(true)
         );
@@ -59,6 +63,19 @@ public final class FakeBuildTest {
         );
         MatcherAssert.assertThat(
             xml.endsWith("</build>"), new IsEqual<Boolean>(true)
+        );
+    }
+
+    /**
+     * Can read fake build's number.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadNumber() throws Exception {
+        final String number = "#666";
+        MatcherAssert.assertThat(
+            new FakeBuild(number).number(), new IsEqual<String>(number)
         );
     }
 }

@@ -43,19 +43,44 @@ public final class FakeBuild implements Build {
     private final transient Xml content;
 
     /**
+     * Build's number that will be returned in number() method.
+     */
+    private final transient String identifier;
+
+    /**
      * Default ctor.
      */
     public FakeBuild() {
-        this(new XmlResource(FakeBuild.RESOURCE));
+        this(new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber());
     }
 
     /**
-     * Ctor.
+     * Secondary ctor.
      *
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeBuild(final Xml xml) {
+        this(xml, FakeBuild.defaultNumber());
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param number Build's number that will be returned in number() method.
+     */
+    public FakeBuild(final String number) {
+        this(new XmlResource(FakeBuild.RESOURCE), number);
+    }
+
+    /**
+     * Primary ctor.
+     *
+     * @param xml XML content that should be returned in xml() method.
+     * @param number Build's number that will be returned in number() method.
+     */
+    public FakeBuild(final Xml xml, final String number) {
         this.content = xml;
+        this.identifier = number;
     }
 
     /**
@@ -63,15 +88,9 @@ public final class FakeBuild implements Build {
      *
      * @return Build number.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #151.
      */
     public String number() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "number() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.identifier;
     }
 
     /**
@@ -146,5 +165,13 @@ public final class FakeBuild implements Build {
      */
     public String xml() throws Exception {
         return this.content.content();
+    }
+
+    /**
+     * Generate random build's number.
+     * @return Build's number.
+     */
+    private static String defaultNumber() {
+        return String.format("#%d", System.currentTimeMillis());
     }
 }
