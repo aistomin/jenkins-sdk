@@ -167,15 +167,15 @@ public final class FakeBuilds implements Builds {
      * @param number Build's number.
      * @return Build.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #101.
      */
     public Iterator<Build> findByNumber(final String number) throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "findByNumber() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        final List<Build> result = new ArrayList<Build>(1);
+        for (final Build job : this.list) {
+            if (number.equals(job.number())) {
+                result.add(job);
+            }
+        }
+        return result.iterator();
     }
 
     /**

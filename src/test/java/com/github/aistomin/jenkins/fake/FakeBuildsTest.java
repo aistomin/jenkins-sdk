@@ -106,4 +106,28 @@ public final class FakeBuildsTest {
             iterator.hasNext(), new IsEqual<Boolean>(false)
         );
     }
+
+    /**
+     * Can find by number.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanFindByNumber() throws Exception {
+        final List<Build> builds = new ArrayList<Build>(2);
+        builds.add(new FakeBuild("#1"));
+        final String number = "#2";
+        builds.add(new FakeBuild(number));
+        final Iterator<Build> found = new FakeBuilds(builds)
+            .findByNumber(number);
+        MatcherAssert.assertThat(
+            found.hasNext(), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            found.next().number(), new IsEqual<String>(number)
+        );
+        MatcherAssert.assertThat(
+            found.hasNext(), new IsEqual<Boolean>(false)
+        );
+    }
 }
