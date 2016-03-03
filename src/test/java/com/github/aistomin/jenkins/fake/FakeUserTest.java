@@ -126,4 +126,17 @@ public final class FakeUserTest {
             new IsEqual<Boolean>(true)
         );
     }
+
+    /**
+     * Can read user's description.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadDescription() throws Exception {
+        MatcherAssert.assertThat(
+            new FakeUser().description(),
+            new IsEqual<String>("Great user's description :)")
+        );
+    }
 }

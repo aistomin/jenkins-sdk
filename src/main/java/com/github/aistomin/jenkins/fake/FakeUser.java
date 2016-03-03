@@ -18,7 +18,6 @@ package com.github.aistomin.jenkins.fake;
 import com.github.aistomin.jenkins.User;
 import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake Jenkins' user for tests.
@@ -65,6 +64,11 @@ public final class FakeUser implements User {
     private final transient String uri;
 
     /**
+     * User's description that will be returned in description() method.
+     */
+    private final transient String text;
+
+    /**
      * Default ctor.
      */
     public FakeUser() {
@@ -72,7 +76,8 @@ public final class FakeUser implements User {
             new XmlResource(FakeUser.RESOURCE),
             String.format(FakeUser.FORMAT, System.currentTimeMillis()),
             String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            FakeUser.defaultEmail(), FakeUser.defaultUrl()
+            FakeUser.defaultEmail(), FakeUser.defaultUrl(),
+            FakeUser.defaultDescription()
         );
     }
 
@@ -85,7 +90,8 @@ public final class FakeUser implements User {
         this(
             xml, String.format(FakeUser.FORMAT, System.currentTimeMillis()),
             String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            FakeUser.defaultEmail(), FakeUser.defaultUrl()
+            FakeUser.defaultEmail(), FakeUser.defaultUrl(),
+            FakeUser.defaultDescription()
         );
     }
 
@@ -98,7 +104,8 @@ public final class FakeUser implements User {
         this(
             new XmlResource(FakeUser.RESOURCE), username,
             String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            FakeUser.defaultEmail(), FakeUser.defaultUrl()
+            FakeUser.defaultEmail(), FakeUser.defaultUrl(),
+            FakeUser.defaultDescription()
         );
     }
 
@@ -110,17 +117,20 @@ public final class FakeUser implements User {
      * @param name User's full name which will be returned in fullName() method.
      * @param email User's email which will be returned in email() method.
      * @param url User's profile URL that will be returned in url() method.
+     * @param description User's description that will be returned in
+     *  description() method.
      * @checkstyle ParameterNumberCheck (500 lines)
      */
     public FakeUser(
         final Xml xml, final String username, final String name,
-        final String email, final String url
+        final String email, final String url, final String description
     ) {
         this.content = xml;
         this.identifier = username;
         this.full = name;
         this.mail = email;
         this.uri = url;
+        this.text = description;
     }
 
     /**
@@ -168,15 +178,9 @@ public final class FakeUser implements User {
      *
      * @return Description string.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #76.
      */
     public String description() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "description() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.text;
     }
 
     /**
@@ -203,5 +207,13 @@ public final class FakeUser implements User {
      */
     private static String defaultUrl() {
         return String.format("http://localhost/%s", System.currentTimeMillis());
+    }
+
+    /**
+     * Default user's description.
+     * @return Email.
+     */
+    private static String defaultDescription() {
+        return "Great user's description :)";
     }
 }
