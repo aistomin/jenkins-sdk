@@ -44,10 +44,8 @@ public final class FakeBuild implements Build {
 
     /**
      * Default ctor.
-     *
-     * @throws Exception If reading XML was not successful.
      */
-    public FakeBuild() throws Exception {
+    public FakeBuild() {
         this(new XmlResource(FakeBuild.RESOURCE));
     }
 

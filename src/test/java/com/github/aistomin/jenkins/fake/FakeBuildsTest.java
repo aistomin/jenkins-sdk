@@ -15,9 +15,14 @@
  */
 package com.github.aistomin.jenkins.fake;
 
+import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.xml.XmlString;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 /**
@@ -30,15 +35,25 @@ import org.junit.Test;
 public final class FakeBuildsTest {
 
     /**
-     * Can create fake instances providing only XML.
+     * Can create fake instances providing nothing.
      *
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanCreateWithXml() throws Exception {
-        final String xml = "<builds><build>#1</build></builds>";
+    public void testCanCreateWithDefaultCtor() throws Exception {
+        final FakeBuilds builds = new FakeBuilds();
+        MatcherAssert.assertThat(builds.xml(), new IsInstanceOf(String.class));
+        final Iterator<Build> iterator = builds.iterator();
         MatcherAssert.assertThat(
-            new FakeBuilds(new XmlString(xml)).xml(), new IsEqual<String>(xml)
+            iterator.hasNext(), new IsEqual<Boolean>(true)
+        );
+        iterator.next();
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(true)
+        );
+        iterator.next();
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(false)
         );
     }
 
@@ -49,16 +64,46 @@ public final class FakeBuildsTest {
      */
     @Test
     public void testCanReadXml() throws Exception {
-        final String xml = new FakeBuilds().xml();
+        final String xml = new FakeBuilds(
+            new XmlString("<builds><build>#1</build></builds>")
+        ).xml();
         MatcherAssert.assertThat(
             xml.startsWith("<builds>"), new IsEqual<Boolean>(true)
         );
         MatcherAssert.assertThat(
-            xml.contains("test-different-builds-job #3"),
+            xml.contains("<build>#1</build>"),
             new IsEqual<Boolean>(true)
         );
         MatcherAssert.assertThat(
             xml.endsWith("</builds>"), new IsEqual<Boolean>(true)
+        );
+    }
+
+    /**
+     * Can iterate through builds.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanIterate() throws Exception {
+        final List<Build> builds = new ArrayList<Build>(2);
+        builds.add(new FakeBuild());
+        builds.add(new FakeBuild());
+        final Iterator<Build> iterator = new FakeBuilds(builds).iterator();
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            iterator.next(), new IsEqual<Build>(builds.get(0))
+        );
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(true)
+        );
+        MatcherAssert.assertThat(
+            iterator.next(), new IsEqual<Build>(builds.get(1))
+        );
+        MatcherAssert.assertThat(
+            iterator.hasNext(), new IsEqual<Boolean>(false)
         );
     }
 }

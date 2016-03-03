@@ -19,7 +19,9 @@ import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**
@@ -42,19 +44,47 @@ public final class FakeBuilds implements Builds {
     private final transient Xml content;
 
     /**
+     * List of builds that will be used in iterator() and findByNumber()
+     *  methods.
+     */
+    private final transient List<Build> list;
+
+    /**
      * Default ctor.
      */
     public FakeBuilds() {
-        this(new XmlResource(FakeBuilds.RESOURCE));
+        this(new XmlResource(FakeBuilds.RESOURCE), FakeBuilds.defaultBuilds());
     }
 
     /**
-     * Ctor.
+     * Secondary ctor.
      *
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeBuilds(final Xml xml) {
+        this(xml, FakeBuilds.defaultBuilds());
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param builds List of builds that will be used in iterator() and \
+     *  findByNumber() methods.
+     */
+    public FakeBuilds(final List<Build> builds) {
+        this(new XmlResource(FakeBuilds.RESOURCE), builds);
+    }
+
+    /**
+     * Primary ctor.
+     *
+     * @param xml XML content that should be returned in xml() method.
+     * @param builds List of builds that will be used in iterator() and
+     *  findByNumber() methods.
+     */
+    public FakeBuilds(final Xml xml, final List<Build> builds) {
         this.content = xml;
+        this.list = builds;
     }
 
     /**
@@ -62,15 +92,9 @@ public final class FakeBuilds implements Builds {
      *
      * @return Fake builds iterator.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #96.
      */
     public Iterator<Build> iterator() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "iterator() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.list.iterator();
     }
 
     /**
@@ -162,5 +186,17 @@ public final class FakeBuilds implements Builds {
      */
     public String xml() throws Exception {
         return this.content.content();
+    }
+
+    /**
+     * Create default builds list.
+     *
+     * @return List of builds.
+     */
+    private static List<Build> defaultBuilds() {
+        final ArrayList<Build> builds = new ArrayList<Build>(2);
+        builds.add(new FakeBuild());
+        builds.add(new FakeBuild());
+        return builds;
     }
 }
