@@ -23,7 +23,6 @@ import com.github.aistomin.xml.XmlResource;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake Jenkins' builds for tests.
@@ -137,15 +136,9 @@ public final class FakeBuilds implements Builds {
      *
      * @return Last stable build.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #99.
      */
     public Build lastStable() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "lastStable() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.lastSuccessful();
     }
 
     /**
