@@ -53,12 +53,17 @@ public final class FakeBuild implements Build {
     private final transient BuildResult status;
 
     /**
+     * Fake build's start date.
+     */
+    private final transient Date start;
+
+    /**
      * Default ctor.
      */
     public FakeBuild() {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
-            BuildResult.SUCCESS
+            BuildResult.SUCCESS, new Date()
         );
     }
 
@@ -68,7 +73,7 @@ public final class FakeBuild implements Build {
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeBuild(final Xml xml) {
-        this(xml, FakeBuild.defaultNumber(), BuildResult.SUCCESS);
+        this(xml, FakeBuild.defaultNumber(), BuildResult.SUCCESS, new Date());
     }
 
     /**
@@ -79,7 +84,7 @@ public final class FakeBuild implements Build {
     public FakeBuild(final BuildResult result) {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
-            result
+            result, new Date()
         );
     }
 
@@ -89,7 +94,22 @@ public final class FakeBuild implements Build {
      * @param number Build's number that will be returned in number() method.
      */
     public FakeBuild(final String number) {
-        this(new XmlResource(FakeBuild.RESOURCE), number, BuildResult.SUCCESS);
+        this(
+            new XmlResource(FakeBuild.RESOURCE), number, BuildResult.SUCCESS,
+            new Date()
+        );
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param date Fake build's start date.
+     */
+    public FakeBuild(final Date date) {
+        this(
+            new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
+            BuildResult.SUCCESS, date
+        );
     }
 
     /**
@@ -98,13 +118,17 @@ public final class FakeBuild implements Build {
      * @param xml XML content that should be returned in xml() method.
      * @param number Build's number that will be returned in number() method.
      * @param result Fake build's result.
+     * @param date Fake build's start date.
+     * @checkstyle ParameterNumberCheck (500 lines)
      */
     public FakeBuild(
-        final Xml xml, final String number, final BuildResult result
+        final Xml xml, final String number, final BuildResult result,
+        final Date date
     ) {
         this.content = xml;
         this.identifier = number;
         this.status = result;
+        this.start = date;
     }
 
     /**
@@ -132,15 +156,9 @@ public final class FakeBuild implements Build {
      *
      * @return Build's date.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #153.
      */
     public Date date() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "date() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.start;
     }
 
     /**

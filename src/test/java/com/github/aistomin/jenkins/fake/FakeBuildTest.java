@@ -17,6 +17,7 @@ package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.BuildResult;
 import com.github.aistomin.xml.XmlString;
+import java.util.Date;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsInstanceOf;
@@ -44,8 +45,9 @@ public final class FakeBuildTest {
             build.number(), new IsInstanceOf(String.class)
         );
         MatcherAssert.assertThat(
-            BuildResult.SUCCESS, new IsEqual<BuildResult>(build.result())
+            build.result(), new IsEqual<BuildResult>(BuildResult.SUCCESS)
         );
+        MatcherAssert.assertThat(build.date(), new IsInstanceOf(Date.class));
     }
 
     /**
@@ -93,6 +95,19 @@ public final class FakeBuildTest {
         final BuildResult result = BuildResult.FAILURE;
         MatcherAssert.assertThat(
             new FakeBuild(result).result(), new IsEqual<BuildResult>(result)
+        );
+    }
+
+    /**
+     * Can read fake build's date.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadDate() throws Exception {
+        final Date date = new Date();
+        MatcherAssert.assertThat(
+            new FakeBuild(date).date(), new IsEqual<Date>(date)
         );
     }
 }
