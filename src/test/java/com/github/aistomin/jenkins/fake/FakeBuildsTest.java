@@ -16,6 +16,7 @@
 package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.Build;
+import com.github.aistomin.jenkins.BuildResult;
 import com.github.aistomin.xml.XmlString;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -128,6 +129,23 @@ public final class FakeBuildsTest {
         );
         MatcherAssert.assertThat(
             found.hasNext(), new IsEqual<Boolean>(false)
+        );
+    }
+
+    /**
+     * Can read last unsuccessful build.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadLastUnsuccessfulBuild() throws Exception {
+        final List<Build> builds = new ArrayList<Build>(2);
+        builds.add(new FakeBuild(BuildResult.SUCCESS));
+        final FakeBuild aborted = new FakeBuild(BuildResult.ABORTED);
+        builds.add(aborted);
+        MatcherAssert.assertThat(
+            new FakeBuilds(builds).lastUnsuccessful(),
+            new IsEqual<Build>(aborted)
         );
     }
 }

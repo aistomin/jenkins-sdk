@@ -16,6 +16,7 @@
 package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.Build;
+import com.github.aistomin.jenkins.BuildResult;
 import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
@@ -150,15 +151,16 @@ public final class FakeBuilds implements Builds {
      *
      * @return Last unstable build.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #100.
      */
     public Build lastUnsuccessful() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "lastUnsuccessful() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        Build result = null;
+        for (final Build build : this.list) {
+            if (build.result() != BuildResult.SUCCESS) {
+                result = build;
+                break;
+            }
+        }
+        return result;
     }
 
     /**
