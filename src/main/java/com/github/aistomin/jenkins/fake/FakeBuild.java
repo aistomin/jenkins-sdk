@@ -21,8 +21,8 @@ import com.github.aistomin.jenkins.BuildResult;
 import com.github.aistomin.jenkins.real.RealBuildDetails;
 import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
+import java.net.URL;
 import java.util.Date;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake Jenkins' job build.
@@ -64,13 +64,19 @@ public final class FakeBuild implements Build {
     private final transient BuildDetails detailed;
 
     /**
+     * Fake build's URL.
+     */
+    private final transient String uri;
+
+    /**
      * Default ctor.
      */
     public FakeBuild() {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             BuildResult.SUCCESS, new Date(),
-            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE))
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
+            FakeBuild.defaultUrl()
         );
     }
 
@@ -82,7 +88,8 @@ public final class FakeBuild implements Build {
     public FakeBuild(final Xml xml) {
         this(
             xml, FakeBuild.defaultNumber(), BuildResult.SUCCESS, new Date(),
-            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE))
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
+            FakeBuild.defaultUrl()
         );
     }
 
@@ -95,7 +102,8 @@ public final class FakeBuild implements Build {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             result, new Date(),
-            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE))
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
+            FakeBuild.defaultUrl()
         );
     }
 
@@ -108,7 +116,8 @@ public final class FakeBuild implements Build {
         this(
             new XmlResource(FakeBuild.RESOURCE), number, BuildResult.SUCCESS,
             new Date(),
-            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE))
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
+            FakeBuild.defaultUrl()
         );
     }
 
@@ -121,7 +130,8 @@ public final class FakeBuild implements Build {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             BuildResult.SUCCESS, date,
-            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE))
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
+            FakeBuild.defaultUrl()
         );
     }
 
@@ -133,7 +143,21 @@ public final class FakeBuild implements Build {
     public FakeBuild(final BuildDetails details) {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
-            BuildResult.SUCCESS, new Date(), details
+            BuildResult.SUCCESS, new Date(), details, FakeBuild.defaultUrl()
+        );
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param url Fake build's URL.
+     */
+    public FakeBuild(final URL url) {
+        this(
+            new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
+            BuildResult.SUCCESS, new Date(),
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
+            url.toString()
         );
     }
 
@@ -145,17 +169,19 @@ public final class FakeBuild implements Build {
      * @param result Fake build's result.
      * @param date Fake build's start date.
      * @param details Fake build's details.
+     * @param url Fake build's URL.
      * @checkstyle ParameterNumberCheck (500 lines)
      */
     public FakeBuild(
         final Xml xml, final String number, final BuildResult result,
-        final Date date, final BuildDetails details
+        final Date date, final BuildDetails details, final String url
     ) {
         this.content = xml;
         this.identifier = number;
         this.status = result;
         this.start = date;
         this.detailed = details;
+        this.uri = url;
     }
 
     /**
@@ -193,15 +219,9 @@ public final class FakeBuild implements Build {
      *
      * @return URL string.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #154.
      */
     public String url() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "url() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.uri;
     }
 
     /**
@@ -226,9 +246,19 @@ public final class FakeBuild implements Build {
 
     /**
      * Generate random build's number.
+     *
      * @return Build's number.
      */
     private static String defaultNumber() {
         return String.format("#%d", System.currentTimeMillis());
+    }
+
+    /**
+     * Default build URL.
+     *
+     * @return Build's number.
+     */
+    private static String defaultUrl() {
+        return String.format("http://localhost/%d", System.currentTimeMillis());
     }
 }

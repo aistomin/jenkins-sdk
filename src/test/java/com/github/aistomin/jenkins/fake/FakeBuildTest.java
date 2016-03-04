@@ -19,6 +19,7 @@ import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.jenkins.BuildResult;
 import com.github.aistomin.jenkins.real.RealBuildDetails;
 import com.github.aistomin.xml.XmlString;
+import java.net.URL;
 import java.util.Date;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
@@ -52,6 +53,9 @@ public final class FakeBuildTest {
         MatcherAssert.assertThat(build.date(), new IsInstanceOf(Date.class));
         MatcherAssert.assertThat(
             build.details(), new IsInstanceOf(RealBuildDetails.class)
+        );
+        MatcherAssert.assertThat(
+            build.url().startsWith("http://"), new IsEqual<Boolean>(true)
         );
     }
 
@@ -128,6 +132,20 @@ public final class FakeBuildTest {
         );
         MatcherAssert.assertThat(
             new FakeBuild(details).details(), new IsEqual<BuildDetails>(details)
+        );
+    }
+
+    /**
+     * Can read fake build's URL.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadUrl() throws Exception {
+        final URL url = new URL("http", "localhost", 8080, "/test");
+        MatcherAssert.assertThat(
+            new FakeBuild(url).url(),
+            new IsEqual<String>("http://localhost:8080/test")
         );
     }
 }
