@@ -15,6 +15,7 @@
  */
 package com.github.aistomin.jenkins.fake;
 
+import com.github.aistomin.jenkins.BuildResult;
 import com.github.aistomin.xml.XmlString;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
@@ -41,6 +42,9 @@ public final class FakeBuildTest {
         MatcherAssert.assertThat(build.xml(), new IsInstanceOf(String.class));
         MatcherAssert.assertThat(
             build.number(), new IsInstanceOf(String.class)
+        );
+        MatcherAssert.assertThat(
+            BuildResult.SUCCESS, new IsEqual<BuildResult>(build.result())
         );
     }
 
@@ -76,6 +80,19 @@ public final class FakeBuildTest {
         final String number = "#666";
         MatcherAssert.assertThat(
             new FakeBuild(number).number(), new IsEqual<String>(number)
+        );
+    }
+
+    /**
+     * Can read fake build's result.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadResult() throws Exception {
+        final BuildResult result = BuildResult.FAILURE;
+        MatcherAssert.assertThat(
+            new FakeBuild(result).result(), new IsEqual<BuildResult>(result)
         );
     }
 }

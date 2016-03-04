@@ -48,10 +48,18 @@ public final class FakeBuild implements Build {
     private final transient String identifier;
 
     /**
+     * Fake build's result.
+     */
+    private final transient BuildResult status;
+
+    /**
      * Default ctor.
      */
     public FakeBuild() {
-        this(new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber());
+        this(
+            new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
+            BuildResult.SUCCESS
+        );
     }
 
     /**
@@ -60,7 +68,19 @@ public final class FakeBuild implements Build {
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeBuild(final Xml xml) {
-        this(xml, FakeBuild.defaultNumber());
+        this(xml, FakeBuild.defaultNumber(), BuildResult.SUCCESS);
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param result Fake build's result.
+     */
+    public FakeBuild(final BuildResult result) {
+        this(
+            new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
+            result
+        );
     }
 
     /**
@@ -69,7 +89,7 @@ public final class FakeBuild implements Build {
      * @param number Build's number that will be returned in number() method.
      */
     public FakeBuild(final String number) {
-        this(new XmlResource(FakeBuild.RESOURCE), number);
+        this(new XmlResource(FakeBuild.RESOURCE), number, BuildResult.SUCCESS);
     }
 
     /**
@@ -77,10 +97,14 @@ public final class FakeBuild implements Build {
      *
      * @param xml XML content that should be returned in xml() method.
      * @param number Build's number that will be returned in number() method.
+     * @param result Fake build's result.
      */
-    public FakeBuild(final Xml xml, final String number) {
+    public FakeBuild(
+        final Xml xml, final String number, final BuildResult result
+    ) {
         this.content = xml;
         this.identifier = number;
+        this.status = result;
     }
 
     /**
@@ -98,15 +122,9 @@ public final class FakeBuild implements Build {
      *
      * @return Build's result.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #152.
      */
     public BuildResult result() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "result() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.status;
     }
 
     /**
