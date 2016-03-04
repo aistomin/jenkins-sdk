@@ -120,15 +120,16 @@ public final class FakeBuilds implements Builds {
      *
      * @return Last failed build.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve Issue #98.
      */
     public Build lastFailed() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "lastFailed() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        Build result = null;
+        for (final Build build : this.list) {
+            if (build.result() == BuildResult.FAILURE) {
+                result = build;
+                break;
+            }
+        }
+        return result;
     }
 
     /**
