@@ -18,6 +18,7 @@ package com.github.aistomin.jenkins.fake;
 import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.jenkins.BuildResult;
+import com.github.aistomin.jenkins.real.RealBuildDetails;
 import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
 import java.util.Date;
@@ -58,12 +59,18 @@ public final class FakeBuild implements Build {
     private final transient Date start;
 
     /**
+     * Fake build's details.
+     */
+    private final transient BuildDetails detailed;
+
+    /**
      * Default ctor.
      */
     public FakeBuild() {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
-            BuildResult.SUCCESS, new Date()
+            BuildResult.SUCCESS, new Date(),
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE))
         );
     }
 
@@ -73,7 +80,10 @@ public final class FakeBuild implements Build {
      * @param xml XML content that should be returned in xml() method.
      */
     public FakeBuild(final Xml xml) {
-        this(xml, FakeBuild.defaultNumber(), BuildResult.SUCCESS, new Date());
+        this(
+            xml, FakeBuild.defaultNumber(), BuildResult.SUCCESS, new Date(),
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE))
+        );
     }
 
     /**
@@ -84,7 +94,8 @@ public final class FakeBuild implements Build {
     public FakeBuild(final BuildResult result) {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
-            result, new Date()
+            result, new Date(),
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE))
         );
     }
 
@@ -96,7 +107,8 @@ public final class FakeBuild implements Build {
     public FakeBuild(final String number) {
         this(
             new XmlResource(FakeBuild.RESOURCE), number, BuildResult.SUCCESS,
-            new Date()
+            new Date(),
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE))
         );
     }
 
@@ -108,7 +120,20 @@ public final class FakeBuild implements Build {
     public FakeBuild(final Date date) {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
-            BuildResult.SUCCESS, date
+            BuildResult.SUCCESS, date,
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE))
+        );
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param details Fake build's details.
+     */
+    public FakeBuild(final BuildDetails details) {
+        this(
+            new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
+            BuildResult.SUCCESS, new Date(), details
         );
     }
 
@@ -119,16 +144,18 @@ public final class FakeBuild implements Build {
      * @param number Build's number that will be returned in number() method.
      * @param result Fake build's result.
      * @param date Fake build's start date.
+     * @param details Fake build's details.
      * @checkstyle ParameterNumberCheck (500 lines)
      */
     public FakeBuild(
         final Xml xml, final String number, final BuildResult result,
-        final Date date
+        final Date date, final BuildDetails details
     ) {
         this.content = xml;
         this.identifier = number;
         this.status = result;
         this.start = date;
+        this.detailed = details;
     }
 
     /**
@@ -182,15 +209,9 @@ public final class FakeBuild implements Build {
      *
      * @return Build's details.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve Issue #155.
      */
     public BuildDetails details() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "details() method is not implemented for %s.",
-                this.getClass().getCanonicalName()
-            )
-        );
+        return this.detailed;
     }
 
     /**
