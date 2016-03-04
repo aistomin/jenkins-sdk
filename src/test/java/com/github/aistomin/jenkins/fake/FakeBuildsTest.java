@@ -148,4 +148,22 @@ public final class FakeBuildsTest {
             new IsEqual<Build>(aborted)
         );
     }
+
+    /**
+     * Can read last successful build.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadLastSuccessfulBuild() throws Exception {
+        final List<Build> builds = new ArrayList<Build>(3);
+        builds.add(new FakeBuild(BuildResult.FAILURE));
+        final FakeBuild successful = new FakeBuild(BuildResult.SUCCESS);
+        builds.add(successful);
+        builds.add(new FakeBuild(BuildResult.ABORTED));
+        MatcherAssert.assertThat(
+            new FakeBuilds(builds).lastSuccessful(),
+            new IsEqual<Build>(successful)
+        );
+    }
 }
