@@ -37,7 +37,7 @@ public final class ITRealJobTest {
      * Delay for build start. We use to wait when Jenkins really starts the
      * build.
      */
-    private static final Integer DELAY = 5000;
+    private static final Integer DELAY = 10000;
 
     /**
      * Can get job's XML.
