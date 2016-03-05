@@ -73,13 +73,19 @@ public final class FakeJob implements Job {
     private final transient List<JobParameter> params;
 
     /**
+     * Action that will be done on build trigger.
+     */
+    private final transient Runnable cbtrigger;
+
+    /**
      * Default ctor.
      */
     public FakeJob() {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            FakeJob.defaultUrl(), new FakeBuilds(), FakeJob.defaultParams()
+            FakeJob.defaultUrl(), new FakeBuilds(), FakeJob.defaultParams(),
+            new DoNothing()
         );
     }
 
@@ -91,7 +97,8 @@ public final class FakeJob implements Job {
     public FakeJob(final Xml xml) {
         this(
             FakeJob.defaultName(), xml, new RealJobDetails(xml),
-            FakeJob.defaultUrl(), new FakeBuilds(), FakeJob.defaultParams()
+            FakeJob.defaultUrl(), new FakeBuilds(), FakeJob.defaultParams(),
+            new DoNothing()
         );
     }
 
@@ -104,7 +111,8 @@ public final class FakeJob implements Job {
         this(
             name, new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            FakeJob.defaultUrl(), new FakeBuilds(), FakeJob.defaultParams()
+            FakeJob.defaultUrl(), new FakeBuilds(), FakeJob.defaultParams(),
+            new DoNothing()
         );
     }
 
@@ -117,7 +125,7 @@ public final class FakeJob implements Job {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
             details, FakeJob.defaultUrl(), new FakeBuilds(),
-            FakeJob.defaultParams()
+            FakeJob.defaultParams(), new DoNothing()
         );
     }
 
@@ -130,7 +138,8 @@ public final class FakeJob implements Job {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            url.toString(), new FakeBuilds(), FakeJob.defaultParams()
+            url.toString(), new FakeBuilds(), FakeJob.defaultParams(),
+            new DoNothing()
         );
     }
 
@@ -143,7 +152,8 @@ public final class FakeJob implements Job {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            FakeJob.defaultUrl(), builds, FakeJob.defaultParams()
+            FakeJob.defaultUrl(), builds, FakeJob.defaultParams(),
+            new DoNothing()
         );
     }
 
@@ -157,7 +167,21 @@ public final class FakeJob implements Job {
         this(
             FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
             new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
-            FakeJob.defaultUrl(), new FakeBuilds(), parameters
+            FakeJob.defaultUrl(), new FakeBuilds(), parameters, new DoNothing()
+        );
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param ontrigger Action that will be done on build trigger.
+     */
+    public FakeJob(final Runnable ontrigger) {
+        this(
+            FakeJob.defaultName(), new XmlResource(FakeJob.RESOURCE),
+            new RealJobDetails(new XmlResource(FakeJob.RESOURCE)),
+            FakeJob.defaultUrl(), new FakeBuilds(), FakeJob.defaultParams(),
+            ontrigger
         );
     }
 
@@ -171,12 +195,13 @@ public final class FakeJob implements Job {
      * @param builds Job's builds that will be returned in builds() method.
      * @param parameters Job's parameters that will be returned in parameters()
      *  method.
+     * @param ontrigger Action that will be done on build trigger.
      * @checkstyle ParameterNumberCheck (500 lines)
      */
     public FakeJob(
         final String name, final Xml xml, final JobDetails details,
         final String url, final Builds builds,
-        final List<JobParameter> parameters
+        final List<JobParameter> parameters, final Runnable ontrigger
     ) {
         this.identifier = name;
         this.content = xml;
@@ -184,6 +209,7 @@ public final class FakeJob implements Job {
         this.uri = url;
         this.bds = builds;
         this.params = parameters;
+        this.cbtrigger = ontrigger;
     }
 
     /**
@@ -234,6 +260,15 @@ public final class FakeJob implements Job {
      */
     public Iterator<JobParameter> parameters() throws Exception {
         return this.params.iterator();
+    }
+
+    /**
+     * Fake job triggering imitation.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    public void trigger() throws Exception {
+        this.cbtrigger.run();
     }
 
     /**

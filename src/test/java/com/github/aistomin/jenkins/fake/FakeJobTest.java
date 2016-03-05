@@ -25,7 +25,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsInstanceOf;
@@ -41,19 +40,6 @@ import org.junit.Test;
  * @checkstyle ClassDataAbstractionCouplingCheck (1000 lines)
  */
 public final class FakeJobTest {
-
-    /**
-     * Can create fake instances providing only job's name.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanCreateWithName() throws Exception {
-        final String name = UUID.randomUUID().toString();
-        final FakeJob job = new FakeJob(name);
-        MatcherAssert.assertThat(job.name(), new IsEqual<String>(name));
-        MatcherAssert.assertThat(job.xml(), new IsInstanceOf(String.class));
-    }
 
     /**
      * Can create fake instances providing only XML.
@@ -162,8 +148,9 @@ public final class FakeJobTest {
      */
     @Test
     public void testCanReadName() throws Exception {
+        final String name = "my_job";
         MatcherAssert.assertThat(
-            new FakeJob().name().startsWith("job"), new IsEqual<Boolean>(true)
+            new FakeJob(name).name(), new IsEqual<String>(name)
         );
     }
 
@@ -178,5 +165,23 @@ public final class FakeJobTest {
             new FakeJob().details().displayName(),
             new IsEqual<String>("test-different-builds-job")
         );
+    }
+
+    /**
+     * Can trigger Fake job.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanTrigger() throws Exception {
+        final List<String> calls = new ArrayList<String>(1);
+        new FakeJob(
+            new Runnable() {
+                public void run() {
+                    calls.add("called!!!");
+                }
+            }
+        ).trigger();
+        MatcherAssert.assertThat(calls.size(), new IsEqual<Integer>(1));
     }
 }

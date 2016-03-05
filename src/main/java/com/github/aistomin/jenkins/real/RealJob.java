@@ -117,9 +117,25 @@ public final class RealJob implements Job {
     public Iterator<JobParameter> parameters() throws Exception {
         return new EntityIterator<JobParameter, XML>(
             new XMLDocument(
-                this.xml("action/parameterDefinition&wrapper=parameters")
+                new PostRequest(
+                    String.format(
+                        "%s/%s", this.request(),
+                        "action/parameterDefinition&wrapper=parameters"
+                    ), this.creds.headers()
+                ).execute()
             ).nodes("/parameters/*").iterator(), new ParamTransformer()
         );
+    }
+
+    /**
+     * Trigger new job's build.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    public void trigger() throws Exception {
+        new PostRequest(
+            String.format("%s/build", this.url()), this.creds.headers()
+        ).execute();
     }
 
     /**
@@ -130,21 +146,6 @@ public final class RealJob implements Job {
      */
     public String xml() throws Exception {
         return new PostRequest(this.request(), this.creds.headers()).execute();
-    }
-
-    /**
-     * Get XML for path.
-     *
-     * @param path API path.
-     * @return XML's string.
-     * @throws Exception If something goes wrong.
-     */
-    private String xml(final String path) throws Exception {
-        return new PostRequest(
-            String.format(
-                "%s/%s", this.request(), path
-            ), this.creds.headers()
-        ).execute();
     }
 
     /**

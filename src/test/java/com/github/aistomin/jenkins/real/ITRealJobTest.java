@@ -34,6 +34,12 @@ import org.junit.Test;
 public final class ITRealJobTest {
 
     /**
+     * Delay for build start. We use to wait when Jenkins really starts the
+     * build.
+     */
+    private static final Integer DELAY = 5000;
+
+    /**
      * Can get job's XML.
      *
      * @throws Exception If something goes wrong.
@@ -126,5 +132,38 @@ public final class ITRealJobTest {
             params.next().name(), new IsEqual<String>("boolParam")
         );
         MatcherAssert.assertThat(params.hasNext(), new IsEqual<Boolean>(false));
+    }
+
+    /**
+     * Can trigger job.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanTrigger() throws Exception {
+        final Job job = new TestJenkins().jobs().findByName(
+            "test-x-job-trigger"
+        ).next();
+        final int before = ITRealJobTest.count(job.builds().iterator());
+        job.trigger();
+        Thread.sleep(this.DELAY);
+        MatcherAssert.assertThat(
+            before == ITRealJobTest.count(job.builds().iterator()),
+            new IsEqual<Boolean>(false)
+        );
+    }
+
+    /**
+     * Count of iterator elements.
+     * @param iterator Iterator.
+     * @return Count.
+     */
+    private static int count(final Iterator iterator) {
+        int result = 0;
+        while (iterator.hasNext()) {
+            result += 1;
+            iterator.next();
+        }
+        return result;
     }
 }

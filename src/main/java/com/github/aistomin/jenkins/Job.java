@@ -65,4 +65,11 @@ public interface Job extends ApiObject {
      * @throws Exception If something goes wrong.
      */
     Iterator<JobParameter> parameters() throws Exception;
+
+    /**
+     * Trigger new job's build.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    void trigger() throws Exception;
 }
