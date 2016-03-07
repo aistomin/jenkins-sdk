@@ -69,6 +69,11 @@ public final class FakeBuild implements Build {
     private final transient String uri;
 
     /**
+     * OnDelete action.
+     */
+    private final transient Runnable cbdelete;
+
+    /**
      * Default ctor.
      */
     public FakeBuild() {
@@ -76,7 +81,7 @@ public final class FakeBuild implements Build {
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             BuildResult.SUCCESS, new Date(),
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            FakeBuild.defaultUrl()
+            FakeBuild.defaultUrl(), new DoNothing()
         );
     }
 
@@ -89,7 +94,7 @@ public final class FakeBuild implements Build {
         this(
             xml, FakeBuild.defaultNumber(), BuildResult.SUCCESS, new Date(),
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            FakeBuild.defaultUrl()
+            FakeBuild.defaultUrl(), new DoNothing()
         );
     }
 
@@ -103,7 +108,7 @@ public final class FakeBuild implements Build {
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             result, new Date(),
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            FakeBuild.defaultUrl()
+            FakeBuild.defaultUrl(), new DoNothing()
         );
     }
 
@@ -117,7 +122,7 @@ public final class FakeBuild implements Build {
             new XmlResource(FakeBuild.RESOURCE), number, BuildResult.SUCCESS,
             new Date(),
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            FakeBuild.defaultUrl()
+            FakeBuild.defaultUrl(), new DoNothing()
         );
     }
 
@@ -131,7 +136,7 @@ public final class FakeBuild implements Build {
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             BuildResult.SUCCESS, date,
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            FakeBuild.defaultUrl()
+            FakeBuild.defaultUrl(), new DoNothing()
         );
     }
 
@@ -143,7 +148,8 @@ public final class FakeBuild implements Build {
     public FakeBuild(final BuildDetails details) {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
-            BuildResult.SUCCESS, new Date(), details, FakeBuild.defaultUrl()
+            BuildResult.SUCCESS, new Date(), details, FakeBuild.defaultUrl(),
+            new DoNothing()
         );
     }
 
@@ -157,7 +163,21 @@ public final class FakeBuild implements Build {
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             BuildResult.SUCCESS, new Date(),
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            url.toString()
+            url.toString(), new DoNothing()
+        );
+    }
+
+    /**
+     * Secondary ctor.
+     *
+     * @param ondelete OnDelete action.
+     */
+    public FakeBuild(final Runnable ondelete) {
+        this(
+            new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
+            BuildResult.SUCCESS, new Date(),
+            new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
+            FakeBuild.defaultUrl(), ondelete
         );
     }
 
@@ -170,11 +190,13 @@ public final class FakeBuild implements Build {
      * @param date Fake build's start date.
      * @param details Fake build's details.
      * @param url Fake build's URL.
+     * @param ondelete OnDelete action.
      * @checkstyle ParameterNumberCheck (500 lines)
      */
     public FakeBuild(
         final Xml xml, final String number, final BuildResult result,
-        final Date date, final BuildDetails details, final String url
+        final Date date, final BuildDetails details, final String url,
+        final Runnable ondelete
     ) {
         this.content = xml;
         this.identifier = number;
@@ -182,6 +204,7 @@ public final class FakeBuild implements Build {
         this.start = date;
         this.detailed = details;
         this.uri = url;
+        this.cbdelete = ondelete;
     }
 
     /**
@@ -232,6 +255,15 @@ public final class FakeBuild implements Build {
      */
     public BuildDetails details() throws Exception {
         return this.detailed;
+    }
+
+    /**
+     * Delete build.
+     *
+     * @throws Exception If error occurred.
+     */
+    public void delete() throws Exception {
+        this.cbdelete.run();
     }
 
     /**

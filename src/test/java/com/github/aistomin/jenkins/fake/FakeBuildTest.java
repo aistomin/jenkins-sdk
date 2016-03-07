@@ -20,7 +20,9 @@ import com.github.aistomin.jenkins.BuildResult;
 import com.github.aistomin.jenkins.real.RealBuildDetails;
 import com.github.aistomin.xml.XmlString;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsInstanceOf;
@@ -32,6 +34,7 @@ import org.junit.Test;
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
+ * @checkstyle ClassDataAbstractionCouplingCheck (1000 lines)
  */
 public final class FakeBuildTest {
 
@@ -147,5 +150,23 @@ public final class FakeBuildTest {
             new FakeBuild(url).url(),
             new IsEqual<String>("http://localhost:8080/test")
         );
+    }
+
+    /**
+     * Can delete.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanDelete() throws Exception {
+        final List<String> calls = new ArrayList<String>(1);
+        new FakeBuild(
+            new Runnable() {
+                public void run() {
+                    calls.add("Called!!!");
+                }
+            }
+        ).delete();
+        MatcherAssert.assertThat(calls.size(), new IsEqual<Integer>(1));
     }
 }

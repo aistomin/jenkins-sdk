@@ -120,6 +120,17 @@ public final class RealBuild implements Build {
     }
 
     /**
+     * Delete build.
+     *
+     * @throws Exception If error occurred.
+     */
+    public void delete() throws Exception {
+        new PostRequest(
+            String.format("%sdoDelete", this.url()), this.creds.headers()
+        ).execute();
+    }
+
+    /**
      * Jenkins build's XML representation.
      *
      * @return XML's string.

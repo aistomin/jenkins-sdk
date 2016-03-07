@@ -65,4 +65,11 @@ public interface Build extends ApiObject {
      * @throws Exception If error occurred.
      */
     BuildDetails details() throws Exception;
+
+    /**
+     * Delete build.
+     *
+     * @throws Exception If error occurred.
+     */
+    void delete() throws Exception;
 }

@@ -15,6 +15,7 @@
  */
 package com.github.aistomin.jenkins.real;
 
+import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.JobDetails;
 import com.github.aistomin.jenkins.JobParameter;
@@ -146,11 +147,15 @@ public final class ITRealJobTest {
         ).next();
         final int before = ITRealJobTest.count(job.builds().iterator());
         job.trigger();
-        Thread.sleep(this.DELAY);
+        Thread.sleep(ITRealJobTest.DELAY);
         MatcherAssert.assertThat(
             before == ITRealJobTest.count(job.builds().iterator()),
             new IsEqual<Boolean>(false)
         );
+        final Iterator<Build> iterator = job.builds().iterator();
+        while (iterator.hasNext()) {
+            iterator.next().delete();
+        }
     }
 
     /**
