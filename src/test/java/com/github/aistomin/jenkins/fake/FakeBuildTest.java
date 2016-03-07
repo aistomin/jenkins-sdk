@@ -153,20 +153,22 @@ public final class FakeBuildTest {
     }
 
     /**
-     * Can delete.
+     * Can emulate delete/cancel actions.
      *
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanDelete() throws Exception {
-        final List<String> calls = new ArrayList<String>(1);
-        new FakeBuild(
-            new Runnable() {
-                public void run() {
-                    calls.add("Called!!!");
-                }
+    public void testCanEmulateActions() throws Exception {
+        final List<String> calls = new ArrayList<String>(2);
+        final Runnable runnable = new Runnable() {
+            public void run() {
+                calls.add("Deleted!!!");
             }
-        ).delete();
+        };
+        final FakeBuild build = new FakeBuild(runnable, runnable);
+        build.delete();
         MatcherAssert.assertThat(calls.size(), new IsEqual<Integer>(1));
+        build.cancel();
+        MatcherAssert.assertThat(calls.size(), new IsEqual<Integer>(2));
     }
 }

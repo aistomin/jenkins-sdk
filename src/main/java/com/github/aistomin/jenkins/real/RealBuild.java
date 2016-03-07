@@ -131,6 +131,17 @@ public final class RealBuild implements Build {
     }
 
     /**
+     * Cancel build.
+     *
+     * @throws Exception If error occurred.
+     */
+    public void cancel() throws Exception {
+        new PostRequest(
+            String.format("%sstop", this.url()), this.creds.headers()
+        ).execute();
+    }
+
+    /**
      * Jenkins build's XML representation.
      *
      * @return XML's string.

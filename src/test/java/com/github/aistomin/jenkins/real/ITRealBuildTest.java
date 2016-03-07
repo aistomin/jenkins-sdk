@@ -15,9 +15,12 @@
  */
 package com.github.aistomin.jenkins.real;
 
+import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.jenkins.BuildResult;
+import com.github.aistomin.jenkins.Job;
 import java.util.Date;
+import java.util.Iterator;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsInstanceOf;
@@ -31,6 +34,12 @@ import org.junit.Test;
  * @since 0.1
  */
 public final class ITRealBuildTest {
+
+    /**
+     * Delay for build start. We use to wait when Jenkins really starts the
+     * build.
+     */
+    private static final Integer DELAY = 3000;
 
     /**
      * Can get Jenkins' job build XML.
@@ -56,7 +65,7 @@ public final class ITRealBuildTest {
     /**
      * Can read build's number.
      *
-     * @throws Exception If something happened.
+     * @throws Exception If something went wrong.
      */
     @Test
     public void testCanReadNumber() throws Exception {
@@ -69,7 +78,7 @@ public final class ITRealBuildTest {
     /**
      * Can read build's details.
      *
-     * @throws Exception If something happened.
+     * @throws Exception If something went wrong.
      */
     @Test
     public void testCanReadDetails() throws Exception {
@@ -84,7 +93,7 @@ public final class ITRealBuildTest {
     /**
      * Can read build's url.
      *
-     * @throws Exception If something happened.
+     * @throws Exception If something went wrong.
      */
     @Test
     public void testCanReadUrl() throws Exception {
@@ -99,7 +108,7 @@ public final class ITRealBuildTest {
     /**
      * Can read build's date.
      *
-     * @throws Exception If something happened.
+     * @throws Exception If something went wrong.
      */
     @Test
     public void testCanReadDate() throws Exception {
@@ -113,7 +122,7 @@ public final class ITRealBuildTest {
     /**
      * Can read build's result.
      *
-     * @throws Exception If something happened.
+     * @throws Exception If something went wrong.
      */
     @Test
     public void testCanReadResult() throws Exception {
@@ -122,5 +131,38 @@ public final class ITRealBuildTest {
                 .builds().iterator().next().result(),
             new IsEqual<BuildResult>(BuildResult.SUCCESS)
         );
+    }
+
+    /**
+     * Can cancel build.
+     *
+     * @throws Exception If something went wrong.
+     */
+    @Test
+    public void testCanCancelBuild() throws Exception {
+        final Job job = new TestJenkins().jobs().findByName(
+            "test-x-job-trigger"
+        ).next();
+        ITRealBuildTest.delete(job.builds().iterator());
+        job.trigger();
+        Thread.sleep(ITRealBuildTest.DELAY);
+        final Build build = job.builds().iterator().next();
+        build.cancel();
+        MatcherAssert.assertThat(
+            build.result(), new IsEqual<BuildResult>(BuildResult.ABORTED)
+        );
+        ITRealBuildTest.delete(job.builds().iterator());
+    }
+
+    /**
+     * Delete all builds.
+     *
+     * @param builds Builds iterator.
+     * @throws Exception If something went wrong.
+     */
+    private static void delete(final Iterator<Build> builds) throws Exception {
+        while (builds.hasNext()) {
+            builds.next().delete();
+        }
     }
 }

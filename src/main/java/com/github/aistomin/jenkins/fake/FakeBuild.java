@@ -74,6 +74,11 @@ public final class FakeBuild implements Build {
     private final transient Runnable cbdelete;
 
     /**
+     * OnCancel action.
+     */
+    private final transient Runnable cbcancel;
+
+    /**
      * Default ctor.
      */
     public FakeBuild() {
@@ -81,7 +86,7 @@ public final class FakeBuild implements Build {
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             BuildResult.SUCCESS, new Date(),
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            FakeBuild.defaultUrl(), new DoNothing()
+            FakeBuild.defaultUrl(), new DoNothing(), new DoNothing()
         );
     }
 
@@ -94,7 +99,7 @@ public final class FakeBuild implements Build {
         this(
             xml, FakeBuild.defaultNumber(), BuildResult.SUCCESS, new Date(),
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            FakeBuild.defaultUrl(), new DoNothing()
+            FakeBuild.defaultUrl(), new DoNothing(), new DoNothing()
         );
     }
 
@@ -108,7 +113,7 @@ public final class FakeBuild implements Build {
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             result, new Date(),
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            FakeBuild.defaultUrl(), new DoNothing()
+            FakeBuild.defaultUrl(), new DoNothing(), new DoNothing()
         );
     }
 
@@ -122,7 +127,7 @@ public final class FakeBuild implements Build {
             new XmlResource(FakeBuild.RESOURCE), number, BuildResult.SUCCESS,
             new Date(),
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            FakeBuild.defaultUrl(), new DoNothing()
+            FakeBuild.defaultUrl(), new DoNothing(), new DoNothing()
         );
     }
 
@@ -136,7 +141,7 @@ public final class FakeBuild implements Build {
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             BuildResult.SUCCESS, date,
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            FakeBuild.defaultUrl(), new DoNothing()
+            FakeBuild.defaultUrl(), new DoNothing(), new DoNothing()
         );
     }
 
@@ -149,7 +154,7 @@ public final class FakeBuild implements Build {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             BuildResult.SUCCESS, new Date(), details, FakeBuild.defaultUrl(),
-            new DoNothing()
+            new DoNothing(), new DoNothing()
         );
     }
 
@@ -163,7 +168,7 @@ public final class FakeBuild implements Build {
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             BuildResult.SUCCESS, new Date(),
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            url.toString(), new DoNothing()
+            url.toString(), new DoNothing(), new DoNothing()
         );
     }
 
@@ -171,13 +176,14 @@ public final class FakeBuild implements Build {
      * Secondary ctor.
      *
      * @param ondelete OnDelete action.
+     * @param oncancel OnCancel action.
      */
-    public FakeBuild(final Runnable ondelete) {
+    public FakeBuild(final Runnable ondelete, final Runnable oncancel) {
         this(
             new XmlResource(FakeBuild.RESOURCE), FakeBuild.defaultNumber(),
             BuildResult.SUCCESS, new Date(),
             new RealBuildDetails(new XmlResource(FakeBuild.RESOURCE)),
-            FakeBuild.defaultUrl(), ondelete
+            FakeBuild.defaultUrl(), ondelete, oncancel
         );
     }
 
@@ -191,12 +197,13 @@ public final class FakeBuild implements Build {
      * @param details Fake build's details.
      * @param url Fake build's URL.
      * @param ondelete OnDelete action.
+     * @param oncancel OnCancel action.
      * @checkstyle ParameterNumberCheck (500 lines)
      */
     public FakeBuild(
         final Xml xml, final String number, final BuildResult result,
         final Date date, final BuildDetails details, final String url,
-        final Runnable ondelete
+        final Runnable ondelete, final Runnable oncancel
     ) {
         this.content = xml;
         this.identifier = number;
@@ -205,6 +212,7 @@ public final class FakeBuild implements Build {
         this.detailed = details;
         this.uri = url;
         this.cbdelete = ondelete;
+        this.cbcancel = oncancel;
     }
 
     /**
@@ -264,6 +272,15 @@ public final class FakeBuild implements Build {
      */
     public void delete() throws Exception {
         this.cbdelete.run();
+    }
+
+    /**
+     * Cancel build.
+     *
+     * @throws Exception If error occurred.
+     */
+    public void cancel() throws Exception {
+        this.cbcancel.run();
     }
 
     /**
