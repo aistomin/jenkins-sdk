@@ -24,6 +24,7 @@ import java.util.Iterator;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsInstanceOf;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -138,6 +139,7 @@ public final class ITRealBuildTest {
      *
      * @throws Exception If something went wrong.
      */
+    @Ignore
     @Test
     public void testCanCancelBuild() throws Exception {
         final Job job = new TestJenkins().jobs().findByName(
