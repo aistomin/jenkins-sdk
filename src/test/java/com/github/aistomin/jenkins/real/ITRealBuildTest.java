@@ -138,6 +138,7 @@ public final class ITRealBuildTest {
      * Can cancel build.
      *
      * @throws Exception If something went wrong.
+     * @todo: Let's solve Issue #235 and remove ignore annotation.
      */
     @Ignore
     @Test

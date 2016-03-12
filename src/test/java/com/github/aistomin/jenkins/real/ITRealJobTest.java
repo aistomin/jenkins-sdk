@@ -23,6 +23,7 @@ import java.util.Iterator;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsInstanceOf;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -139,7 +140,9 @@ public final class ITRealJobTest {
      * Can trigger job.
      *
      * @throws Exception If something goes wrong.
+     * @todo: Let's solve Issue #235 and remove ignore annotation.
      */
+    @Ignore
     @Test
     public void testCanTrigger() throws Exception {
         final Job job = new TestJenkins().jobs().findByName(
