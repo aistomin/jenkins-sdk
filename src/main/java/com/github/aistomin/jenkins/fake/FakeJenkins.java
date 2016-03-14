@@ -51,6 +51,11 @@ public final class FakeJenkins implements Jenkins {
     private final transient Xml content;
 
     /**
+     * Fake Jenkins version.
+     */
+    private final transient String ver = "1.609.1";
+
+    /**
      * Default ctor. Sets all the defaults.
      *
      * @throws Exception If something goes wrong.
@@ -130,10 +135,9 @@ public final class FakeJenkins implements Jenkins {
      *
      * @return Version.
      * @throws Exception If reading users was not successful.
-     * @todo: Let's solve Issue #237 and remove this todo.
      */
     public String version() throws Exception {
-        return null;
+        return this.ver;
     }
 
     /**

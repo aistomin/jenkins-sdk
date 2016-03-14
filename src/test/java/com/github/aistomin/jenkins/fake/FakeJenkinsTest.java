@@ -148,4 +148,15 @@ public final class FakeJenkinsTest {
             ).xml(), new IsEqual<String>(xml)
         );
     }
+
+    /**
+     * Can read Jenkins' version.
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadVersion() throws Exception {
+        MatcherAssert.assertThat(
+            new FakeJenkins().version(), new IsEqual<String>("1.609.1")
+        );
+    }
 }
