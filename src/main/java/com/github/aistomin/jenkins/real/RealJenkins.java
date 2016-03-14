@@ -72,6 +72,17 @@ public final class RealJenkins implements Jenkins {
     }
 
     /**
+     * Jenkins' version.
+     *
+     * @return Version.
+     * @throws Exception If reading users was not successful.
+     * @todo: Let's solve Issue #237 and remove this todo.
+     */
+    public String version() throws Exception {
+        return null;
+    }
+
+    /**
      * Root XML content of Jenkins.
      *
      * @return XML string.

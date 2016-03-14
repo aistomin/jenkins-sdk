@@ -64,6 +64,16 @@ public final class TestJenkins implements Jenkins {
     }
 
     /**
+     * Jenkins' version.
+     *
+     * @return Version.
+     * @throws Exception If reading users was not successful.
+     */
+    public String version() throws Exception {
+        return this.jenkins.version();
+    }
+
+    /**
      * Jenkins' XML representation.
      *
      * @return XML's string.

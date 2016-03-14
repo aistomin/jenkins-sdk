@@ -126,6 +126,17 @@ public final class FakeJenkins implements Jenkins {
     }
 
     /**
+     * Fake Jenkins' version.
+     *
+     * @return Version.
+     * @throws Exception If reading users was not successful.
+     * @todo: Let's solve Issue #237 and remove this todo.
+     */
+    public String version() throws Exception {
+        return null;
+    }
+
+    /**
      * Return XML content that was set in ctor.
      *
      * @return XML string.
