@@ -93,7 +93,7 @@
             <plugin>
                 <groupId>com.qulice</groupId>
                 <artifactId>qulice-maven-plugin</artifactId>
-                <version>0.16.3</version>
+                <version>0.16.4</version>
                 <configuration>
                     <license>file:${basedir}/LICENSE</license>
                     <excludes>
