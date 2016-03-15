@@ -53,7 +53,7 @@ public final class FakeJenkins implements Jenkins {
     /**
      * Fake Jenkins version.
      */
-    private final transient String ver = "1.609.1";
+    private final transient String ver;
 
     /**
      * Default ctor. Sets all the defaults.
@@ -108,6 +108,7 @@ public final class FakeJenkins implements Jenkins {
         this.projects = jobs;
         this.usrs = users;
         this.content = xml;
+        this.ver = "1.609.1";
     }
 
     /**

@@ -73,4 +73,16 @@ public final class ITRealJenkinsTest {
             new TestJenkins().users(), new IsInstanceOf(RealUsers.class)
         );
     }
+
+    /**
+     * Can read Jenkins' version.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanReadVersion() throws Exception {
+        MatcherAssert.assertThat(
+            new TestJenkins().version(), new IsEqual<String>("1.609.1")
+        );
+    }
 }

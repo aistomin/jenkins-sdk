@@ -20,6 +20,16 @@ import com.github.aistomin.jenkins.Credentials;
 import com.github.aistomin.jenkins.Jenkins;
 import com.github.aistomin.jenkins.Jobs;
 import com.github.aistomin.jenkins.Users;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.fluent.Executor;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 /**
  * Jenkins instance.
@@ -76,10 +86,25 @@ public final class RealJenkins implements Jenkins {
      *
      * @return Version.
      * @throws Exception If reading users was not successful.
-     * @todo: Let's solve Issue #237 and remove this todo.
      */
     public String version() throws Exception {
-        return null;
+        final Map<String, String> headers = new HashMap<String, String>();
+        Executor.newInstance(
+            HttpClientBuilder.create().build()
+        ).execute(Request.Post(this.base))
+            .handleResponse(
+                new ResponseHandler<Object>() {
+                    public Object handleResponse(
+                        final HttpResponse response
+                    ) throws ClientProtocolException, IOException {
+                        for (final Header header : response.getAllHeaders()) {
+                            headers.put(header.getName(), header.getValue());
+                        }
+                        return response;
+                    }
+                }
+            );
+        return headers.get("X-Jenkins");
     }
 
     /**
