@@ -166,7 +166,7 @@ public final class ITRealJobTest {
      * @param iterator Iterator.
      * @return Count.
      */
-    private static int count(final Iterator iterator) {
+    private static int count(final Iterator<Build> iterator) {
         int result = 0;
         while (iterator.hasNext()) {
             result += 1;

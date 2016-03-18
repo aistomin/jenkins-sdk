@@ -7,3 +7,12 @@ merge:
     - aistomin
   script:
     - "mvn clean install package"
+decrypt:
+  settings.xml: "repo/settings.xml.asc"
+  pubring.gpg: "repo/pubring.gpg.asc"
+  secring.gpg: "repo/secring.gpg.asc"
+release:
+  script: |
+    mvn versions:set "-DnewVersion=${tag}"
+    git commit -am "${tag}"
+    mvn clean deploy -Pjenkinssdk --settings /home/r/settings.xml
