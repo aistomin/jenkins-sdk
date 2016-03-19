@@ -19,6 +19,7 @@ import java.util.Map;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.LaxRedirectStrategy;
 
 /**
  * HTTP POST Request.
@@ -61,7 +62,9 @@ public final class PostRequest implements HttpRequest {
         for (final Map.Entry<String, String> item : this.heads.entrySet()) {
             request.addHeader(item.getKey(), item.getValue());
         }
-        return Executor.newInstance(HttpClientBuilder.create().build())
-            .execute(request).returnContent().asString();
+        final HttpClientBuilder builder = HttpClientBuilder.create();
+        builder.setRedirectStrategy(new LaxRedirectStrategy());
+        return Executor.newInstance(builder.build()).execute(request)
+            .returnContent().asString();
     }
 }
