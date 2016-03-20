@@ -18,8 +18,10 @@ package com.github.aistomin.http;
 import java.util.Map;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
+import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
+import org.apache.http.impl.client.TargetAuthenticationStrategy;
 
 /**
  * HTTP POST Request.
@@ -64,6 +66,10 @@ public final class PostRequest implements HttpRequest {
         }
         final HttpClientBuilder builder = HttpClientBuilder.create();
         builder.setRedirectStrategy(new LaxRedirectStrategy());
+        builder.setRetryHandler(new DefaultHttpRequestRetryHandler());
+        builder.setProxyAuthenticationStrategy(
+            new TargetAuthenticationStrategy()
+        );
         return Executor.newInstance(builder.build()).execute(request)
             .returnContent().asString();
     }
