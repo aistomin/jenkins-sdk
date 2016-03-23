@@ -6,7 +6,7 @@ merge:
   commanders:
     - aistomin
   script:
-    - "mvn clean install package"
+    - "mvn clean install -Pqulice"
 decrypt:
   settings.xml: "repo/settings.xml.asc"
   pubring.gpg: "repo/pubring.gpg.asc"
@@ -15,4 +15,4 @@ release:
   script: |
     mvn versions:set "-DnewVersion=${tag}"
     git commit -am "${tag}"
-    mvn clean deploy -Pjenkinssdk --settings /home/r/settings.xml
+    mvn clean deploy -Pjcabi --settings /home/r/settings.xml
