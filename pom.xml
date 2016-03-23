@@ -101,33 +101,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.qulice</groupId>
-                <artifactId>qulice-maven-plugin</artifactId>
-                <version>0.16.4</version>
-                <configuration>
-                    <license>file:${basedir}/LICENSE.txt</license>
-                    <excludes>
-                        <exclude>xml:/src/main/resources/build.xml</exclude>
-                        <exclude>xml:/src/main/resources/builds.xml</exclude>
-                        <exclude>xml:/src/main/resources/jenkins.xml</exclude>
-                        <exclude>xml:/src/main/resources/job.xml</exclude>
-                        <exclude>xml:/src/main/resources/job-param.xml</exclude>
-                        <exclude>xml:/src/main/resources/jobs.xml</exclude>
-                        <exclude>xml:/src/main/resources/user.xml</exclude>
-                        <exclude>xml:/src/main/resources/users.xml</exclude>
-                        <!-- TODO: Let's solve #184 and re-enable FindBugs validation-->
-                        <exclude>findbugs:~com.github.aistomin.*</exclude>
-                    </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.6.3</version>
@@ -190,9 +163,29 @@
                     <plugin>
                         <groupId>com.qulice</groupId>
                         <artifactId>qulice-maven-plugin</artifactId>
+                        <version>0.16.4</version>
                         <configuration>
                             <license>file:${basedir}/LICENSE.txt</license>
+                            <excludes>
+                                <exclude>xml:/src/main/resources/build.xml</exclude>
+                                <exclude>xml:/src/main/resources/builds.xml</exclude>
+                                <exclude>xml:/src/main/resources/jenkins.xml</exclude>
+                                <exclude>xml:/src/main/resources/job.xml</exclude>
+                                <exclude>xml:/src/main/resources/job-param.xml</exclude>
+                                <exclude>xml:/src/main/resources/jobs.xml</exclude>
+                                <exclude>xml:/src/main/resources/user.xml</exclude>
+                                <exclude>xml:/src/main/resources/users.xml</exclude>
+                                <!-- TODO: Let's solve #184 and re-enable FindBugs validation-->
+                                <exclude>findbugs:~com.github.aistomin.*</exclude>
+                            </excludes>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
