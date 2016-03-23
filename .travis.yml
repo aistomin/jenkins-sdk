@@ -7,4 +7,4 @@ branches:
 env:
   global:
     - MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx2g"
-script: mvn clean install -Pqulice
+script: travis_wait 30 mvn clean install -Pqulice
