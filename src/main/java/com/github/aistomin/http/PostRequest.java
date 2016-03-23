@@ -16,12 +16,13 @@
 package com.github.aistomin.http;
 
 import java.util.Map;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ServiceUnavailableRetryStrategy;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
-import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
-import org.apache.http.impl.client.TargetAuthenticationStrategy;
+import org.apache.http.protocol.HttpContext;
 
 /**
  * HTTP POST Request.
@@ -31,6 +32,16 @@ import org.apache.http.impl.client.TargetAuthenticationStrategy;
  * @since 0.1
  */
 public final class PostRequest implements HttpRequest {
+
+    /**
+     * Retries count on HTTP error.
+     */
+    public static final Integer RETRY_COUNT = 20;
+
+    /**
+     * Retries interval in milliseconds on HTTP error.
+     */
+    public static final Integer RETRY_INTERVAL = 10;
 
     /**
      * Request's URL.
@@ -66,9 +77,21 @@ public final class PostRequest implements HttpRequest {
         }
         final HttpClientBuilder builder = HttpClientBuilder.create();
         builder.setRedirectStrategy(new LaxRedirectStrategy());
-        builder.setRetryHandler(new DefaultHttpRequestRetryHandler());
-        builder.setProxyAuthenticationStrategy(
-            new TargetAuthenticationStrategy()
+        builder.setServiceUnavailableRetryStrategy(
+            new ServiceUnavailableRetryStrategy() {
+                @Override
+                public boolean retryRequest(
+                    final HttpResponse response, final int count,
+                    final HttpContext context
+                ) {
+                    return count <= PostRequest.RETRY_COUNT;
+                }
+
+                @Override
+                public long getRetryInterval() {
+                    return PostRequest.RETRY_INTERVAL;
+                }
+            }
         );
         return Executor.newInstance(builder.build()).execute(request)
             .returnContent().asString();
