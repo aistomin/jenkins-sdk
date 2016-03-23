@@ -41,7 +41,7 @@ public final class PostRequest implements HttpRequest {
     /**
      * Retries interval in milliseconds on HTTP error.
      */
-    public static final Integer RETRY_INTERVAL = 10;
+    public static final Integer RETRY_INTERVAL = 100;
 
     /**
      * Request's URL.
