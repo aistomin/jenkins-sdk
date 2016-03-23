@@ -7,4 +7,4 @@ branches:
 env:
   global:
     - MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx2g"
-script: travis_wait mvn clean install -Pqulice -Dgpg.skip=true
+script: travis_wait mvn clean install -Pqulice
