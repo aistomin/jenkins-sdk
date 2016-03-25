@@ -28,6 +28,11 @@ Jenkins jenkins = new RealJenkins(
 ```
 After Jenkins object was created you can use it for getting information. For
 example, you can get Jenkin's verson: ```jenkins.version()```.
+Keep in mind that `<USERNAME>` and `<PASSWORD>` is credential of real user
+which is registered in Jenkins instance `<YOUR JENKINS URL>`. Obviously, this
+user has to have permission for particular action you try to do with our objects.
+For example, if you try to use `Job.trigger()` method this user has to have `Run`
+permission in your Jenkins configuration.
 
 ## Jenkins Users 
 We provide ```RealUsers``` and ```RealUser``` classes to read information about
@@ -123,7 +128,7 @@ while (jobs.hasNext()) {
 ```
 
 ## Jenkins Builds 
-We provide ```RealJobs``` and ```RealJob``` classes to read information about
+We provide ```RealBuilds``` and ```RealBuild``` classes to read information about
 Jenkins job's builds.
 
 ### Iterate through Builds
@@ -177,4 +182,24 @@ while (builds.hasNext()) {
         "build.result().name() = " + build.result().name()
     );
 }
+```
+
+### Trigger new Build
+Using ```jenkins``` instance of class ```RealJenkins``` you may trigger new 
+build:
+```
+Job job = jenkins.jobs().findByName("<JOB NAME>").next();
+job.trigger();
+// look into your Jenkins web: new build must appear.
+```
+
+### Cancel Build
+Using ```jenkins``` instance of class ```RealJenkins``` you may cancel running 
+build:
+```
+Job job = jenkins.jobs().findByName("<JOB NAME>").next();
+job.trigger();
+Thread.sleep(10000); // wait 10 sec until build starts.
+job.builds().lastUnsuccessful().cancel();
+// look into your Jenkins web: cancelled build must be there.
 ```
