@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/aistomin/jenkins-sdk.svg?branch=master)](https://travis-ci.org/aistomin/jenkins-sdk)
 [![Dependencies](https://www.versioneye.com/user/projects/56b7e8d2f6e506003159ac3c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56b7e8d2f6e506003159ac3c)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.aistomin/jenkins-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.aistomin/jenkins-sdk)
+
 [Documentation](DOCS.md)
 [Examples](https://github.com/aistomin/jenkins-sdk-examples)
 
