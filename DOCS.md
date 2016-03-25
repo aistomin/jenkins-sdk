@@ -17,6 +17,8 @@
     * [Iterate through Builds](#iterate-through-builds)
     * [Builds Search](#builds-search) 
     * [Read Build Details](#read-build-details) 
+    * [Trigger new Build](#trigger-new-build) 
+    * [Cancel Build](#cancel-build)
 
 ## Jenkins
 You can create Jenkins object:
