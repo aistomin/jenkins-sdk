@@ -21,15 +21,16 @@
     * [Cancel Build](#cancel-build)
 
 ## Jenkins
-You can create Jenkins object:
+To create Jenkins object you should use the following code:
 ```
 Jenkins jenkins = new RealJenkins(
     "<YOUR JENKINS URL>",
     new UsernamePasswordCredentials("<USERNAME>", "<PASSWORD>")
 );
 ```
+Just replace placeholders with real data.
 After Jenkins object was created you can use it for getting information. For
-example, you can get Jenkin's verson: ```jenkins.version()```.
+example, you can get Jenkins' verson: ```jenkins.version()```.
 Keep in mind that `<USERNAME>` and `<PASSWORD>` is credential of real user
 which is registered in Jenkins instance `<YOUR JENKINS URL>`. Obviously, this
 user has to have permission for particular action you try to do with our objects.
@@ -46,7 +47,7 @@ users:
 ```
 Users users = jenkins.users();
 System.out.println("----------------- USERS -----------------");
-final Iterator<User> iterator = users.iterator();
+Iterator<User> iterator = users.iterator();
 while (iterator.hasNext()) {
     User user =  iterator.next();
     System.out.println(user.fullName());

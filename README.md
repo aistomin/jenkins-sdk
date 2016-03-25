@@ -2,6 +2,8 @@
 [![Build Status](https://travis-ci.org/aistomin/jenkins-sdk.svg?branch=master)](https://travis-ci.org/aistomin/jenkins-sdk)
 [![Dependencies](https://www.versioneye.com/user/projects/56b7e8d2f6e506003159ac3c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56b7e8d2f6e506003159ac3c)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.aistomin/jenkins-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.aistomin/jenkins-sdk)
+[Documentation](DOCS.md)
+[Examples](https://github.com/aistomin/jenkins-sdk-examples)
 
 ## Purpose
 This project is object oriented Java SDK for 
@@ -9,7 +11,7 @@ This project is object oriented Java SDK for
 that is going to help developers to manipulate Jenkins instance using it's API.
 This SDK can be useful for developers who creates CI scripts or other environment
 software that needs to read information from Jenkins, trigger builds etc. Java 7
-or higher is required.
+or higher is required. 
 
 ## Add Maven Dependency
 Add the following configuration to your project's `pom.xml`
@@ -19,7 +21,7 @@ Add the following configuration to your project's `pom.xml`
     <dependency>
         <groupId>com.github.aistomin</groupId>
         <artifactId>jenkins-sdk</artifactId>
-        <version>0.0.2</version>
+        <version>0.1</version>
     </dependency>
     <!-- other dependencies are there -->
 </dependencies>
