@@ -61,8 +61,7 @@ while (found.hasNext()) {
 System.out.println("----------------------------------------------");
 ```
 Currently we have three methods that allow to search for users:
-```Users.findByUsername()```, ```Users.findByEmail()``` and 
-```Users.findByFullName()```
+`Users.findByUsername()`, `Users.findByEmail()` and `Users.findByFullName()`
 
 ### Read User Details
 Using ```jenkins``` instance of class ```RealJenkins``` you may read particular
