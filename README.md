@@ -48,7 +48,7 @@ public class Main {
 ```
 
 More details and code examples you may find in 
-[examples project](https://github.com/aistomin/jenkins-sdk-examples).
+[documentation](DOCS.md) or [examples project](https://github.com/aistomin/jenkins-sdk-examples).
 
 Every API object contains some methods for getting information. Also it has 
 `.xml()` method. This method allows you to get plain object's XML which allows
