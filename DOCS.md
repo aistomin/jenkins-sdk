@@ -12,7 +12,11 @@
 * [Jenkins Jobs](#jenkins-jobs)  
     * [Iterate through Jobs](#iterate-through-jobs)
     * [Jobs Search](#jobs-search) 
-    * [Read Job Details](#read-job-details) 
+    * [Read Job Details](#read-job-details)
+* [Jenkins Builds](#jenkins-builds)  
+    * [Iterate through Builds](#iterate-through-builds)
+    * [Builds Search](#builds-search) 
+    * [Read Build Details](#read-build-details) 
 
 ## Jenkins
 You can create Jenkins object:
@@ -28,6 +32,7 @@ example, you can get Jenkin's verson: ```jenkins.version()```.
 ## Jenkins Users 
 We provide ```RealUsers``` and ```RealUser``` classes to read information about
 Jenkins users.
+
 ### Iterate through Users
 Using ```jenkins``` instance of class ```RealJenkins``` you may iterate through
 users:
@@ -41,6 +46,7 @@ while (iterator.hasNext()) {
 }
 System.out.println("----------------------------------------");
 ```
+
 ### Users Search
 Using ```jenkins``` instance of class ```RealJenkins``` you may search for
 users:
@@ -57,6 +63,7 @@ System.out.println("----------------------------------------------");
 Currently we have three methods that allow to search for users:
 ```Users.findByUsername()```, ```Users.findByEmail()``` and 
 ```Users.findByFullName()```
+
 ### Read User Details
 Using ```jenkins``` instance of class ```RealJenkins``` you may read particular
 user details:
@@ -71,9 +78,11 @@ while (users.hasNext()) {
     System.out.println("user.description() = " + user.description());
 }
 ```
+
 ## Jenkins Jobs 
 We provide ```RealJobs``` and ```RealJob``` classes to read information about
-Jenkins users.
+Jenkins jobs.
+
 ### Iterate through Jobs
 Using ```jenkins``` instance of class ```RealJenkins``` you may iterate through
 jobs:
@@ -87,9 +96,10 @@ while (iterator.hasNext()) {
 }
 System.out.println("----------------------------------------");
 ```
+
 ### Jobs Search
 Using ```jenkins``` instance of class ```RealJenkins``` you may search for
-jobs:
+job:
 ```
 Iterator<Job> found = jenkins.jobs().findByName("<JOB TO SEARCH>");
 System.out.println("----------------- FOUND JOBS -----------------");
@@ -99,6 +109,7 @@ while (found.hasNext()) {
 }
 System.out.println("----------------------------------------------");
 ```
+
 ### Read Job Details
 Using ```jenkins``` instance of class ```RealJenkins``` you may read particular
 job details:
@@ -109,5 +120,62 @@ while (jobs.hasNext()) {
     System.out.println("job.details().description() = " + job.details().description());
     System.out.println("job.details().buildable() = " + job.details().buildable());
     System.out.println("job.url() = " + job.url());
+}
+```
+
+## Jenkins Builds 
+We provide ```RealJobs``` and ```RealJob``` classes to read information about
+Jenkins job's builds.
+
+### Iterate through Builds
+Using ```jenkins``` instance of class ```RealJenkins``` you may iterate through
+builds:
+```
+Job job = jenkins.jobs().findByName("<JOB NAME>").next();
+System.out.println("----------------- BUILDS -----------------");
+Iterator<Build> iterator = job.builds().iterator();
+while (iterator.hasNext()) {
+    Build build =  iterator.next();
+    System.out.println(build.number());
+}
+System.out.println("----------------------------------------");
+```
+
+### Builds Search
+Using ```jenkins``` instance of class ```RealJenkins``` you may search for
+job's builds:
+```
+Iterator<Build> found = jenkins.jobs().findByName("<JOB NAME>")
+    .next().builds().findByNumber("<BUILD NUMBER>");
+System.out.println("----------------- FOUND BUILDS -----------------");
+while (found.hasNext()) {
+    Build build =  found.next();
+    System.out.println(build.details().fullDisplayName());
+}
+System.out.println("----------------------------------------------");
+```
+
+### Read Build Details
+Using ```jenkins``` instance of class ```RealJenkins``` you may read particular
+job's build details:
+```
+Job job = jenkins.jobs().findByName("<JOB NAME>").next();
+Iterator<Build> builds = job.builds().iterator();
+while (builds.hasNext()) {
+    Build build = builds.next();
+    System.out.println(
+        "build.details().fullDisplayName() = "
+            + build.details().fullDisplayName()
+    );
+    System.out.println(
+        "build.details().displayName() = "
+            + build.details().displayName()
+    );
+    System.out.println(
+        "build.details().duration() = " + build.details().duration()
+    );
+    System.out.println(
+        "build.result().name() = " + build.result().name()
+    );
 }
 ```
