@@ -61,7 +61,7 @@ your code which is using our project. Using classes from
 `com.github.aistomin.jenkins.fake` you can create stubs/fakes of Jenkins 
 installation.
 
-## Have you found bug?
+## Have you found a bug?
 We've tested our code using Jenkins ver. 1.609.1. We're not robots and bugs are
 possible :) Don't hesitate to [create and issue](https://github.com/aistomin/jenkins-sdk/issues/new). 
 It will help to make our project better. Thanks in advance.
