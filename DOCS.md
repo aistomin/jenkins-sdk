@@ -4,7 +4,11 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.aistomin/jenkins-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.aistomin/jenkins-sdk)
 
 ## Table of Contents
-{:toc}
+* [Jenkins](##jenkins)  
+* [Jenkins Users](##jenkins-users)  
+    * [Iterate through Users](###iterate-through-users)
+    * [Users Search](###users-search) 
+    * [Read User Details](###read-user-details) 
 
 ## Jenkins
 You can create Jenkins object:
