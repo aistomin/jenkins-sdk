@@ -24,6 +24,7 @@ import com.github.aistomin.jenkins.Credentials;
 import com.github.aistomin.xml.XmlString;
 import java.net.URLEncoder;
 import java.util.Date;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job build.
@@ -142,31 +143,38 @@ public final class RealBuild implements Build {
     }
 
     /**
+     * Git revision that is built in this build.
+     *
+     * @return Git revision hash.
+     * @throws Exception If error occurred.
+     * @todo: Let's implement this method and resolve issue #262.
+     */
+    public String gitRevision() throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "%s.gitRevision() is not implemented.", this.getClass()
+            )
+        );
+    }
+
+    /**
      * Jenkins build's XML representation.
      *
      * @return XML's string.
      * @throws Exception If something goes wrong.
      */
     public String xml() throws Exception {
-        return new PostRequest(this.request(), this.creds.headers()).execute();
-    }
-
-    /**
-     * Creates API URL to request Jenkins' job data.
-     *
-     * @return URL string.
-     * @throws Exception If error occurred.
-     */
-    private String request() throws Exception {
-        return String.format(
-            "%s%s", this.api,
+        return new PostRequest(
             String.format(
-                "/build[displayName=%s]",
-                URLEncoder.encode(
-                    String.format("'%s'", this.identifier), "UTF-8"
+                "%s%s", this.api,
+                String.format(
+                    "/build[displayName=%s]",
+                    URLEncoder.encode(
+                        String.format("'%s'", this.identifier), "UTF-8"
+                    )
                 )
-            )
-        );
+            ), this.creds.headers()
+        ).execute();
     }
 
     /**
