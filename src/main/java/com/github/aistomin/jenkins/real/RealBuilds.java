@@ -183,16 +183,9 @@ public final class RealBuilds implements Builds {
      * @throws Exception If reading XML was not successful.
      */
     public String xml() throws Exception {
-        return new PostRequest(this.request(), this.creds.headers()).execute();
-    }
-
-    /**
-     * Creates API URL to request Jenkins' job builds data.
-     *
-     * @return URL string.
-     */
-    private String request() {
-        return this.url("/build&wrapper=builds");
+        return new PostRequest(
+            this.url("/build&wrapper=builds"), this.creds.headers()
+        ).execute();
     }
 
     /**
