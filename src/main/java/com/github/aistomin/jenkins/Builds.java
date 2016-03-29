@@ -74,4 +74,13 @@ public interface Builds extends ApiObject {
      * @throws Exception If something goes wrong.
      */
     Iterator<Build> findByNumber(String number) throws Exception;
+
+    /**
+     * Find build by Git revision.
+     *
+     * @param rev Git revision.
+     * @return Build.
+     * @throws Exception If something goes wrong.
+     */
+    Iterator<Build> findByGitRevision(String rev) throws Exception;
 }
