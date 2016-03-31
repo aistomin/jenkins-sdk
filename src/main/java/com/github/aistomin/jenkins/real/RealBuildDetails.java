@@ -16,7 +16,9 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
+import com.github.aistomin.jenkins.BuildParameters;
 import com.github.aistomin.xml.Xml;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job build details like: display name, url, duration etc.
@@ -103,5 +105,20 @@ public final class RealBuildDetails implements BuildDetails {
      */
     public Long queue() throws Exception {
         return Long.parseLong(this.content.field("//build/queueId/text()"));
+    }
+
+    /**
+     * Build's parameters.
+     *
+     * @return Parameters.
+     * @throws Exception If error occurred.
+     * @todo: Let's implement this method and solve issue #267.
+     */
+    public BuildParameters parameters() throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "%s.parameters() is not implemented.", this.getClass()
+            )
+        );
     }
 }

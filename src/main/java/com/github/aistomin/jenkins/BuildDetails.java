@@ -71,4 +71,12 @@ public interface BuildDetails {
      * @throws Exception If error occurred.
      */
     Long queue() throws Exception;
+
+    /**
+     * Build's parameters.
+     *
+     * @return Parameters.
+     * @throws Exception If error occurred.
+     */
+    BuildParameters parameters() throws Exception;
 }
