@@ -27,6 +27,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake jenkins' job.
@@ -269,6 +271,21 @@ public final class FakeJob implements Job {
      */
     public void trigger() throws Exception {
         this.cbtrigger.run();
+    }
+
+    /**
+     * Trigger new job's build.
+     *
+     * @param params Build parameters map.
+     * @throws Exception If something goes wrong.
+     * @todo: Let's implement this method and solve issue #270.
+     */
+    public void trigger(final Map<String, String> params) throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "%s.trigger() is not implemented.", this.getClass()
+            )
+        );
     }
 
     /**
