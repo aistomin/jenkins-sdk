@@ -28,6 +28,8 @@ import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import java.net.URLEncoder;
 import java.util.Iterator;
+import java.util.Map;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job.
@@ -136,6 +138,21 @@ public final class RealJob implements Job {
         new PostRequest(
             String.format("%s/build", this.url()), this.creds.headers()
         ).execute();
+    }
+
+    /**
+     * Trigger new job's build.
+     *
+     * @param params Build parameters map.
+     * @throws Exception If something goes wrong.
+     * @todo: Let's implement this method and solve issue #270.
+     */
+    public void trigger(final Map<String, String> params) throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "%s.trigger() is not implemented.", this.getClass()
+            )
+        );
     }
 
     /**
