@@ -39,6 +39,7 @@ import org.apache.commons.lang3.NotImplementedException;
  * @since 0.1
  * @checkstyle ClassDataAbstractionCouplingCheck (1000 lines)
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public final class RealJob implements Job {
 
     /**
