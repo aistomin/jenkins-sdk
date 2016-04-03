@@ -16,6 +16,7 @@
 package com.github.aistomin.jenkins;
 
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Jenkins' job.
@@ -72,4 +73,12 @@ public interface Job extends ApiObject {
      * @throws Exception If something goes wrong.
      */
     void trigger() throws Exception;
+
+    /**
+     * Trigger new job's build.
+     *
+     * @param params Build parameters map.
+     * @throws Exception If something goes wrong.
+     */
+    void trigger(Map<String, String> params) throws Exception;
 }
