@@ -145,7 +145,7 @@ public final class RealJob implements Job {
      *
      * @param params Build parameters map.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and solve issue #270.
+     * @todo: Let's implement this method and solve issue #271.
      */
     public void trigger(final Map<String, String> params) throws Exception {
         throw new NotImplementedException(
