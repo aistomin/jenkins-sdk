@@ -276,11 +276,11 @@ public final class FakeJob implements Job {
     /**
      * Trigger new job's build.
      *
-     * @param params Build parameters map.
+     * @param parameters Build parameters map.
      * @throws Exception If something goes wrong.
      * @todo: Let's implement this method and solve issue #270.
      */
-    public void trigger(final Map<String, String> params) throws Exception {
+    public void trigger(final Map<String, String> parameters) throws Exception {
         throw new NotImplementedException(
             String.format(
                 "%s.trigger() is not implemented.", this.getClass()
