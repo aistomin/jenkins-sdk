@@ -23,7 +23,6 @@ import com.github.aistomin.jenkins.Users;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
