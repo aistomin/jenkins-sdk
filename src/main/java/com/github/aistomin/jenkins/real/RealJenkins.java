@@ -23,6 +23,8 @@ import com.github.aistomin.jenkins.Users;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -79,6 +81,19 @@ public final class RealJenkins implements Jenkins {
      */
     public Users users() throws Exception {
         return new RealUsers(this.base, this.creds);
+    }
+
+    /**
+     * Restart Jenkins.
+     * @throws Exception If reading users was not successful.
+     * @todo: Let's implement this method and solve issue #274.
+     */
+    public void restart() throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "%s.restart() is not implemented.", this.getClass()
+            )
+        );
     }
 
     /**
