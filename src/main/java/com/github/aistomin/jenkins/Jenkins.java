@@ -47,4 +47,10 @@ public interface Jenkins extends ApiObject {
      * @throws Exception If reading users was not successful.
      */
     String version() throws Exception;
+
+    /**
+     * Restart Jenkins.
+     * @throws Exception If reading users was not successful.
+     */
+    void restart() throws Exception;
 }
