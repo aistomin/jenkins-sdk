@@ -74,6 +74,15 @@ public final class TestJenkins implements Jenkins {
     }
 
     /**
+     * Restart Jenkins.
+     *
+     * @throws Exception If reading users was not successful.
+     */
+    public void restart() throws Exception {
+        this.jenkins.restart();
+    }
+
+    /**
      * Jenkins' XML representation.
      *
      * @return XML's string.
