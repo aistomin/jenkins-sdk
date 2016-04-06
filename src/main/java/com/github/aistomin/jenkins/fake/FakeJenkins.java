@@ -20,6 +20,7 @@ import com.github.aistomin.jenkins.Jobs;
 import com.github.aistomin.jenkins.Users;
 import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake Jenkins instance for tests.
@@ -139,6 +140,19 @@ public final class FakeJenkins implements Jenkins {
      */
     public String version() throws Exception {
         return this.ver;
+    }
+
+    /**
+     * Restart Jenkins.
+     * @throws Exception If reading users was not successful.
+     * @todo: Let's implement this method and solve issue #273.
+     */
+    public void restart() throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "%s.restart() is not implemented.", this.getClass()
+            )
+        );
     }
 
     /**
