@@ -15,6 +15,8 @@
  */
 package com.github.aistomin.jenkins;
 
+import java.util.Iterator;
+
 /**
  * Jenkins' job build details like: display name, url, duration etc.
  *
@@ -78,5 +80,5 @@ public interface BuildDetails {
      * @return Parameters.
      * @throws Exception If error occurred.
      */
-    BuildParameters parameters() throws Exception;
+    Iterator<BuildParameter> parameters() throws Exception;
 }

@@ -16,8 +16,9 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
-import com.github.aistomin.jenkins.BuildParameters;
+import com.github.aistomin.jenkins.BuildParameter;
 import com.github.aistomin.xml.Xml;
+import java.util.Iterator;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**
@@ -114,7 +115,7 @@ public final class RealBuildDetails implements BuildDetails {
      * @throws Exception If error occurred.
      * @todo: Let's implement this method and solve issue #267.
      */
-    public BuildParameters parameters() throws Exception {
+    public Iterator<BuildParameter> parameters() throws Exception {
         throw new NotImplementedException(
             String.format(
                 "%s.parameters() is not implemented.", this.getClass()

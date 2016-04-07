@@ -22,5 +22,12 @@ package com.github.aistomin.jenkins;
  * @version $Id$
  * @since 1.1
  */
-public interface BuildParameters {
+public interface BuildParameter extends JobParameter {
+
+    /**
+     * Parameter's value.
+     *
+     * @return Value.
+     */
+    String value();
 }
