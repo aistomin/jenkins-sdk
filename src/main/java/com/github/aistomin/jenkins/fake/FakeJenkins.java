@@ -110,6 +110,19 @@ public final class FakeJenkins implements Jenkins {
     }
 
     /**
+     * Secondary ctor.
+     *
+     * @param onrestart Restart callback.
+     * @throws Exception If something goes wrong.
+     */
+    public FakeJenkins(final Runnable onrestart) throws Exception {
+        this(
+            new FakeJobs(), new FakeUsers(),
+            new XmlResource(FakeJenkins.RESOURCE), onrestart
+        );
+    }
+
+    /**
      * Primary ctor.
      *
      * @param jobs Jobs instance that should be returned in jobs() method.
