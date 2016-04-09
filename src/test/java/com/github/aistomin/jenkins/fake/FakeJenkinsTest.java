@@ -19,6 +19,8 @@ import com.github.aistomin.jenkins.Jenkins;
 import com.github.aistomin.jenkins.Jobs;
 import com.github.aistomin.jenkins.Users;
 import com.github.aistomin.xml.XmlString;
+import java.util.ArrayList;
+import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsInstanceOf;
@@ -135,5 +137,22 @@ public final class FakeJenkinsTest {
         MatcherAssert.assertThat(
             new FakeJenkins().version(), new IsEqual<String>("1.609.1")
         );
+    }
+
+    /**
+     * Can restart fake jenkins.
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanRestart() throws Exception {
+        final List<String> calls = new ArrayList<String>(1);
+        new FakeJenkins(
+            new Runnable() {
+                public void run() {
+                    calls.add("called!!!");
+                }
+            }
+        ).restart();
+        MatcherAssert.assertThat(calls.size(), new IsEqual<Integer>(1));
     }
 }
