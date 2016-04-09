@@ -91,23 +91,6 @@ public final class FakeJenkinsTest {
     }
 
     /**
-     * Can create fake instances providing only XML.
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testConstructorWithXml() throws Exception {
-        final String xml = "<jenkins></jenkins>";
-        final Jenkins jenkins = new FakeJenkins(new XmlString(xml));
-        MatcherAssert.assertThat(
-            jenkins.jobs(), new IsInstanceOf(FakeJobs.class)
-        );
-        MatcherAssert.assertThat(
-            jenkins.users(), new IsInstanceOf(FakeUsers.class)
-        );
-        MatcherAssert.assertThat(jenkins.xml(), new IsEqual<String>(xml));
-    }
-
-    /**
      * Can list Jenkins' jobs.
      * @throws Exception If something goes wrong.
      */
