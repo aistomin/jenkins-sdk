@@ -20,7 +20,6 @@ import com.github.aistomin.jenkins.Jobs;
 import com.github.aistomin.jenkins.Users;
 import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake Jenkins instance for tests.
@@ -57,6 +56,11 @@ public final class FakeJenkins implements Jenkins {
     private final transient String ver;
 
     /**
+     * Restart callback.
+     */
+    private final Runnable cbrestart;
+
+    /**
      * Default ctor. Sets all the defaults.
      *
      * @throws Exception If something goes wrong.
@@ -64,7 +68,8 @@ public final class FakeJenkins implements Jenkins {
     public FakeJenkins() throws Exception {
         this(
             new FakeJobs(), new FakeUsers(),
-            new XmlResource(FakeJenkins.RESOURCE)
+            new XmlResource(FakeJenkins.RESOURCE),
+            new DoNothing()
         );
     }
 
@@ -75,7 +80,10 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Jobs jobs) throws Exception {
-        this(jobs, new FakeUsers(), new XmlResource(FakeJenkins.RESOURCE));
+        this(
+            jobs, new FakeUsers(), new XmlResource(FakeJenkins.RESOURCE),
+            new DoNothing()
+        );
     }
 
     /**
@@ -85,7 +93,10 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Users users) throws Exception {
-        this(new FakeJobs(), users, new XmlResource(FakeJenkins.RESOURCE));
+        this(
+            new FakeJobs(), users, new XmlResource(FakeJenkins.RESOURCE),
+            new DoNothing()
+        );
     }
 
     /**
@@ -95,7 +106,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Xml xml) throws Exception {
-        this(new FakeJobs(), new FakeUsers(), xml);
+        this(new FakeJobs(), new FakeUsers(), xml, new DoNothing());
     }
 
     /**
@@ -104,12 +115,17 @@ public final class FakeJenkins implements Jenkins {
      * @param jobs Jobs instance that should be returned in jobs() method.
      * @param users Users instance that should be returned in users() method.
      * @param xml XML content that should be returned in xml() method.
+     * @param onrestart Restart callback.
      */
-    public FakeJenkins(final Jobs jobs, final Users users, final Xml xml) {
+    public FakeJenkins(
+        final Jobs jobs, final Users users, final Xml xml,
+        final Runnable onrestart
+    ) {
         this.projects = jobs;
         this.usrs = users;
         this.content = xml;
         this.ver = "1.609.1";
+        this.cbrestart = onrestart;
     }
 
     /**
@@ -145,14 +161,9 @@ public final class FakeJenkins implements Jenkins {
     /**
      * Restart Jenkins.
      * @throws Exception If reading users was not successful.
-     * @todo: Let's implement this method and solve issue #273.
      */
     public void restart() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.restart() is not implemented.", this.getClass()
-            )
-        );
+        this.cbrestart.run();
     }
 
     /**
