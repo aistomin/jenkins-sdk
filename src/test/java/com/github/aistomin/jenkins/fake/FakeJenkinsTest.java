@@ -115,9 +115,7 @@ public final class FakeJenkinsTest {
     public void testCanListJobs() throws Exception {
         final Jobs jobs = new FakeJobs();
         MatcherAssert.assertThat(
-            new FakeJenkins(
-                jobs, new FakeUsers(), new XmlString("<test>test</test>")
-            ).jobs(), new IsEqual<Jobs>(jobs)
+            new FakeJenkins(jobs).jobs(), new IsEqual<Jobs>(jobs)
         );
     }
 
@@ -129,9 +127,7 @@ public final class FakeJenkinsTest {
     public void testCanListUsers() throws Exception {
         final Users users = new FakeUsers();
         MatcherAssert.assertThat(
-            new FakeJenkins(
-                new FakeJobs(), users, new XmlString("<jen>jen</jen>")
-            ).users(), new IsEqual<Users>(users)
+            new FakeJenkins(users).users(), new IsEqual<Users>(users)
         );
     }
 
@@ -143,9 +139,7 @@ public final class FakeJenkinsTest {
     public void testCanReadXml() throws Exception {
         final String xml = "<hudson></hudson>";
         MatcherAssert.assertThat(
-            new FakeJenkins(
-                new FakeJobs(), new FakeUsers(), new XmlString(xml)
-            ).xml(), new IsEqual<String>(xml)
+            new FakeJenkins(new XmlString(xml)).xml(), new IsEqual<String>(xml)
         );
     }
 
