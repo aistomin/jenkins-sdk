@@ -129,6 +129,7 @@ public final class FakeJenkins implements Jenkins {
      * @param users Users instance that should be returned in users() method.
      * @param xml XML content that should be returned in xml() method.
      * @param onrestart Restart callback.
+     * @checkstyle ParameterNumberCheck (500 lines)
      */
     public FakeJenkins(
         final Jobs jobs, final Users users, final Xml xml,
