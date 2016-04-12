@@ -85,14 +85,11 @@ public final class RealJenkins implements Jenkins {
     /**
      * Restart Jenkins.
      * @throws Exception If reading users was not successful.
-     * @todo: Let's implement this method and solve issue #274.
      */
     public void restart() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.restart() is not implemented.", this.getClass()
-            )
-        );
+        new PostRequest(
+            String.format("%s/restart", this.base), this.creds.headers()
+        ).execute();
     }
 
     /**

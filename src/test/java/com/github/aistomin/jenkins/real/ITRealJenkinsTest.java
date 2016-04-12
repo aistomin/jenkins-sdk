@@ -18,6 +18,7 @@ package com.github.aistomin.jenkins.real;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsInstanceOf;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -84,5 +85,16 @@ public final class ITRealJenkinsTest {
         MatcherAssert.assertThat(
             new TestJenkins().version(), new IsEqual<String>("1.609.1")
         );
+    }
+
+    /**
+     * Can restart jenkins.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Ignore
+    @Test
+    public void testRestart() throws Exception {
+        new TestJenkins().restart();
     }
 }
