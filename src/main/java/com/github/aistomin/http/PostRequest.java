@@ -79,7 +79,6 @@ public final class PostRequest implements HttpRequest {
         builder.setRedirectStrategy(new LaxRedirectStrategy());
         builder.setServiceUnavailableRetryStrategy(
             new ServiceUnavailableRetryStrategy() {
-                @Override
                 public boolean retryRequest(
                     final HttpResponse response, final int count,
                     final HttpContext context
@@ -87,7 +86,6 @@ public final class PostRequest implements HttpRequest {
                     return count <= PostRequest.RETRY_COUNT;
                 }
 
-                @Override
                 public long getRetryInterval() {
                     return PostRequest.RETRY_INTERVAL;
                 }
