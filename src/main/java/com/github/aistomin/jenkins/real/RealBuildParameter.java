@@ -16,7 +16,7 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildParameter;
-import org.apache.commons.lang3.NotImplementedException;
+import com.github.aistomin.xml.Xml;
 
 /**
  * Jenkins build parameter.
@@ -28,17 +28,16 @@ import org.apache.commons.lang3.NotImplementedException;
 public final class RealBuildParameter implements BuildParameter {
 
     /**
-     * Build Parameter's value.
-     *
-     * @return Build parameter's value.
-     * @todo: Let's implement this method and solve issue #281.
+     * XML content of parameter details.
      */
-    public String value() {
-        throw new NotImplementedException(
-            String.format(
-                "%s.value() is not implemented.", this.getClass()
-            )
-        );
+    private final transient Xml content;
+
+    /**
+     * Ctor.
+     * @param xml XML content of parameter details.
+     */
+    public RealBuildParameter(final Xml xml) {
+        this.content = xml;
     }
 
     /**
@@ -46,43 +45,18 @@ public final class RealBuildParameter implements BuildParameter {
      *
      * @return Build parameter's name.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve issue #281.
      */
     public String name() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.name() is not implemented.", this.getClass()
-            )
-        );
+        return this.content.field("//parameter/name/text()");
     }
 
     /**
-     * Build parameter's type.
+     * Build Parameter's value.
      *
-     * @return Build parameter's type.
+     * @return Build parameter's value.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve issue #281.
      */
-    public String type() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.type() is not implemented.", this.getClass()
-            )
-        );
-    }
-
-    /**
-     * Build parameter's description.
-     *
-     * @return Build parameter's description.
-     * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve issue #281.
-     */
-    public String description() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.description() is not implemented.", this.getClass()
-            )
-        );
+    public String value() throws Exception {
+        return this.content.field("//parameter/value/text()");
     }
 }

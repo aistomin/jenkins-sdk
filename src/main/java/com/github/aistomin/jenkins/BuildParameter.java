@@ -20,14 +20,23 @@ package com.github.aistomin.jenkins;
  *
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
- * @since 1.1
+ * @since 0.2
  */
-public interface BuildParameter extends JobParameter {
+public interface BuildParameter {
+
+    /**
+     * Parameter's name.
+     *
+     * @return Parameter's name.
+     * @throws Exception If error occurred.
+     */
+    String name() throws Exception;
 
     /**
      * Parameter's value.
      *
      * @return Value.
+     * @throws Exception If error occurred.
      */
-    String value();
+    String value() throws Exception;
 }
