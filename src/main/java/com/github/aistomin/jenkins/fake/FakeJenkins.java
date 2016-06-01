@@ -130,6 +130,7 @@ public final class FakeJenkins implements Jenkins {
      * @param xml XML content that should be returned in xml() method.
      * @param onrestart Restart callback.
      * @checkstyle ParameterNumberCheck (500 lines)
+     * @todo: Let's fix this multi-parameter constructors and solve issue #284.
      */
     public FakeJenkins(
         final Jobs jobs, final Users users, final Xml xml,

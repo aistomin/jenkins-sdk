@@ -200,6 +200,7 @@ public final class FakeJob implements Job {
      *  method.
      * @param ontrigger Action that will be done on build trigger.
      * @checkstyle ParameterNumberCheck (500 lines)
+     * @todo: Let's fix this multi-parameter constructors and solve issue #284.
      */
     public FakeJob(
         final String name, final Xml xml, final JobDetails details,

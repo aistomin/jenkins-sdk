@@ -120,6 +120,7 @@ public final class FakeUser implements User {
      * @param description User's description that will be returned in
      *  description() method.
      * @checkstyle ParameterNumberCheck (500 lines)
+     * @todo: Let's fix this multi-parameter constructors and solve issue #284.
      */
     public FakeUser(
         final Xml xml, final String username, final String name,

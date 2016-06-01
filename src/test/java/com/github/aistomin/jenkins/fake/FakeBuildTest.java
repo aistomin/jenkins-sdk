@@ -35,6 +35,7 @@ import org.junit.Test;
  * @version $Id$
  * @since 0.1
  * @checkstyle ClassDataAbstractionCouplingCheck (1000 lines)
+ * @todo: Let's re-work this test and solve issue #286.
  */
 public final class FakeBuildTest {
 

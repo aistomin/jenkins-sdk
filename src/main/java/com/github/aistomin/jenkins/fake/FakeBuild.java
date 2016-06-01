@@ -201,6 +201,7 @@ public final class FakeBuild implements Build {
      * @param ondelete OnDelete action.
      * @param oncancel OnCancel action.
      * @checkstyle ParameterNumberCheck (500 lines)
+     * @todo: Let's fix this multi-parameter constructors and solve issue #284.
      */
     public FakeBuild(
         final Xml xml, final String number, final BuildResult result,

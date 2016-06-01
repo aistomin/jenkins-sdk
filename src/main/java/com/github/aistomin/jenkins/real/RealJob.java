@@ -38,6 +38,7 @@ import org.apache.commons.lang3.NotImplementedException;
  * @version $Id$
  * @since 0.1
  * @checkstyle ClassDataAbstractionCouplingCheck (1000 lines)
+ * @todo: Let's re-design this class and solve issue #285
  */
 @SuppressWarnings("PMD.TooManyMethods")
 public final class RealJob implements Job {
