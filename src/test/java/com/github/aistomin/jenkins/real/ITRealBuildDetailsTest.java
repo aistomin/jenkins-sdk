@@ -30,7 +30,7 @@ import org.junit.Test;
  * @version $Id$
  * @since 0.1
  */
-public final class RealBuildDetailsTest {
+public final class ITRealBuildDetailsTest {
 
     /**
      * Can read build's details.
