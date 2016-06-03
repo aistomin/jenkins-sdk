@@ -15,11 +15,15 @@
  */
 package com.github.aistomin.jenkins.real;
 
+import com.github.aistomin.iterators.EntityIterator;
+import com.github.aistomin.iterators.Transformation;
 import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.jenkins.BuildParameter;
 import com.github.aistomin.xml.Xml;
+import com.github.aistomin.xml.XmlString;
+import com.jcabi.xml.XML;
+import com.jcabi.xml.XMLDocument;
 import java.util.Iterator;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job build details like: display name, url, duration etc.
@@ -113,13 +117,32 @@ public final class RealBuildDetails implements BuildDetails {
      *
      * @return Parameters.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and solve issue #267.
      */
     public Iterator<BuildParameter> parameters() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.parameters() is not implemented.", this.getClass()
-            )
+        return new EntityIterator<BuildParameter, XML>(
+            new XMLDocument(this.content.content()).nodes("//parameter")
+                .iterator(),
+            new RealBuildDetails.ParamTransformer()
         );
+    }
+
+    /**
+     * BuildParameter transformer.
+     */
+    private static final class ParamTransformer implements
+        Transformation<BuildParameter, XML> {
+
+        /**
+         * Transform XML to JobParameter.
+         *
+         * @param source Source object.
+         * @return JobParameter.
+         * @checkstyle NonStaticMethodCheck (500 lines)
+         */
+        public BuildParameter transform(final XML source) {
+            return new RealBuildParameter(
+                new XmlString(source.toString())
+            );
+        }
     }
 }

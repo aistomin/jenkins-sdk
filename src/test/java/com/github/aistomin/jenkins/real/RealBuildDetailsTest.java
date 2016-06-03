@@ -16,7 +16,9 @@
 package com.github.aistomin.jenkins.real;
 
 import com.github.aistomin.jenkins.BuildDetails;
+import com.github.aistomin.jenkins.BuildParameter;
 import com.github.aistomin.xml.XmlResource;
+import java.util.Iterator;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
@@ -57,5 +59,27 @@ public final class RealBuildDetailsTest {
             details.building(), new IsEqual<Boolean>(false)
         );
         MatcherAssert.assertThat(details.queue(), new IsEqual<Long>(1L));
+    }
+
+    /**
+     * Can read build's parameters.
+     *
+     * @throws Exception If something is not OK.
+     */
+    @Test
+    public void testCanReadParameters() throws Exception {
+        final Iterator<BuildParameter> parameters = new TestJenkins().jobs()
+            .findByName("test-parametrised-job").next().builds()
+            .findByNumber("#4").next().details().parameters();
+        final BuildParameter parameter = parameters.next();
+        MatcherAssert.assertThat(
+            parameter.name(), new IsEqual<String>("niceParameter")
+        );
+        MatcherAssert.assertThat(
+            parameter.value(), new IsEqual<String>("some_value")
+        );
+        MatcherAssert.assertThat(
+            parameters.hasNext(), new IsEqual<Boolean>(false)
+        );
     }
 }
