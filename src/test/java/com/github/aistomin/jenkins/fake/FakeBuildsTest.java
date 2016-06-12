@@ -46,15 +46,15 @@ public final class FakeBuildsTest {
         MatcherAssert.assertThat(builds.xml(), new IsInstanceOf(String.class));
         final Iterator<Build> iterator = builds.iterator();
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         iterator.next();
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         iterator.next();
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(false)
+            iterator.hasNext(), new IsEqual<>(false)
         );
     }
 
@@ -69,14 +69,14 @@ public final class FakeBuildsTest {
             new XmlString("<builds><build>#1</build></builds>")
         ).xml();
         MatcherAssert.assertThat(
-            xml.startsWith("<builds>"), new IsEqual<Boolean>(true)
+            xml.startsWith("<builds>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains("<build>#1</build>"),
-            new IsEqual<Boolean>(true)
+            new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.endsWith("</builds>"), new IsEqual<Boolean>(true)
+            xml.endsWith("</builds>"), new IsEqual<>(true)
         );
     }
 
@@ -87,24 +87,24 @@ public final class FakeBuildsTest {
      */
     @Test
     public void testCanIterate() throws Exception {
-        final List<Build> builds = new ArrayList<Build>(2);
+        final List<Build> builds = new ArrayList<>(2);
         builds.add(new FakeBuild());
         builds.add(new FakeBuild());
         final Iterator<Build> iterator = new FakeBuilds(builds).iterator();
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            iterator.next(), new IsEqual<Build>(builds.get(0))
+            iterator.next(), new IsEqual<>(builds.get(0))
         );
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            iterator.next(), new IsEqual<Build>(builds.get(1))
+            iterator.next(), new IsEqual<>(builds.get(1))
         );
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(false)
+            iterator.hasNext(), new IsEqual<>(false)
         );
     }
 
@@ -115,20 +115,20 @@ public final class FakeBuildsTest {
      */
     @Test
     public void testCanFindByNumber() throws Exception {
-        final List<Build> builds = new ArrayList<Build>(2);
+        final List<Build> builds = new ArrayList<>(2);
         builds.add(new FakeBuild("#1"));
         final String number = "#2";
         builds.add(new FakeBuild(number));
         final Iterator<Build> found = new FakeBuilds(builds)
             .findByNumber(number);
         MatcherAssert.assertThat(
-            found.hasNext(), new IsEqual<Boolean>(true)
+            found.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            found.next().number(), new IsEqual<String>(number)
+            found.next().number(), new IsEqual<>(number)
         );
         MatcherAssert.assertThat(
-            found.hasNext(), new IsEqual<Boolean>(false)
+            found.hasNext(), new IsEqual<>(false)
         );
     }
 
@@ -139,7 +139,7 @@ public final class FakeBuildsTest {
      */
     @Test
     public void testCanReadLastUnsuccessfulBuild() throws Exception {
-        final List<Build> builds = new ArrayList<Build>(2);
+        final List<Build> builds = new ArrayList<>(2);
         builds.add(new FakeBuild(BuildResult.SUCCESS));
         final FakeBuild aborted = new FakeBuild(BuildResult.ABORTED);
         builds.add(aborted);
@@ -156,7 +156,7 @@ public final class FakeBuildsTest {
      */
     @Test
     public void testCanReadLastSuccessfulBuild() throws Exception {
-        final List<Build> builds = new ArrayList<Build>(3);
+        final List<Build> builds = new ArrayList<>(3);
         builds.add(new FakeBuild(BuildResult.FAILURE));
         final FakeBuild successful = new FakeBuild(BuildResult.SUCCESS);
         builds.add(successful);
@@ -174,7 +174,7 @@ public final class FakeBuildsTest {
      */
     @Test
     public void testCanReadLastFailedBuild() throws Exception {
-        final List<Build> builds = new ArrayList<Build>(3);
+        final List<Build> builds = new ArrayList<>(3);
         final FakeBuild failed = new FakeBuild(BuildResult.FAILURE);
         builds.add(failed);
         builds.add(new FakeBuild(BuildResult.SUCCESS));
@@ -191,7 +191,7 @@ public final class FakeBuildsTest {
      */
     @Test
     public void testCanReadLastStableBuild() throws Exception {
-        final List<Build> builds = new ArrayList<Build>(3);
+        final List<Build> builds = new ArrayList<>(3);
         builds.add(new FakeBuild(BuildResult.FAILURE));
         final FakeBuild successful = new FakeBuild(BuildResult.SUCCESS);
         builds.add(successful);

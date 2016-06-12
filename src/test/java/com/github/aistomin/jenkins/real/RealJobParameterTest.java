@@ -51,13 +51,13 @@ public final class RealJobParameterTest {
             )
         );
         MatcherAssert.assertThat(
-            parameter.name(), new IsEqual<String>("niceParameter")
+            parameter.name(), new IsEqual<>("niceParameter")
         );
         MatcherAssert.assertThat(
-            parameter.description(), new IsEqual<String>("Nice parameter")
+            parameter.description(), new IsEqual<>("Nice parameter")
         );
         MatcherAssert.assertThat(
-            parameter.type(), new IsEqual<String>("StringParameterDefinition")
+            parameter.type(), new IsEqual<>("StringParameterDefinition")
         );
     }
 }

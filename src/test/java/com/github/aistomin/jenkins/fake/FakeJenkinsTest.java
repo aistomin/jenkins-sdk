@@ -50,15 +50,15 @@ public final class FakeJenkinsTest {
         );
         MatcherAssert.assertThat(jenkins.xml(), new IsInstanceOf(String.class));
         MatcherAssert.assertThat(
-            jenkins.xml().startsWith("<hudson>"), new IsEqual<Boolean>(true)
+            jenkins.xml().startsWith("<hudson>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             jenkins.xml().contains(
                 "https://cisdk-istomin.rhcloud.com/job/test-disabled-job/"
-            ), new IsEqual<Boolean>(true)
+            ), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            jenkins.xml().endsWith("</hudson>"), new IsEqual<Boolean>(true)
+            jenkins.xml().endsWith("</hudson>"), new IsEqual<>(true)
         );
     }
 
@@ -74,7 +74,7 @@ public final class FakeJenkinsTest {
             jenkins.jobs(), new IsInstanceOf(FakeJobs.class)
         );
         MatcherAssert.assertThat(jenkins.xml(), new IsInstanceOf(String.class));
-        MatcherAssert.assertThat(jenkins.users(), new IsEqual<Users>(users));
+        MatcherAssert.assertThat(jenkins.users(), new IsEqual<>(users));
     }
 
     /**
@@ -89,7 +89,7 @@ public final class FakeJenkinsTest {
             jenkins.users(), new IsInstanceOf(FakeUsers.class)
         );
         MatcherAssert.assertThat(jenkins.xml(), new IsInstanceOf(String.class));
-        MatcherAssert.assertThat(jenkins.jobs(), new IsEqual<Jobs>(jobs));
+        MatcherAssert.assertThat(jenkins.jobs(), new IsEqual<>(jobs));
     }
 
     /**
@@ -100,7 +100,7 @@ public final class FakeJenkinsTest {
     public void testCanListJobs() throws Exception {
         final Jobs jobs = new FakeJobs();
         MatcherAssert.assertThat(
-            new FakeJenkins(jobs).jobs(), new IsEqual<Jobs>(jobs)
+            new FakeJenkins(jobs).jobs(), new IsEqual<>(jobs)
         );
     }
 
@@ -112,7 +112,7 @@ public final class FakeJenkinsTest {
     public void testCanListUsers() throws Exception {
         final Users users = new FakeUsers();
         MatcherAssert.assertThat(
-            new FakeJenkins(users).users(), new IsEqual<Users>(users)
+            new FakeJenkins(users).users(), new IsEqual<>(users)
         );
     }
 
@@ -124,7 +124,7 @@ public final class FakeJenkinsTest {
     public void testCanReadXml() throws Exception {
         final String xml = "<hudson></hudson>";
         MatcherAssert.assertThat(
-            new FakeJenkins(new XmlString(xml)).xml(), new IsEqual<String>(xml)
+            new FakeJenkins(new XmlString(xml)).xml(), new IsEqual<>(xml)
         );
     }
 
@@ -135,7 +135,7 @@ public final class FakeJenkinsTest {
     @Test
     public void testCanReadVersion() throws Exception {
         MatcherAssert.assertThat(
-            new FakeJenkins().version(), new IsEqual<String>("1.609.1")
+            new FakeJenkins().version(), new IsEqual<>("1.609.1")
         );
     }
 
@@ -145,7 +145,7 @@ public final class FakeJenkinsTest {
      */
     @Test
     public void testCanRestart() throws Exception {
-        final List<String> calls = new ArrayList<String>(1);
+        final List<String> calls = new ArrayList<>(1);
         new FakeJenkins(
             new Runnable() {
                 public void run() {
@@ -153,6 +153,6 @@ public final class FakeJenkinsTest {
                 }
             }
         ).restart();
-        MatcherAssert.assertThat(calls.size(), new IsEqual<Integer>(1));
+        MatcherAssert.assertThat(calls.size(), new IsEqual<>(1));
     }
 }

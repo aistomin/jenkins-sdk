@@ -42,14 +42,14 @@ public final class RealJobDetailsTest {
         );
         MatcherAssert.assertThat(
             details.displayName(),
-            new IsEqual<String>("test-different-builds-job")
+            new IsEqual<>("test-different-builds-job")
         );
         MatcherAssert.assertThat(
             details.description(),
-            new IsEqual<String>("This job we use for testing builds.")
+            new IsEqual<>("This job we use for testing builds.")
         );
         MatcherAssert.assertThat(
-            details.buildable(), new IsEqual<Boolean>(true)
+            details.buildable(), new IsEqual<>(true)
         );
     }
 }

@@ -324,7 +324,7 @@ public final class FakeJob implements Job {
      * @return Default job  URL.
      */
     private static List<JobParameter> defaultParams() {
-        final List<JobParameter> params = new ArrayList<JobParameter>(1);
+        final List<JobParameter> params = new ArrayList<>(1);
         params.add(new RealJobParameter(new XmlResource("job-param.xml")));
         return params;
     }

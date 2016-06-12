@@ -64,14 +64,14 @@ public final class FakeUsersTest {
             )
         ).xml();
         MatcherAssert.assertThat(
-            xml.startsWith("<people>"), new IsEqual<Boolean>(true)
+            xml.startsWith("<people>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains("<fullName>Integration Test</fullName>"),
-            new IsEqual<Boolean>(true)
+            new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.endsWith("</people>"), new IsEqual<Boolean>(true)
+            xml.endsWith("</people>"), new IsEqual<>(true)
         );
     }
 
@@ -82,26 +82,26 @@ public final class FakeUsersTest {
      */
     @Test
     public void testCanIterate() throws Exception {
-        final List<User> users = new ArrayList<User>(2);
+        final List<User> users = new ArrayList<>(2);
         users.add(new FakeUser("test1"));
         users.add(new FakeUser("test2"));
         final Iterator<User> iterator = new FakeUsers(users).iterator();
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             iterator.next().username(),
-            new IsEqual<String>(users.get(0).username())
+            new IsEqual<>(users.get(0).username())
         );
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             iterator.next().username(),
-            new IsEqual<String>(users.get(1).username())
+            new IsEqual<>(users.get(1).username())
         );
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(false)
+            iterator.hasNext(), new IsEqual<>(false)
         );
     }
 
@@ -112,21 +112,21 @@ public final class FakeUsersTest {
      */
     @Test
     public void testCanFindByUsername() throws Exception {
-        final List<User> users = new ArrayList<User>(2);
+        final List<User> users = new ArrayList<>(2);
         final String username = "user1";
         users.add(new FakeUser(username));
         users.add(new FakeUser("user2"));
         final Iterator<User> iterator = new FakeUsers(users)
             .findByUsername(username);
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             iterator.next().username(),
-            new IsEqual<String>(username)
+            new IsEqual<>(username)
         );
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(false)
+            iterator.hasNext(), new IsEqual<>(false)
         );
     }
 
@@ -137,7 +137,7 @@ public final class FakeUsersTest {
      */
     @Test
     public void testCanFindByFullName() throws Exception {
-        final List<User> users = new ArrayList<User>(2);
+        final List<User> users = new ArrayList<>(2);
         users.add(new FakeUser());
         Thread.sleep(2);
         final FakeUser user = new FakeUser();
@@ -145,11 +145,11 @@ public final class FakeUsersTest {
         final Iterator<User> iterator = new FakeUsers(users)
             .findByFullName(user.fullName());
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(iterator.next(), new IsEqual<User>(user));
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(false)
+            iterator.hasNext(), new IsEqual<>(false)
         );
     }
 
@@ -160,7 +160,7 @@ public final class FakeUsersTest {
      */
     @Test
     public void testCanFindByEmail() throws Exception {
-        final List<User> users = new ArrayList<User>(2);
+        final List<User> users = new ArrayList<>(2);
         users.add(new FakeUser());
         Thread.sleep(2);
         final FakeUser user = new FakeUser();
@@ -168,11 +168,11 @@ public final class FakeUsersTest {
         final Iterator<User> iterator = new FakeUsers(users)
             .findByEmail(user.email());
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(iterator.next(), new IsEqual<User>(user));
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(false)
+            iterator.hasNext(), new IsEqual<>(false)
         );
     }
 }

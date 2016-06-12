@@ -40,14 +40,14 @@ public final class ITRealBuildsTest {
         final String xml = new TestJenkins().jobs().iterator().next().builds()
             .xml();
         MatcherAssert.assertThat(
-            xml.startsWith("<builds>"), new IsEqual<Boolean>(true)
+            xml.startsWith("<builds>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains("<fullDisplayName>test-different-builds-job #3"),
-            new IsEqual<Boolean>(true)
+            new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.endsWith("</builds>"), new IsEqual<Boolean>(true)
+            xml.endsWith("</builds>"), new IsEqual<>(true)
         );
     }
 
@@ -62,12 +62,12 @@ public final class ITRealBuildsTest {
             .next().builds().iterator();
         MatcherAssert.assertThat(
             builds.next().details().fullDisplayName(),
-            new IsEqual<String>("test-different-builds-job #1")
+            new IsEqual<>("test-different-builds-job #1")
         );
         builds.next();
         builds.next();
         MatcherAssert.assertThat(
-            builds.hasNext(), new IsEqual<Boolean>(false)
+            builds.hasNext(), new IsEqual<>(false)
         );
     }
 
@@ -82,7 +82,7 @@ public final class ITRealBuildsTest {
             .next().builds().lastSuccessful();
         MatcherAssert.assertThat(
             last.details().fullDisplayName(),
-            new IsEqual<String>("test-different-builds-job #3")
+            new IsEqual<>("test-different-builds-job #3")
         );
     }
 
@@ -96,7 +96,7 @@ public final class ITRealBuildsTest {
         final Build last = new TestJenkins().jobs().iterator()
             .next().builds().lastStable();
         MatcherAssert.assertThat(
-            last.details().displayName(), new IsEqual<String>("#3")
+            last.details().displayName(), new IsEqual<>("#3")
         );
     }
 
@@ -111,7 +111,7 @@ public final class ITRealBuildsTest {
             .next().builds().lastFailed();
         MatcherAssert.assertThat(
             last.details().fullDisplayName(),
-            new IsEqual<String>("test-different-builds-job #2")
+            new IsEqual<>("test-different-builds-job #2")
         );
     }
 
@@ -125,7 +125,7 @@ public final class ITRealBuildsTest {
         final Build last = new TestJenkins().jobs().iterator()
             .next().builds().lastUnsuccessful();
         MatcherAssert.assertThat(
-            last.details().displayName(), new IsEqual<String>("#2")
+            last.details().displayName(), new IsEqual<>("#2")
         );
     }
 
@@ -139,10 +139,10 @@ public final class ITRealBuildsTest {
         final String number = "#1";
         final Iterator<Build> found = new TestJenkins().jobs().iterator()
             .next().builds().findByNumber(number);
-        MatcherAssert.assertThat(found.hasNext(), new IsEqual<Boolean>(true));
+        MatcherAssert.assertThat(found.hasNext(), new IsEqual<>(true));
         MatcherAssert.assertThat(
-            found.next().number(), new IsEqual<String>(number)
+            found.next().number(), new IsEqual<>(number)
         );
-        MatcherAssert.assertThat(found.hasNext(), new IsEqual<Boolean>(false));
+        MatcherAssert.assertThat(found.hasNext(), new IsEqual<>(false));
     }
 }

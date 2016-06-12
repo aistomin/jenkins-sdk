@@ -39,15 +39,15 @@ public final class ITRealJenkinsTest {
     public void testCanReadXml() throws Exception {
         final String xml = new TestJenkins().xml();
         MatcherAssert.assertThat(
-            xml.startsWith("<hudson>"), new IsEqual<Boolean>(true)
+            xml.startsWith("<hudson>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains(
                 "<displayName>test-different-builds-job</displayName>"
-            ), new IsEqual<Boolean>(true)
+            ), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.endsWith("</hudson>"), new IsEqual<Boolean>(true)
+            xml.endsWith("</hudson>"), new IsEqual<>(true)
         );
     }
 
@@ -83,7 +83,7 @@ public final class ITRealJenkinsTest {
     @Test
     public void testCanReadVersion() throws Exception {
         MatcherAssert.assertThat(
-            new TestJenkins().version(), new IsEqual<String>("1.609.1")
+            new TestJenkins().version(), new IsEqual<>("1.609.1")
         );
     }
 

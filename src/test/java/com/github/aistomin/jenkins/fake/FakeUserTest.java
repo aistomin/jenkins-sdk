@@ -40,7 +40,7 @@ public final class FakeUserTest {
     public void testCanCreateWithXml() throws Exception {
         final String xml = "<user><id>integration</id></user>";
         MatcherAssert.assertThat(
-            new FakeUser(new XmlString(xml)).xml(), new IsEqual<String>(xml)
+            new FakeUser(new XmlString(xml)).xml(), new IsEqual<>(xml)
         );
     }
 
@@ -55,7 +55,7 @@ public final class FakeUserTest {
             "username%d", new Random().nextInt(1000)
         );
         MatcherAssert.assertThat(
-            new FakeUser(username).username(), new IsEqual<String>(username)
+            new FakeUser(username).username(), new IsEqual<>(username)
         );
     }
 
@@ -68,13 +68,13 @@ public final class FakeUserTest {
     public void testCanReadXml() throws Exception {
         final String xml = new FakeUser().xml();
         MatcherAssert.assertThat(
-            xml.startsWith("<user>"), new IsEqual<Boolean>(true)
+            xml.startsWith("<user>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.contains("<id>integration</id>"), new IsEqual<Boolean>(true)
+            xml.contains("<id>integration</id>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.endsWith("</user>"), new IsEqual<Boolean>(true)
+            xml.endsWith("</user>"), new IsEqual<>(true)
         );
     }
 
@@ -123,7 +123,7 @@ public final class FakeUserTest {
     public void testCanReadUrl() throws Exception {
         MatcherAssert.assertThat(
             new FakeUser().url().startsWith("http://"),
-            new IsEqual<Boolean>(true)
+            new IsEqual<>(true)
         );
     }
 
@@ -136,7 +136,7 @@ public final class FakeUserTest {
     public void testCanReadDescription() throws Exception {
         MatcherAssert.assertThat(
             new FakeUser().description(),
-            new IsEqual<String>("Great user's description :)")
+            new IsEqual<>("Great user's description :)")
         );
     }
 }

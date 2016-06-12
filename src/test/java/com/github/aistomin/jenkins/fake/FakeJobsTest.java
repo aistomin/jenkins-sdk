@@ -43,7 +43,7 @@ public final class FakeJobsTest {
     public void testCanCreateWithXml() throws Exception {
         final String xml = "<jobs></jobs>";
         MatcherAssert.assertThat(
-            new FakeJobs(new XmlString(xml)).xml(), new IsEqual<String>(xml)
+            new FakeJobs(new XmlString(xml)).xml(), new IsEqual<>(xml)
         );
     }
 
@@ -54,13 +54,13 @@ public final class FakeJobsTest {
      */
     @Test
     public void testCanCreateWithJobs() throws Exception {
-        final List<Job> expected = new ArrayList<Job>(2);
+        final List<Job> expected = new ArrayList<>(2);
         expected.add(new FakeJob());
         expected.add(new FakeJob());
         final Iterator<Job> got = new FakeJobs(expected).iterator();
-        MatcherAssert.assertThat(got.next(), new IsEqual<Job>(expected.get(0)));
-        MatcherAssert.assertThat(got.next(), new IsEqual<Job>(expected.get(1)));
-        MatcherAssert.assertThat(got.hasNext(), new IsEqual<Boolean>(false));
+        MatcherAssert.assertThat(got.next(), new IsEqual<>(expected.get(0)));
+        MatcherAssert.assertThat(got.next(), new IsEqual<>(expected.get(1)));
+        MatcherAssert.assertThat(got.hasNext(), new IsEqual<>(false));
     }
 
     /**
@@ -74,11 +74,11 @@ public final class FakeJobsTest {
         MatcherAssert.assertThat(
             xml.contains(
                 "<displayName>test-different-builds-job</displayName>"
-            ), new IsEqual<Boolean>(true)
+            ), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains("<displayName>test-disabled-job</displayName>"),
-            new IsEqual<Boolean>(true)
+            new IsEqual<>(true)
         );
     }
 
@@ -100,7 +100,7 @@ public final class FakeJobsTest {
             iterator.next(), new IsInstanceOf(FakeJob.class)
         );
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(false)
+            iterator.hasNext(), new IsEqual<>(false)
         );
     }
 
@@ -111,14 +111,14 @@ public final class FakeJobsTest {
      */
     @Test
     public void testCanFindByName() throws Exception {
-        final List<Job> jobs = new ArrayList<Job>(2);
+        final List<Job> jobs = new ArrayList<>(2);
         jobs.add(new FakeJob("job1"));
         final String name = "job2";
         jobs.add(new FakeJob(name));
         final Iterator<Job> found = new FakeJobs(jobs).findByName(name);
         MatcherAssert.assertThat(
-            found.next().name(), new IsEqual<String>(name)
+            found.next().name(), new IsEqual<>(name)
         );
-        MatcherAssert.assertThat(found.hasNext(), new IsEqual<Boolean>(false));
+        MatcherAssert.assertThat(found.hasNext(), new IsEqual<>(false));
     }
 }

@@ -58,7 +58,7 @@ public final class UsernamePasswordCredentials implements Credentials {
      * @throws Exception If something goes wrong.
      */
     public Map<String, String> headers() throws Exception {
-        final Map<String, String> map = new ConcurrentHashMap<String, String>();
+        final Map<String, String> map = new ConcurrentHashMap<>();
         map.put(
             "Authorization",
             String.format(

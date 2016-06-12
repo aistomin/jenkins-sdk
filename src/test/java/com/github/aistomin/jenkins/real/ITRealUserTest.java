@@ -44,7 +44,7 @@ public final class ITRealUserTest {
     public void testCanReadUsername() throws Exception {
         MatcherAssert.assertThat(
             new TestJenkins().users().iterator().next().username(),
-            new IsEqual<String>(ITRealUserTest.USERNAME)
+            new IsEqual<>(ITRealUserTest.USERNAME)
         );
     }
 
@@ -57,7 +57,7 @@ public final class ITRealUserTest {
     public void testCanReadFullName() throws Exception {
         MatcherAssert.assertThat(
             new TestJenkins().users().iterator().next().fullName(),
-            new IsEqual<String>(ITRealUserTest.USERNAME)
+            new IsEqual<>(ITRealUserTest.USERNAME)
         );
     }
 
@@ -71,7 +71,7 @@ public final class ITRealUserTest {
         final Iterator<User> users = new TestJenkins().users().iterator();
         users.next();
         MatcherAssert.assertThat(
-            users.next().email(), new IsEqual<String>("changeme@changeme.com")
+            users.next().email(), new IsEqual<>("changeme@changeme.com")
         );
     }
 
@@ -84,7 +84,7 @@ public final class ITRealUserTest {
     public void testCanReadUrl() throws Exception {
         MatcherAssert.assertThat(
             new TestJenkins().users().iterator().next().url(),
-            new IsEqual<String>(
+            new IsEqual<>(
                 "https://cisdk-istomin.rhcloud.com/user/%22system_builder"
             )
         );
@@ -99,7 +99,7 @@ public final class ITRealUserTest {
     public void testCanReadDescription() throws Exception {
         MatcherAssert.assertThat(
             new TestJenkins().users().iterator().next().description(),
-            new IsEqual<String>("System user")
+            new IsEqual<>("System user")
         );
     }
 
@@ -112,14 +112,14 @@ public final class ITRealUserTest {
     public void testCanReadXml() throws Exception {
         final String xml = new TestJenkins().users().iterator().next().xml();
         MatcherAssert.assertThat(
-            xml.startsWith("<user>"), new IsEqual<Boolean>(true)
+            xml.startsWith("<user>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains(String.format("<id>%s</id>", ITRealUserTest.USERNAME)),
-            new IsEqual<Boolean>(true)
+            new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.endsWith("</user>"), new IsEqual<Boolean>(true)
+            xml.endsWith("</user>"), new IsEqual<>(true)
         );
     }
 }

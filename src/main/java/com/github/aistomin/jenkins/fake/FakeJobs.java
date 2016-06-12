@@ -116,7 +116,7 @@ public final class FakeJobs implements Jobs {
      * @throws Exception If error occurred.
      */
     public Iterator<Job> findByName(final String name) throws Exception {
-        final List<Job> result = new ArrayList<Job>(1);
+        final List<Job> result = new ArrayList<>(1);
         for (final Job job : this.iterable) {
             if (name.equals(job.name())) {
                 result.add(job);

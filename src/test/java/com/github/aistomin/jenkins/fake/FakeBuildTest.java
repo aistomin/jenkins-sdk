@@ -52,14 +52,14 @@ public final class FakeBuildTest {
             build.number(), new IsInstanceOf(String.class)
         );
         MatcherAssert.assertThat(
-            build.result(), new IsEqual<BuildResult>(BuildResult.SUCCESS)
+            build.result(), new IsEqual<>(BuildResult.SUCCESS)
         );
         MatcherAssert.assertThat(build.date(), new IsInstanceOf(Date.class));
         MatcherAssert.assertThat(
             build.details(), new IsInstanceOf(RealBuildDetails.class)
         );
         MatcherAssert.assertThat(
-            build.url().startsWith("http://"), new IsEqual<Boolean>(true)
+            build.url().startsWith("http://"), new IsEqual<>(true)
         );
     }
 
@@ -74,14 +74,14 @@ public final class FakeBuildTest {
             new XmlString("<build><displayName>#1</displayName></build>")
         ).xml();
         MatcherAssert.assertThat(
-            xml.startsWith("<build>"), new IsEqual<Boolean>(true)
+            xml.startsWith("<build>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains("<displayName>#1</displayName>"),
-            new IsEqual<Boolean>(true)
+            new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.endsWith("</build>"), new IsEqual<Boolean>(true)
+            xml.endsWith("</build>"), new IsEqual<>(true)
         );
     }
 
@@ -94,7 +94,7 @@ public final class FakeBuildTest {
     public void testCanReadNumber() throws Exception {
         final String number = "#666";
         MatcherAssert.assertThat(
-            new FakeBuild(number).number(), new IsEqual<String>(number)
+            new FakeBuild(number).number(), new IsEqual<>(number)
         );
     }
 
@@ -107,7 +107,7 @@ public final class FakeBuildTest {
     public void testCanReadResult() throws Exception {
         final BuildResult result = BuildResult.FAILURE;
         MatcherAssert.assertThat(
-            new FakeBuild(result).result(), new IsEqual<BuildResult>(result)
+            new FakeBuild(result).result(), new IsEqual<>(result)
         );
     }
 
@@ -120,7 +120,7 @@ public final class FakeBuildTest {
     public void testCanReadDate() throws Exception {
         final Date date = new Date();
         MatcherAssert.assertThat(
-            new FakeBuild(date).date(), new IsEqual<Date>(date)
+            new FakeBuild(date).date(), new IsEqual<>(date)
         );
     }
 
@@ -135,7 +135,7 @@ public final class FakeBuildTest {
             new XmlString("<build></build>")
         );
         MatcherAssert.assertThat(
-            new FakeBuild(details).details(), new IsEqual<BuildDetails>(details)
+            new FakeBuild(details).details(), new IsEqual<>(details)
         );
     }
 
@@ -149,7 +149,7 @@ public final class FakeBuildTest {
         final URL url = new URL("http", "localhost", 8080, "/test");
         MatcherAssert.assertThat(
             new FakeBuild(url).url(),
-            new IsEqual<String>("http://localhost:8080/test")
+            new IsEqual<>("http://localhost:8080/test")
         );
     }
 
@@ -160,7 +160,7 @@ public final class FakeBuildTest {
      */
     @Test
     public void testCanEmulateActions() throws Exception {
-        final List<String> calls = new ArrayList<String>(2);
+        final List<String> calls = new ArrayList<>(2);
         final Runnable runnable = new Runnable() {
             public void run() {
                 calls.add("Deleted!!!");
@@ -168,8 +168,8 @@ public final class FakeBuildTest {
         };
         final FakeBuild build = new FakeBuild(runnable, runnable);
         build.delete();
-        MatcherAssert.assertThat(calls.size(), new IsEqual<Integer>(1));
+        MatcherAssert.assertThat(calls.size(), new IsEqual<>(1));
         build.cancel();
-        MatcherAssert.assertThat(calls.size(), new IsEqual<Integer>(2));
+        MatcherAssert.assertThat(calls.size(), new IsEqual<>(2));
     }
 }

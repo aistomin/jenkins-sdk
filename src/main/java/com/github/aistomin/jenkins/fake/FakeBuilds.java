@@ -167,7 +167,7 @@ public final class FakeBuilds implements Builds {
      * @throws Exception If something goes wrong.
      */
     public Iterator<Build> findByNumber(final String number) throws Exception {
-        final List<Build> result = new ArrayList<Build>(1);
+        final List<Build> result = new ArrayList<>(1);
         for (final Build job : this.list) {
             if (number.equals(job.number())) {
                 result.add(job);
@@ -210,7 +210,7 @@ public final class FakeBuilds implements Builds {
      * @return List of builds.
      */
     private static List<Build> defaultBuilds() {
-        final ArrayList<Build> builds = new ArrayList<Build>(2);
+        final ArrayList<Build> builds = new ArrayList<>(2);
         builds.add(new FakeBuild());
         builds.add(new FakeBuild());
         return builds;

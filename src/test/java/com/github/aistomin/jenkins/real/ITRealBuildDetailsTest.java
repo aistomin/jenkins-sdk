@@ -44,21 +44,21 @@ public final class ITRealBuildDetailsTest {
         );
         MatcherAssert.assertThat(
             details.fullDisplayName(),
-            new IsEqual<String>("test-different-builds-job #1")
+            new IsEqual<>("test-different-builds-job #1")
         );
         MatcherAssert.assertThat(
-            details.displayName(), new IsEqual<String>("#1")
+            details.displayName(), new IsEqual<>("#1")
         );
         MatcherAssert.assertThat(
-            details.estimated(), new IsEqual<Long>(Long.parseLong("389"))
+            details.estimated(), new IsEqual<>(Long.parseLong("389"))
         );
         MatcherAssert.assertThat(
-            details.duration(), new IsEqual<Long>(Long.parseLong("687"))
+            details.duration(), new IsEqual<>(Long.parseLong("687"))
         );
         MatcherAssert.assertThat(
-            details.building(), new IsEqual<Boolean>(false)
+            details.building(), new IsEqual<>(false)
         );
-        MatcherAssert.assertThat(details.queue(), new IsEqual<Long>(1L));
+        MatcherAssert.assertThat(details.queue(), new IsEqual<>(1L));
     }
 
     /**
@@ -73,13 +73,13 @@ public final class ITRealBuildDetailsTest {
             .findByNumber("#4").next().details().parameters();
         final BuildParameter parameter = parameters.next();
         MatcherAssert.assertThat(
-            parameter.name(), new IsEqual<String>("niceParameter")
+            parameter.name(), new IsEqual<>("niceParameter")
         );
         MatcherAssert.assertThat(
-            parameter.value(), new IsEqual<String>("some_value")
+            parameter.value(), new IsEqual<>("some_value")
         );
         MatcherAssert.assertThat(
-            parameters.hasNext(), new IsEqual<Boolean>(false)
+            parameters.hasNext(), new IsEqual<>(false)
         );
     }
 }

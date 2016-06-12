@@ -41,11 +41,11 @@ public final class ITRealJobsTest {
         MatcherAssert.assertThat(
             xml.contains(
                 "<displayName>test-different-builds-job</displayName>"
-            ), new IsEqual<Boolean>(true)
+            ), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains("<displayName>test-disabled-job</displayName>"),
-            new IsEqual<Boolean>(true)
+            new IsEqual<>(true)
         );
     }
 
@@ -58,10 +58,10 @@ public final class ITRealJobsTest {
     public void testCanIterateThroughJobs() throws Exception {
         final Iterator<Job> jobs = new TestJenkins().jobs().iterator();
         MatcherAssert.assertThat(
-            jobs.next().name(), new IsEqual<String>("test-different-builds-job")
+            jobs.next().name(), new IsEqual<>("test-different-builds-job")
         );
         MatcherAssert.assertThat(
-            jobs.next().name(), new IsEqual<String>("test-disabled-job")
+            jobs.next().name(), new IsEqual<>("test-disabled-job")
         );
     }
 
@@ -76,8 +76,8 @@ public final class ITRealJobsTest {
         final Iterator<Job> found = new TestJenkins().jobs()
             .findByName(name);
         MatcherAssert.assertThat(
-            found.next().name(), new IsEqual<String>(name)
+            found.next().name(), new IsEqual<>(name)
         );
-        MatcherAssert.assertThat(found.hasNext(), new IsEqual<Boolean>(false));
+        MatcherAssert.assertThat(found.hasNext(), new IsEqual<>(false));
     }
 }

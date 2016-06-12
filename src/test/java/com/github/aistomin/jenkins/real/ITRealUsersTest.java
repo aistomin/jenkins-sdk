@@ -39,14 +39,14 @@ public final class ITRealUsersTest {
     public void testCanReadXml() throws Exception {
         final String xml = new TestJenkins().users().xml();
         MatcherAssert.assertThat(
-            xml.startsWith("<people>"), new IsEqual<Boolean>(true)
+            xml.startsWith("<people>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains("<fullName>Integration Test</fullName>"),
-            new IsEqual<Boolean>(true)
+            new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.endsWith("</people>"), new IsEqual<Boolean>(true)
+            xml.endsWith("</people>"), new IsEqual<>(true)
         );
     }
 
@@ -59,10 +59,10 @@ public final class ITRealUsersTest {
     public void testCanIterateThroughUsers() throws Exception {
         final Iterator<User> iterator = new TestJenkins().users().iterator();
         MatcherAssert.assertThat(
-            iterator.next().username(), new IsEqual<String>("\"system_builder")
+            iterator.next().username(), new IsEqual<>("\"system_builder")
         );
         MatcherAssert.assertThat(
-            iterator.next().username(), new IsEqual<String>("admin")
+            iterator.next().username(), new IsEqual<>("admin")
         );
     }
 
@@ -76,11 +76,11 @@ public final class ITRealUsersTest {
         final String username = "integration";
         final Iterator<User> users = new TestJenkins().users()
             .findByUsername(username);
-        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(true));
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<>(true));
         MatcherAssert.assertThat(
-            users.next().username(), new IsEqual<String>(username)
+            users.next().username(), new IsEqual<>(username)
         );
-        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(false));
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<>(false));
     }
 
     /**
@@ -93,11 +93,11 @@ public final class ITRealUsersTest {
         final String name = "Integration Test";
         final Iterator<User> users = new TestJenkins().users()
             .findByFullName(name);
-        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(true));
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<>(true));
         MatcherAssert.assertThat(
-            users.next().fullName(), new IsEqual<String>(name)
+            users.next().fullName(), new IsEqual<>(name)
         );
-        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(false));
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<>(false));
     }
 
     /**
@@ -110,10 +110,10 @@ public final class ITRealUsersTest {
         final String email = "andrej.istomin.ikeen@gmail.com";
         final Iterator<User> users = new TestJenkins().users()
             .findByEmail(email);
-        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(true));
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<>(true));
         MatcherAssert.assertThat(
-            users.next().email(), new IsEqual<String>(email)
+            users.next().email(), new IsEqual<>(email)
         );
-        MatcherAssert.assertThat(users.hasNext(), new IsEqual<Boolean>(false));
+        MatcherAssert.assertThat(users.hasNext(), new IsEqual<>(false));
     }
 }

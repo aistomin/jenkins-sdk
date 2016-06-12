@@ -105,7 +105,7 @@ public final class FakeUsers implements Users {
     public Iterator<User> findByUsername(
         final String username
     ) throws Exception {
-        final List<User> result = new ArrayList<User>(1);
+        final List<User> result = new ArrayList<>(1);
         for (final User user : this.users) {
             if (username.equals(user.username())) {
                 result.add(user);
@@ -122,7 +122,7 @@ public final class FakeUsers implements Users {
      * @throws Exception If something goes wrong.
      */
     public Iterator<User> findByEmail(final String email) throws Exception {
-        final List<User> result = new ArrayList<User>(1);
+        final List<User> result = new ArrayList<>(1);
         for (final User user : this.users) {
             if (email.equals(user.email())) {
                 result.add(user);
@@ -139,7 +139,7 @@ public final class FakeUsers implements Users {
      * @throws Exception If something goes wrong.
      */
     public Iterator<User> findByFullName(final String name) throws Exception {
-        final List<User> result = new ArrayList<User>(1);
+        final List<User> result = new ArrayList<>(1);
         for (final User user : this.users) {
             if (name.equals(user.fullName())) {
                 result.add(user);
@@ -164,7 +164,7 @@ public final class FakeUsers implements Users {
      * @return List of users.
      */
     private static List<User> defaultUsers() {
-        final List<User> users = new ArrayList<User>(2);
+        final List<User> users = new ArrayList<>(2);
         users.add(new FakeUser());
         users.add(new FakeUser());
         return users;

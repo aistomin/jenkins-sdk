@@ -51,7 +51,7 @@ public final class FakeJobTest {
     public void testCanCreateWithXml() throws Exception {
         final String xml = "<job><id><displayName>test</displayName></job>";
         final FakeJob job = new FakeJob(new XmlString(xml));
-        MatcherAssert.assertThat(job.xml(), new IsEqual<String>(xml));
+        MatcherAssert.assertThat(job.xml(), new IsEqual<>(xml));
         MatcherAssert.assertThat(job.name(), new IsInstanceOf(String.class));
     }
 
@@ -81,7 +81,7 @@ public final class FakeJobTest {
         final URL url = new URL("http", "localhost", 8080, "/my-job");
         final FakeJob job = new FakeJob(url);
         MatcherAssert.assertThat(
-            job.url(), new IsEqual<String>(url.toString())
+            job.url(), new IsEqual<>(url.toString())
         );
     }
 
@@ -106,18 +106,18 @@ public final class FakeJobTest {
      */
     @Test
     public void testCanCreateWithParameters() throws Exception {
-        final List<JobParameter> params = new ArrayList<JobParameter>(1);
+        final List<JobParameter> params = new ArrayList<>(1);
         params.add(new RealJobParameter(new XmlString("<param></param>")));
         final FakeJob job = new FakeJob(params);
         final Iterator<JobParameter> parameters = job.parameters();
         MatcherAssert.assertThat(
-            parameters.hasNext(), new IsEqual<Boolean>(true)
+            parameters.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            parameters.next(), new IsSame<JobParameter>(params.get(0))
+            parameters.next(), new IsSame<>(params.get(0))
         );
         MatcherAssert.assertThat(
-            parameters.hasNext(), new IsEqual<Boolean>(false)
+            parameters.hasNext(), new IsEqual<>(false)
         );
     }
 
@@ -130,15 +130,15 @@ public final class FakeJobTest {
     public void testCanReadXml() throws Exception {
         final String xml = new FakeJob().xml();
         MatcherAssert.assertThat(
-            xml.startsWith("<job>"), new IsEqual<Boolean>(true)
+            xml.startsWith("<job>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains(
                 "<displayName>test-different-builds-job</displayName>"
-            ), new IsEqual<Boolean>(true)
+            ), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.endsWith("</job>"), new IsEqual<Boolean>(true)
+            xml.endsWith("</job>"), new IsEqual<>(true)
         );
     }
 
@@ -151,7 +151,7 @@ public final class FakeJobTest {
     public void testCanReadName() throws Exception {
         final String name = "my_job";
         MatcherAssert.assertThat(
-            new FakeJob(name).name(), new IsEqual<String>(name)
+            new FakeJob(name).name(), new IsEqual<>(name)
         );
     }
 
@@ -164,7 +164,7 @@ public final class FakeJobTest {
     public void testCanReadDetails() throws Exception {
         MatcherAssert.assertThat(
             new FakeJob().details().displayName(),
-            new IsEqual<String>("test-different-builds-job")
+            new IsEqual<>("test-different-builds-job")
         );
     }
 
@@ -175,7 +175,7 @@ public final class FakeJobTest {
      */
     @Test
     public void testCanTrigger() throws Exception {
-        final List<String> calls = new ArrayList<String>(1);
+        final List<String> calls = new ArrayList<>(1);
         new FakeJob(
             new Runnable() {
                 public void run() {
@@ -183,6 +183,6 @@ public final class FakeJobTest {
                 }
             }
         ).trigger();
-        MatcherAssert.assertThat(calls.size(), new IsEqual<Integer>(1));
+        MatcherAssert.assertThat(calls.size(), new IsEqual<>(1));
     }
 }

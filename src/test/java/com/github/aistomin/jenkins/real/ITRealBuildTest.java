@@ -52,14 +52,14 @@ public final class ITRealBuildTest {
         final String xml = new TestJenkins().jobs().iterator().next().builds()
             .iterator().next().xml();
         MatcherAssert.assertThat(
-            xml.startsWith("<build>"), new IsEqual<Boolean>(true)
+            xml.startsWith("<build>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains("<displayName>#1</displayName>"),
-            new IsEqual<Boolean>(true)
+            new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.endsWith("</build>"), new IsEqual<Boolean>(true)
+            xml.endsWith("</build>"), new IsEqual<>(true)
         );
     }
 
@@ -72,7 +72,7 @@ public final class ITRealBuildTest {
     public void testCanReadNumber() throws Exception {
         MatcherAssert.assertThat(
             new TestJenkins().jobs().iterator().next().builds().iterator()
-                .next().number(), new IsEqual<String>("#1")
+                .next().number(), new IsEqual<>("#1")
         );
     }
 
@@ -87,7 +87,7 @@ public final class ITRealBuildTest {
             .builds().iterator().next().details();
         MatcherAssert.assertThat(
             details.fullDisplayName(),
-            new IsEqual<String>("test-different-builds-job #1")
+            new IsEqual<>("test-different-builds-job #1")
         );
     }
 
@@ -102,7 +102,7 @@ public final class ITRealBuildTest {
             new TestJenkins().jobs().iterator().next()
                 .builds().iterator().next().url()
                 .endsWith("job/test-different-builds-job/1/"),
-            new IsEqual<Boolean>(true)
+            new IsEqual<>(true)
         );
     }
 
@@ -130,7 +130,7 @@ public final class ITRealBuildTest {
         MatcherAssert.assertThat(
             new TestJenkins().jobs().iterator().next()
                 .builds().iterator().next().result(),
-            new IsEqual<BuildResult>(BuildResult.SUCCESS)
+            new IsEqual<>(BuildResult.SUCCESS)
         );
     }
 
@@ -152,7 +152,7 @@ public final class ITRealBuildTest {
         final Build build = job.builds().iterator().next();
         build.cancel();
         MatcherAssert.assertThat(
-            build.result(), new IsEqual<BuildResult>(BuildResult.ABORTED)
+            build.result(), new IsEqual<>(BuildResult.ABORTED)
         );
         ITRealBuildTest.delete(job.builds().iterator());
     }

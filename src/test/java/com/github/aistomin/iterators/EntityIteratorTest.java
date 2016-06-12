@@ -39,10 +39,10 @@ public final class EntityIteratorTest {
      */
     @Test
     public void testCanIterate() throws Exception {
-        final List<String> paths = new ArrayList<String>(2);
+        final List<String> paths = new ArrayList<>(2);
         paths.add("/home/user1/test1.txt");
         paths.add("/home/user1/test2.txt");
-        final Iterator<File> iterator = new EntityIterator<File, String>(
+        final Iterator<File> iterator = new EntityIterator<>(
             paths.iterator(),
             new Transformation<File, String>() {
                 public File transform(final String path) {
@@ -51,19 +51,19 @@ public final class EntityIteratorTest {
             }
         );
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            iterator.next().getAbsolutePath(), new IsEqual<String>(paths.get(0))
+            iterator.next().getAbsolutePath(), new IsEqual<>(paths.get(0))
         );
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            iterator.next().getAbsolutePath(), new IsEqual<String>(paths.get(1))
+            iterator.next().getAbsolutePath(), new IsEqual<>(paths.get(1))
         );
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(false)
+            iterator.hasNext(), new IsEqual<>(false)
         );
     }
 
@@ -74,10 +74,10 @@ public final class EntityIteratorTest {
      */
     @Test
     public void testCanRemove() throws Exception {
-        final List<String> paths = new ArrayList<String>(2);
+        final List<String> paths = new ArrayList<>(2);
         paths.add("/home/user1/test3.txt");
         paths.add("/home/user1/test4.txt");
-        final Iterator<File> iterator = new EntityIterator<File, String>(
+        final Iterator<File> iterator = new EntityIterator<>(
             paths.iterator(),
             new Transformation<File, String>() {
                 public File transform(final String path) {
@@ -86,13 +86,13 @@ public final class EntityIteratorTest {
             }
         );
         MatcherAssert.assertThat(
-            iterator.hasNext(), new IsEqual<Boolean>(true)
+            iterator.hasNext(), new IsEqual<>(true)
         );
         iterator.next();
         iterator.remove();
-        MatcherAssert.assertThat(paths.size(), new IsEqual<Integer>(1));
+        MatcherAssert.assertThat(paths.size(), new IsEqual<>(1));
         MatcherAssert.assertThat(
-            paths.get(0).endsWith("test4.txt"), new IsEqual<Boolean>(true)
+            paths.get(0).endsWith("test4.txt"), new IsEqual<>(true)
         );
     }
 }

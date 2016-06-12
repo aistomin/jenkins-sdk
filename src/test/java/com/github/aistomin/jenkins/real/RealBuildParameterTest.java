@@ -47,10 +47,10 @@ public final class RealBuildParameterTest {
             )
         );
         MatcherAssert.assertThat(
-            parameter.name(), new IsEqual<String>("niceParameter")
+            parameter.name(), new IsEqual<>("niceParameter")
         );
         MatcherAssert.assertThat(
-            parameter.value(), new IsEqual<String>("some_value")
+            parameter.value(), new IsEqual<>("some_value")
         );
     }
 }

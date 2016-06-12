@@ -98,7 +98,7 @@ public final class RealJenkins implements Jenkins {
      * @throws Exception If reading users was not successful.
      */
     public String version() throws Exception {
-        final Map<String, String> headers = new HashMap<String, String>();
+        final Map<String, String> headers = new HashMap<>();
         Executor.newInstance(
             HttpClientBuilder.create().build()
         ).execute(Request.Post(this.base))

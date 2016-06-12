@@ -50,15 +50,15 @@ public final class ITRealJobTest {
     public void testCanReadXml() throws Exception {
         final String xml = new TestJenkins().jobs().iterator().next().xml();
         MatcherAssert.assertThat(
-            xml.startsWith("<job>"), new IsEqual<Boolean>(true)
+            xml.startsWith("<job>"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
             xml.contains(
                 "<displayName>test-different-builds-job</displayName>"
-            ), new IsEqual<Boolean>(true)
+            ), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            xml.endsWith("</job>"), new IsEqual<Boolean>(true)
+            xml.endsWith("</job>"), new IsEqual<>(true)
         );
     }
 
@@ -86,14 +86,14 @@ public final class ITRealJobTest {
             .details();
         MatcherAssert.assertThat(
             details.displayName(),
-            new IsEqual<String>("test-different-builds-job")
+            new IsEqual<>("test-different-builds-job")
         );
         MatcherAssert.assertThat(
             details.description(),
-            new IsEqual<String>("This job we use for testing builds.")
+            new IsEqual<>("This job we use for testing builds.")
         );
         MatcherAssert.assertThat(
-            details.buildable(), new IsEqual<Boolean>(true)
+            details.buildable(), new IsEqual<>(true)
         );
     }
 
@@ -125,15 +125,15 @@ public final class ITRealJobTest {
             "test-parametrised-job"
         );
         final Iterator<JobParameter> params = jobs.next().parameters();
-        MatcherAssert.assertThat(params.hasNext(), new IsEqual<Boolean>(true));
+        MatcherAssert.assertThat(params.hasNext(), new IsEqual<>(true));
         MatcherAssert.assertThat(
-            params.next().name(), new IsEqual<String>("stringParameter")
+            params.next().name(), new IsEqual<>("stringParameter")
         );
-        MatcherAssert.assertThat(params.hasNext(), new IsEqual<Boolean>(true));
+        MatcherAssert.assertThat(params.hasNext(), new IsEqual<>(true));
         MatcherAssert.assertThat(
-            params.next().name(), new IsEqual<String>("boolParam")
+            params.next().name(), new IsEqual<>("boolParam")
         );
-        MatcherAssert.assertThat(params.hasNext(), new IsEqual<Boolean>(false));
+        MatcherAssert.assertThat(params.hasNext(), new IsEqual<>(false));
     }
 
     /**
@@ -153,7 +153,7 @@ public final class ITRealJobTest {
         Thread.sleep(ITRealJobTest.DELAY);
         MatcherAssert.assertThat(
             before == ITRealJobTest.count(job.builds().iterator()),
-            new IsEqual<Boolean>(false)
+            new IsEqual<>(false)
         );
         final Iterator<Build> iterator = job.builds().iterator();
         while (iterator.hasNext()) {
