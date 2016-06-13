@@ -66,7 +66,7 @@ public final class RealUsers implements Users {
         final List<String> ids = new XMLDocument(this.xml())
             .xpath("//id/text()");
         Collections.sort(ids, String.CASE_INSENSITIVE_ORDER);
-        return new EntityIterator<User, String>(
+        return new EntityIterator<>(
             ids.iterator(), new RealUser.Transformer(this.request(), this.creds)
         );
     }
@@ -92,7 +92,7 @@ public final class RealUsers implements Users {
      * @throws Exception If error occurred.
      */
     public Iterator<User> findByEmail(final String email) throws Exception {
-        return new EntityIterator<User, String>(
+        return new EntityIterator<>(
             RealUsers.parseUsers(
                 new PostRequest(
                     this.url(
@@ -141,7 +141,7 @@ public final class RealUsers implements Users {
     private Iterator<User> findBy(
         final String field, final String value
     ) throws Exception {
-        return new EntityIterator<User, String>(
+        return new EntityIterator<>(
             RealUsers.parseUsers(
                 new PostRequest(
                     this.url(

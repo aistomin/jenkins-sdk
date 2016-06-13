@@ -67,7 +67,7 @@ public final class RealBuilds implements Builds {
     public Iterator<Build> iterator() throws Exception {
         final List<String> builds = RealBuilds.parseBuild(this.xml());
         Collections.sort(builds, String.CASE_INSENSITIVE_ORDER);
-        return new EntityIterator<Build, String>(
+        return new EntityIterator<>(
             builds.iterator(), new RealBuild.Transformer(this.api, this.creds)
         );
     }
@@ -144,7 +144,7 @@ public final class RealBuilds implements Builds {
      * @throws Exception If reading the build was not successful.
      */
     public Iterator<Build> findByNumber(final String number) throws Exception {
-        return new EntityIterator<Build, String>(
+        return new EntityIterator<>(
             RealBuilds.parseBuild(
                 new PostRequest(
                     this.url(
