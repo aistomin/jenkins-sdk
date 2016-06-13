@@ -158,6 +158,21 @@ public final class ITRealBuildTest {
     }
 
     /**
+     * Can read Git revision that was built in current build.
+     *
+     * @throws Exception If something went wrong.
+     */
+    @Test
+    public void testCanReadGitRevision() throws Exception {
+        MatcherAssert.assertThat(
+            new TestJenkins().jobs().findByName(
+                "test-parametrised-job"
+            ).next().builds().findByNumber("#4").next().gitRevision(),
+            new IsEqual<>("3d21ea7072da134395eedbc7a07bf0f00cfabf97")
+        );
+    }
+
+    /**
      * Delete all builds.
      *
      * @param builds Builds iterator.

@@ -24,7 +24,6 @@ import com.github.aistomin.jenkins.Credentials;
 import com.github.aistomin.xml.XmlString;
 import java.net.URLEncoder;
 import java.util.Date;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job build.
@@ -147,13 +146,10 @@ public final class RealBuild implements Build {
      *
      * @return Git revision hash.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and resolve issue #262.
      */
     public String gitRevision() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.gitRevision() is not implemented.", this.getClass()
-            )
+        return new XmlString(this.xml()).field(
+            "//action/lastBuiltRevision/SHA1/text()"
         );
     }
 
