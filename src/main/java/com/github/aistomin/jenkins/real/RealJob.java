@@ -120,7 +120,7 @@ public final class RealJob implements Job {
      * @throws Exception If something goes wrong.
      */
     public Iterator<JobParameter> parameters() throws Exception {
-        return new EntityIterator<JobParameter, XML>(
+        return new EntityIterator<>(
             new XMLDocument(
                 new PostRequest(
                     String.format(

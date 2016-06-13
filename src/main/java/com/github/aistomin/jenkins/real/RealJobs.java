@@ -62,7 +62,7 @@ public final class RealJobs implements Jobs {
      * @throws Exception If error occurred.
      */
     public Iterator<Job> iterator() throws Exception {
-        return new EntityIterator<Job, String>(
+        return new EntityIterator<>(
             RealJobs.parseJobs(this.xml()).iterator(),
             new RealJob.Transformer(this.api, this.creds)
         );
@@ -76,7 +76,7 @@ public final class RealJobs implements Jobs {
      * @throws Exception If error occurred.
      */
     public Iterator<Job> findByName(final String name) throws Exception {
-        return new EntityIterator<Job, String>(
+        return new EntityIterator<>(
             RealJobs.parseJobs(
                 new PostRequest(
                     this.url(

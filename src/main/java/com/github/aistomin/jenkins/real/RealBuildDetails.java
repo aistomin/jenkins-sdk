@@ -119,7 +119,7 @@ public final class RealBuildDetails implements BuildDetails {
      * @throws Exception If error occurred.
      */
     public Iterator<BuildParameter> parameters() throws Exception {
-        return new EntityIterator<BuildParameter, XML>(
+        return new EntityIterator<>(
             new XMLDocument(this.content.content()).nodes("//parameter")
                 .iterator(),
             new RealBuildDetails.ParamTransformer()
