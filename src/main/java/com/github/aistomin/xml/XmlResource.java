@@ -15,6 +15,7 @@
  */
 package com.github.aistomin.xml;
 
+import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -47,7 +48,7 @@ public final class XmlResource implements Xml {
     public String content() throws Exception {
         return IOUtils.toString(
             Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream(this.name)
+                .getResourceAsStream(this.name), StandardCharsets.UTF_8
         );
     }
 
