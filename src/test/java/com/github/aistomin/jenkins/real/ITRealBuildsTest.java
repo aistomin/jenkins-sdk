@@ -130,7 +130,7 @@ public final class ITRealBuildsTest {
     }
 
     /**
-     * Can get find build by it's number.
+     * Can find build by it's number.
      *
      * @throws Exception If something goes wrong.
      */
@@ -142,6 +142,29 @@ public final class ITRealBuildsTest {
         MatcherAssert.assertThat(found.hasNext(), new IsEqual<>(true));
         MatcherAssert.assertThat(
             found.next().number(), new IsEqual<>(number)
+        );
+        MatcherAssert.assertThat(found.hasNext(), new IsEqual<>(false));
+    }
+
+    /**
+     * Can find build by it's Git revision.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanFindByGitRevision() throws Exception {
+        final String rev = "3d21ea7072da134395eedbc7a07bf0f00cfabf97";
+        final Iterator<Build> found = new TestJenkins().jobs()
+            .findByName("test-parametrised-job").next().builds()
+            .findByGitRevision(rev);
+        MatcherAssert.assertThat(
+            found.next().gitRevision(), new IsEqual<>(rev)
+        );
+        MatcherAssert.assertThat(
+            found.next().gitRevision(), new IsEqual<>(rev)
+        );
+        MatcherAssert.assertThat(
+            found.next().gitRevision(), new IsEqual<>(rev)
         );
         MatcherAssert.assertThat(found.hasNext(), new IsEqual<>(false));
     }
