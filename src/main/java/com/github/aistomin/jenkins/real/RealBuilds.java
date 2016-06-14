@@ -26,7 +26,6 @@ import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job builds.
@@ -164,15 +163,21 @@ public final class RealBuilds implements Builds {
      * @param rev Git revision.
      * @return Build.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and resolve issue #265.
      */
     public Iterator<Build> findByGitRevision(
         final String rev
     ) throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.gitRevision() is not implemented.", this.getClass()
-            )
+        return new EntityIterator<>(
+            RealBuilds.parseBuild(
+                new PostRequest(
+                    this.url(
+                        String.format(
+                            "/build[action/lastBuiltRevision/SHA1='%s']&%s",
+                            rev, "wrapper=builds"
+                        )
+                    ), this.creds.headers()
+                ).execute()
+            ).iterator(), new RealBuild.Transformer(this.api, this.creds)
         );
     }
 
