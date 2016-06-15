@@ -17,9 +17,7 @@
     <queueId>1</queueId>
     <result>SUCCESS</result>
     <timestamp>1446599262162</timestamp>
-    <url>
-        https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/1/
-    </url>
+    <url>https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/1/</url>
     <builtOn/>
     <changeSet/>
 </build>

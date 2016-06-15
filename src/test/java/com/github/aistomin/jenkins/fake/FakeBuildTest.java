@@ -17,9 +17,8 @@ package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.jenkins.BuildResult;
-import com.github.aistomin.jenkins.real.RealBuildDetails;
-import com.github.aistomin.xml.XmlString;
-import java.net.URL;
+import com.github.aistomin.xml.Xml;
+import com.github.aistomin.xml.XmlResource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,8 +33,6 @@ import org.junit.Test;
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
- * @checkstyle ClassDataAbstractionCouplingCheck (1000 lines)
- * @todo: Let's re-work this test and solve issue #286.
  */
 public final class FakeBuildTest {
 
@@ -47,109 +44,27 @@ public final class FakeBuildTest {
     @Test
     public void testCanCreateWithDefaultCtor() throws Exception {
         final FakeBuild build = new FakeBuild();
-        MatcherAssert.assertThat(build.xml(), new IsInstanceOf(String.class));
         MatcherAssert.assertThat(
-            build.number(), new IsInstanceOf(String.class)
+            build.xml(), new IsEqual<>(xml().content())
+        );
+        final String number = "#1";
+        MatcherAssert.assertThat(
+            build.number(), new IsEqual<>(number)
         );
         MatcherAssert.assertThat(
             build.result(), new IsEqual<>(BuildResult.SUCCESS)
         );
         MatcherAssert.assertThat(build.date(), new IsInstanceOf(Date.class));
+        final BuildDetails details = build.details();
         MatcherAssert.assertThat(
-            build.details(), new IsInstanceOf(RealBuildDetails.class)
+            details.displayName(), new IsEqual<>(number)
         );
         MatcherAssert.assertThat(
-            build.url().startsWith("http://"), new IsEqual<>(true)
-        );
-    }
-
-    /**
-     * Can read fake build's XML.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanReadXml() throws Exception {
-        final String xml = new FakeBuild(
-            new XmlString("<build><displayName>#1</displayName></build>")
-        ).xml();
-        MatcherAssert.assertThat(
-            xml.startsWith("<build>"), new IsEqual<>(true)
+            details.fullDisplayName(),
+            new IsEqual<>("test-different-builds-job #1")
         );
         MatcherAssert.assertThat(
-            xml.contains("<displayName>#1</displayName>"),
-            new IsEqual<>(true)
-        );
-        MatcherAssert.assertThat(
-            xml.endsWith("</build>"), new IsEqual<>(true)
-        );
-    }
-
-    /**
-     * Can read fake build's number.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanReadNumber() throws Exception {
-        final String number = "#666";
-        MatcherAssert.assertThat(
-            new FakeBuild(number).number(), new IsEqual<>(number)
-        );
-    }
-
-    /**
-     * Can read fake build's result.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanReadResult() throws Exception {
-        final BuildResult result = BuildResult.FAILURE;
-        MatcherAssert.assertThat(
-            new FakeBuild(result).result(), new IsEqual<>(result)
-        );
-    }
-
-    /**
-     * Can read fake build's date.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanReadDate() throws Exception {
-        final Date date = new Date();
-        MatcherAssert.assertThat(
-            new FakeBuild(date).date(), new IsEqual<>(date)
-        );
-    }
-
-    /**
-     * Can read fake build's details.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanReadDetails() throws Exception {
-        final BuildDetails details = new RealBuildDetails(
-            new XmlString("<build></build>")
-        );
-        MatcherAssert.assertThat(
-            new FakeBuild(details).details(), new IsEqual<>(details)
-        );
-    }
-
-    /**
-     * Can read fake build's URL.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanReadUrl() throws Exception {
-        final URL url = new URL("http", "localhost", 8080, "/test");
-        MatcherAssert.assertThat(
-            new FakeBuild(url).url(),
-            new IsEqual<>("http://localhost:8080/test")
+            build.url().startsWith("https://"), new IsEqual<>(true)
         );
     }
 
@@ -166,10 +81,19 @@ public final class FakeBuildTest {
                 calls.add("Deleted!!!");
             }
         };
-        final FakeBuild build = new FakeBuild(runnable, runnable);
+        final FakeBuild build = new FakeBuild(xml(), runnable, runnable);
         build.delete();
         MatcherAssert.assertThat(calls.size(), new IsEqual<>(1));
         build.cancel();
         MatcherAssert.assertThat(calls.size(), new IsEqual<>(2));
+    }
+
+    /**
+     * Create default build XML.
+     *
+     * @return Xml.
+     */
+    private static Xml xml() {
+        return new XmlResource("build.xml");
     }
 }

@@ -54,6 +54,6 @@ public final class XmlString implements Xml {
      * @throws Exception If reading XML was not successful.
      */
     public String field(final String xpath) throws Exception {
-        return new XPath(xpath).valueFrom(this.content());
+        return new XPath(xpath).valueFrom(this.content()).trim();
     }
 }

@@ -116,9 +116,19 @@ public final class FakeBuildsTest {
     @Test
     public void testCanFindByNumber() throws Exception {
         final List<Build> builds = new ArrayList<>(2);
-        builds.add(new FakeBuild("#1"));
+        builds.add(
+            new FakeBuild(
+                new XmlString("<build><displayName>#1</displayName></build>"),
+                new DoNothing(), new DoNothing()
+            )
+        );
         final String number = "#2";
-        builds.add(new FakeBuild(number));
+        builds.add(
+            new FakeBuild(
+                new XmlString("<build><displayName>#2</displayName></build>"),
+                new DoNothing(), new DoNothing()
+            )
+        );
         final Iterator<Build> found = new FakeBuilds(builds)
             .findByNumber(number);
         MatcherAssert.assertThat(
@@ -140,12 +150,12 @@ public final class FakeBuildsTest {
     @Test
     public void testCanReadLastUnsuccessfulBuild() throws Exception {
         final List<Build> builds = new ArrayList<>(2);
-        builds.add(new FakeBuild(BuildResult.SUCCESS));
-        final FakeBuild aborted = new FakeBuild(BuildResult.ABORTED);
+        builds.add(build(BuildResult.SUCCESS));
+        final Build aborted = build(BuildResult.ABORTED);
         builds.add(aborted);
         MatcherAssert.assertThat(
             new FakeBuilds(builds).lastUnsuccessful(),
-            new IsEqual<Build>(aborted)
+            new IsEqual<>(aborted)
         );
     }
 
@@ -157,13 +167,13 @@ public final class FakeBuildsTest {
     @Test
     public void testCanReadLastSuccessfulBuild() throws Exception {
         final List<Build> builds = new ArrayList<>(3);
-        builds.add(new FakeBuild(BuildResult.FAILURE));
-        final FakeBuild successful = new FakeBuild(BuildResult.SUCCESS);
+        builds.add(build(BuildResult.FAILURE));
+        final Build successful = build(BuildResult.SUCCESS);
         builds.add(successful);
-        builds.add(new FakeBuild(BuildResult.ABORTED));
+        builds.add(build(BuildResult.ABORTED));
         MatcherAssert.assertThat(
             new FakeBuilds(builds).lastSuccessful(),
-            new IsEqual<Build>(successful)
+            new IsEqual<>(successful)
         );
     }
 
@@ -175,12 +185,12 @@ public final class FakeBuildsTest {
     @Test
     public void testCanReadLastFailedBuild() throws Exception {
         final List<Build> builds = new ArrayList<>(3);
-        final FakeBuild failed = new FakeBuild(BuildResult.FAILURE);
+        final Build failed = build(BuildResult.FAILURE);
         builds.add(failed);
-        builds.add(new FakeBuild(BuildResult.SUCCESS));
-        builds.add(new FakeBuild(BuildResult.ABORTED));
+        builds.add(build(BuildResult.SUCCESS));
+        builds.add(build(BuildResult.ABORTED));
         MatcherAssert.assertThat(
-            new FakeBuilds(builds).lastFailed(), new IsEqual<Build>(failed)
+            new FakeBuilds(builds).lastFailed(), new IsEqual<>(failed)
         );
     }
 
@@ -192,13 +202,31 @@ public final class FakeBuildsTest {
     @Test
     public void testCanReadLastStableBuild() throws Exception {
         final List<Build> builds = new ArrayList<>(3);
-        builds.add(new FakeBuild(BuildResult.FAILURE));
-        final FakeBuild successful = new FakeBuild(BuildResult.SUCCESS);
+        builds.add(build(BuildResult.FAILURE));
+        final Build successful = build(BuildResult.SUCCESS);
         builds.add(successful);
-        builds.add(new FakeBuild(BuildResult.ABORTED));
+        builds.add(build(BuildResult.ABORTED));
         MatcherAssert.assertThat(
             new FakeBuilds(builds).lastStable(),
-            new IsEqual<Build>(successful)
+            new IsEqual<>(successful)
+        );
+    }
+
+    /**
+     * Create build with the specified result.
+     *
+     * @param result Build result.
+     * @return Build.
+     */
+    private static Build build(final BuildResult result) {
+        return new FakeBuild(
+            new XmlString(
+                String.format(
+                    "<build><result>%s</result></build>",
+                    result.name()
+                )
+            ),
+            new DoNothing(), new DoNothing()
         );
     }
 }
