@@ -23,7 +23,6 @@ import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
 import com.github.aistomin.xml.XmlString;
 import java.util.Date;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake Jenkins' job build.
@@ -154,13 +153,10 @@ public final class FakeBuild implements Build {
      *
      * @return Git revision hash.
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method and resolve issue #261.
      */
     public String gitRevision() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.gitRevision() is not implemented.", this.getClass()
-            )
+        return this.content.field(
+            "//build/action/lastBuiltRevision/SHA1/text()"
         );
     }
 

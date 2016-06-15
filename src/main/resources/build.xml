@@ -5,6 +5,17 @@
             <userId>admin</userId>
             <userName>Jenkins Admin</userName>
         </cause>
+        <lastBuiltRevision>
+            <SHA1>3d21ea7072da134395eedbc7a07bf0f00cfabf97</SHA1>
+            <branch>
+                <SHA1>3d21ea7072da134395eedbc7a07bf0f00cfabf97</SHA1>
+                <name>origin/HEAD</name>
+            </branch>
+            <branch>
+                <SHA1>3d21ea7072da134395eedbc7a07bf0f00cfabf97</SHA1>
+                <name>origin/master</name>
+            </branch>
+        </lastBuiltRevision>
     </action>
     <building>false</building>
     <displayName>#1</displayName>
