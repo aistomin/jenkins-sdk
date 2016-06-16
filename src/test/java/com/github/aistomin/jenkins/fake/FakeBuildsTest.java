@@ -143,6 +143,51 @@ public final class FakeBuildsTest {
     }
 
     /**
+     * Can find by Git revision.
+     *
+     * @throws Exception If something goes wrong.
+     */
+    @Test
+    public void testCanFindByGitRevision() throws Exception {
+        final List<Build> builds = new ArrayList<>(2);
+        builds.add(
+            new FakeBuild(
+                new XmlString(
+                    String.format(
+                        "%s%s", "<build><action><lastBuiltRevision><SHA1>123",
+                        "</SHA1></lastBuiltRevision></action></build>"
+                    )
+                ),
+                new DoNothing(), new DoNothing()
+            )
+        );
+        final String rev = "456";
+        builds.add(
+            new FakeBuild(
+                new XmlString(
+                    String.format(
+                        "%s%s%s", "<build><action><lastBuiltRevision>",
+                        "<SHA1>456</SHA1>",
+                        "</lastBuiltRevision></action></build>"
+                    )
+                ),
+                new DoNothing(), new DoNothing()
+            )
+        );
+        final Iterator<Build> found = new FakeBuilds(builds)
+            .findByGitRevision(rev);
+        MatcherAssert.assertThat(
+            found.hasNext(), new IsEqual<>(true)
+        );
+        MatcherAssert.assertThat(
+            found.next().gitRevision(), new IsEqual<>(rev)
+        );
+        MatcherAssert.assertThat(
+            found.hasNext(), new IsEqual<>(false)
+        );
+    }
+
+    /**
      * Can read last unsuccessful build.
      *
      * @throws Exception If something goes wrong.

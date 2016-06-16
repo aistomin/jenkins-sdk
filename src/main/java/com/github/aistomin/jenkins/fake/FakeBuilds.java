@@ -23,7 +23,6 @@ import com.github.aistomin.xml.XmlResource;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake Jenkins' builds for tests.
@@ -182,16 +181,17 @@ public final class FakeBuilds implements Builds {
      * @param rev Git revision.
      * @return Build.
      * @throws Exception If something goes wrong.
-     * @todo: Let's implement this method and resolve issue #264.
      */
     public Iterator<Build> findByGitRevision(
         final String rev
     ) throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.gitRevision() is not implemented.", this.getClass()
-            )
-        );
+        final List<Build> result = new ArrayList<>(1);
+        for (final Build job : this.list) {
+            if (rev.equals(job.gitRevision())) {
+                result.add(job);
+            }
+        }
+        return result.iterator();
     }
 
     /**
