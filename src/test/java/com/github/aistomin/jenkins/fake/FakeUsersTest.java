@@ -83,8 +83,8 @@ public final class FakeUsersTest {
     @Test
     public void testCanIterate() throws Exception {
         final List<User> users = new ArrayList<>(2);
-        users.add(new FakeUser("test1"));
-        users.add(new FakeUser("test2"));
+        users.add(new FakeUser(new XmlString("<user><id>test1</id></user>")));
+        users.add(new FakeUser(new XmlString("<user><id>test2</id></user>")));
         final Iterator<User> iterator = new FakeUsers(users).iterator();
         MatcherAssert.assertThat(
             iterator.hasNext(), new IsEqual<>(true)
@@ -114,8 +114,8 @@ public final class FakeUsersTest {
     public void testCanFindByUsername() throws Exception {
         final List<User> users = new ArrayList<>(2);
         final String username = "user1";
-        users.add(new FakeUser(username));
-        users.add(new FakeUser("user2"));
+        users.add(new FakeUser(new XmlString("<user><id>user1</id></user>")));
+        users.add(new FakeUser(new XmlString("<user><id>user2</id></user>")));
         final Iterator<User> iterator = new FakeUsers(users)
             .findByUsername(username);
         MatcherAssert.assertThat(
@@ -138,9 +138,13 @@ public final class FakeUsersTest {
     @Test
     public void testCanFindByFullName() throws Exception {
         final List<User> users = new ArrayList<>(2);
-        users.add(new FakeUser());
+        users.add(
+            new FakeUser(new XmlString("<user><fullName>u1</fullName></user>"))
+        );
         Thread.sleep(2);
-        final FakeUser user = new FakeUser();
+        final FakeUser user = new FakeUser(
+            new XmlString("<user><fullName>u2</fullName></user>")
+        );
         users.add(user);
         final Iterator<User> iterator = new FakeUsers(users)
             .findByFullName(user.fullName());
@@ -161,9 +165,20 @@ public final class FakeUsersTest {
     @Test
     public void testCanFindByEmail() throws Exception {
         final List<User> users = new ArrayList<>(2);
-        users.add(new FakeUser());
+        final String format = "<user><property>%s</property></user>";
+        users.add(
+            new FakeUser(
+                new XmlString(
+                    String.format(format, "<address>t1@mail.de</address>")
+                )
+            )
+        );
         Thread.sleep(2);
-        final FakeUser user = new FakeUser();
+        final FakeUser user = new FakeUser(
+            new XmlString(
+                String.format(format, "<address>t2@mail.de</address>")
+            )
+        );
         users.add(user);
         final Iterator<User> iterator = new FakeUsers(users)
             .findByEmail(user.email());

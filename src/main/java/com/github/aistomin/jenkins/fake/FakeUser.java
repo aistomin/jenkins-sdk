@@ -29,109 +29,24 @@ import com.github.aistomin.xml.XmlResource;
 public final class FakeUser implements User {
 
     /**
-     * XML resource file name.
-     */
-    private static final String RESOURCE = "user.xml";
-
-    /**
-     * Fake username format.
-     */
-    private static final String FORMAT = "user%s";
-
-    /**
      * XML content that should be returned in xml() method.
      */
     private final transient Xml content;
 
     /**
-     * Username that should be returned in username() method.
-     */
-    private final transient String identifier;
-
-    /**
-     * User's full name which will be returned in fullName() method.
-     */
-    private final transient String full;
-
-    /**
-     * User's email which will be returned in email() method.
-     */
-    private final transient String mail;
-
-    /**
-     * User's profile URL that will be returned in url() method.
-     */
-    private final transient String uri;
-
-    /**
-     * User's description that will be returned in description() method.
-     */
-    private final transient String text;
-
-    /**
      * Default ctor.
      */
     public FakeUser() {
-        this(
-            new XmlResource(FakeUser.RESOURCE),
-            String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            FakeUser.defaultEmail(), FakeUser.defaultUrl(),
-            FakeUser.defaultDescription()
-        );
-    }
-
-    /**
-     * Secondary ctor.
-     *
-     * @param xml XML content that should be returned in xml() method.
-     */
-    public FakeUser(final Xml xml) {
-        this(
-            xml, String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            FakeUser.defaultEmail(), FakeUser.defaultUrl(),
-            FakeUser.defaultDescription()
-        );
-    }
-
-    /**
-     * Secondary ctor.
-     *
-     * @param username Username that should be returned in username() method.
-     */
-    public FakeUser(final String username) {
-        this(
-            new XmlResource(FakeUser.RESOURCE), username,
-            String.format(FakeUser.FORMAT, System.currentTimeMillis()),
-            FakeUser.defaultEmail(), FakeUser.defaultUrl(),
-            FakeUser.defaultDescription()
-        );
+        this(new XmlResource("user.xml"));
     }
 
     /**
      * Primary ctor.
      *
      * @param xml XML content that should be returned in xml() method.
-     * @param username Username that should be returned in username() method.
-     * @param name User's full name which will be returned in fullName() method.
-     * @param email User's email which will be returned in email() method.
-     * @param url User's profile URL that will be returned in url() method.
-     * @param description User's description that will be returned in
-     *  description() method.
-     * @checkstyle ParameterNumberCheck (500 lines)
-     * @todo: Let's fix this multi-parameter constructors and solve issue #284.
      */
-    public FakeUser(
-        final Xml xml, final String username, final String name,
-        final String email, final String url, final String description
-    ) {
+    public FakeUser(final Xml xml) {
         this.content = xml;
-        this.identifier = username;
-        this.full = name;
-        this.mail = email;
-        this.uri = url;
-        this.text = description;
     }
 
     /**
@@ -141,7 +56,7 @@ public final class FakeUser implements User {
      * @throws Exception If something goes wrong.
      */
     public String username() throws Exception {
-        return this.identifier;
+        return this.content.field("//user/id/text()");
     }
 
     /**
@@ -151,7 +66,7 @@ public final class FakeUser implements User {
      * @throws Exception If something goes wrong.
      */
     public String fullName() throws Exception {
-        return this.full;
+        return this.content.field("//user/fullName/text()");
     }
 
     /**
@@ -161,7 +76,7 @@ public final class FakeUser implements User {
      * @throws Exception If something goes wrong.
      */
     public String email() throws Exception {
-        return this.mail;
+        return this.content.field("//user/property/address/text()");
     }
 
     /**
@@ -171,7 +86,7 @@ public final class FakeUser implements User {
      * @throws Exception If something goes wrong.
      */
     public String url() throws Exception {
-        return this.uri;
+        return this.content.field("//user/absoluteUrl/text()");
     }
 
     /**
@@ -181,7 +96,7 @@ public final class FakeUser implements User {
      * @throws Exception If something goes wrong.
      */
     public String description() throws Exception {
-        return this.text;
+        return this.content.field("//user/description/text()");
     }
 
     /**
@@ -192,29 +107,5 @@ public final class FakeUser implements User {
      */
     public String xml() throws Exception {
         return this.content.content();
-    }
-
-    /**
-     * Default email.
-     * @return Email.
-     */
-    private static String defaultEmail() {
-        return String.format("email%d@gmail.com", System.currentTimeMillis());
-    }
-
-    /**
-     * Default user's profile URL.
-     * @return Email.
-     */
-    private static String defaultUrl() {
-        return String.format("http://localhost/%s", System.currentTimeMillis());
-    }
-
-    /**
-     * Default user's description.
-     * @return Email.
-     */
-    private static String defaultDescription() {
-        return "Great user's description :)";
     }
 }

@@ -16,10 +16,8 @@
 package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.xml.XmlString;
-import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 /**
@@ -41,21 +39,6 @@ public final class FakeUserTest {
         final String xml = "<user><id>integration</id></user>";
         MatcherAssert.assertThat(
             new FakeUser(new XmlString(xml)).xml(), new IsEqual<>(xml)
-        );
-    }
-
-    /**
-     * Can create fake instances providing only username.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanCreateWithUsername() throws Exception {
-        final String username = String.format(
-            "username%d", new Random().nextInt(1000)
-        );
-        MatcherAssert.assertThat(
-            new FakeUser(username).username(), new IsEqual<>(username)
         );
     }
 
@@ -86,7 +69,7 @@ public final class FakeUserTest {
     @Test
     public void testCanReadUsername() throws Exception {
         MatcherAssert.assertThat(
-            new FakeUser().username(), new IsInstanceOf(String.class)
+            new FakeUser().username(), new IsEqual<>("integration")
         );
     }
 
@@ -98,7 +81,7 @@ public final class FakeUserTest {
     @Test
     public void testCanReadFullName() throws Exception {
         MatcherAssert.assertThat(
-            new FakeUser().fullName(), new IsInstanceOf(String.class)
+            new FakeUser().fullName(), new IsEqual<>("Integration Test")
         );
     }
 
@@ -110,7 +93,8 @@ public final class FakeUserTest {
     @Test
     public void testCanReadEmail() throws Exception {
         MatcherAssert.assertThat(
-            new FakeUser().email(), new IsInstanceOf(String.class)
+            new FakeUser().email(),
+            new IsEqual<>("andrej.istomin.ikeen@gmail.com")
         );
     }
 
@@ -122,8 +106,8 @@ public final class FakeUserTest {
     @Test
     public void testCanReadUrl() throws Exception {
         MatcherAssert.assertThat(
-            new FakeUser().url().startsWith("http://"),
-            new IsEqual<>(true)
+            new FakeUser().url(),
+            new IsEqual<>("https://cisdk-istomin.rhcloud.com/user/integration")
         );
     }
 
