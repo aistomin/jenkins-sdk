@@ -112,9 +112,19 @@ public final class FakeJobsTest {
     @Test
     public void testCanFindByName() throws Exception {
         final List<Job> jobs = new ArrayList<>(2);
-        jobs.add(new FakeJob("job1"));
+        jobs.add(
+            new FakeJob(
+                new XmlString("<job><displayName>job1</displayName></job>"),
+                new DoNothing()
+            )
+        );
         final String name = "job2";
-        jobs.add(new FakeJob(name));
+        jobs.add(
+            new FakeJob(
+                new XmlString("<job><displayName>job2</displayName></job>"),
+                new DoNothing()
+            )
+        );
         final Iterator<Job> found = new FakeJobs(jobs).findByName(name);
         MatcherAssert.assertThat(
             found.next().name(), new IsEqual<>(name)

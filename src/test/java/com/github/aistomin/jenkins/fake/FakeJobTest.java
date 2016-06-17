@@ -15,20 +15,13 @@
  */
 package com.github.aistomin.jenkins.fake;
 
-import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.jenkins.JobDetails;
-import com.github.aistomin.jenkins.JobParameter;
-import com.github.aistomin.jenkins.real.RealJobDetails;
-import com.github.aistomin.jenkins.real.RealJobParameter;
-import com.github.aistomin.xml.XmlString;
-import java.net.URL;
+import com.github.aistomin.xml.Xml;
+import com.github.aistomin.xml.XmlResource;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.IsInstanceOf;
-import org.hamcrest.core.IsSame;
 import org.junit.Test;
 
 /**
@@ -37,8 +30,6 @@ import org.junit.Test;
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
- * @checkstyle ClassDataAbstractionCouplingCheck (1000 lines)
- * @todo: Let's re-work this test and solve issue #287.
  */
 public final class FakeJobTest {
 
@@ -48,123 +39,28 @@ public final class FakeJobTest {
      * @throws Exception If something goes wrong.
      */
     @Test
-    public void testCanCreateWithXml() throws Exception {
-        final String xml = "<job><id><displayName>test</displayName></job>";
-        final FakeJob job = new FakeJob(new XmlString(xml));
-        MatcherAssert.assertThat(job.xml(), new IsEqual<>(xml));
-        MatcherAssert.assertThat(job.name(), new IsInstanceOf(String.class));
-    }
-
-    /**
-     * Can create with job details.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanCreateWithDetails() throws Exception {
-        final RealJobDetails details = new RealJobDetails(
-            new XmlString("<job></job>")
-        );
-        final FakeJob job = new FakeJob(details);
+    public void testCanCreateWithDefaultCtor() throws Exception {
+        final FakeJob job = new FakeJob();
         MatcherAssert.assertThat(
-            job.details(), new IsEqual<JobDetails>(details)
+            job.xml(), new IsEqual<>(FakeJobTest.xml().content())
         );
-    }
-
-    /**
-     * Can create with URL.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanCreateWithUrl() throws Exception {
-        final URL url = new URL("http", "localhost", 8080, "/my-job");
-        final FakeJob job = new FakeJob(url);
+        final String name = "test-different-builds-job";
+        MatcherAssert.assertThat(job.name(), new IsEqual<>(name));
+        final JobDetails details = job.details();
+        MatcherAssert.assertThat(details.displayName(), new IsEqual<>(name));
+        MatcherAssert.assertThat(details.buildable(), new IsEqual<>(true));
         MatcherAssert.assertThat(
-            job.url(), new IsEqual<>(url.toString())
-        );
-    }
-
-    /**
-     * Can create with builds.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanCreateWithBuilds() throws Exception {
-        final FakeBuilds builds = new FakeBuilds();
-        final FakeJob job = new FakeJob(builds);
-        MatcherAssert.assertThat(
-            job.builds(), new IsEqual<Builds>(builds)
-        );
-    }
-
-    /**
-     * Can create with parameters.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanCreateWithParameters() throws Exception {
-        final List<JobParameter> params = new ArrayList<>(1);
-        params.add(new RealJobParameter(new XmlString("<param></param>")));
-        final FakeJob job = new FakeJob(params);
-        final Iterator<JobParameter> parameters = job.parameters();
-        MatcherAssert.assertThat(
-            parameters.hasNext(), new IsEqual<>(true)
+            details.description(),
+            new IsEqual<>("This job we use for testing builds.")
         );
         MatcherAssert.assertThat(
-            parameters.next(), new IsSame<>(params.get(0))
-        );
-        MatcherAssert.assertThat(
-            parameters.hasNext(), new IsEqual<>(false)
-        );
-    }
-
-    /**
-     * Can read Fake job's XML.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanReadXml() throws Exception {
-        final String xml = new FakeJob().xml();
-        MatcherAssert.assertThat(
-            xml.startsWith("<job>"), new IsEqual<>(true)
-        );
-        MatcherAssert.assertThat(
-            xml.contains(
-                "<displayName>test-different-builds-job</displayName>"
-            ), new IsEqual<>(true)
-        );
-        MatcherAssert.assertThat(
-            xml.endsWith("</job>"), new IsEqual<>(true)
-        );
-    }
-
-    /**
-     * Can read Fake job's name.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanReadName() throws Exception {
-        final String name = "my_job";
-        MatcherAssert.assertThat(
-            new FakeJob(name).name(), new IsEqual<>(name)
-        );
-    }
-
-    /**
-     * Can read Fake job's details.
-     *
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testCanReadDetails() throws Exception {
-        MatcherAssert.assertThat(
-            new FakeJob().details().displayName(),
-            new IsEqual<>("test-different-builds-job")
+            job.url(),
+            new IsEqual<>(
+                String.format(
+                    "https://cisdk-istomin.rhcloud.com/%s",
+                    "job/test-different-builds-job/"
+                )
+            )
         );
     }
 
@@ -177,6 +73,7 @@ public final class FakeJobTest {
     public void testCanTrigger() throws Exception {
         final List<String> calls = new ArrayList<>(1);
         new FakeJob(
+            FakeJobTest.xml(),
             new Runnable() {
                 public void run() {
                     calls.add("called!!!");
@@ -184,5 +81,13 @@ public final class FakeJobTest {
             }
         ).trigger();
         MatcherAssert.assertThat(calls.size(), new IsEqual<>(1));
+    }
+
+    /**
+     * Get default job XML.
+     * @return Xml.
+     */
+    private static Xml xml() {
+        return new XmlResource("job.xml");
     }
 }

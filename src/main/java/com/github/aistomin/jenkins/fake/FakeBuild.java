@@ -34,11 +34,6 @@ import java.util.Date;
 public final class FakeBuild implements Build {
 
     /**
-     * XML resource file name.
-     */
-    private static final String RESOURCE = "build.xml";
-
-    /**
      * XML content of the build.
      */
     private final transient Xml content;
@@ -58,7 +53,7 @@ public final class FakeBuild implements Build {
      */
     public FakeBuild() {
         this(
-            new XmlResource(FakeBuild.RESOURCE), new DoNothing(),
+            new XmlResource("build.xml"), new DoNothing(),
             new DoNothing()
         );
     }

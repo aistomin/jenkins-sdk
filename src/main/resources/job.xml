@@ -2,9 +2,7 @@
     <description>This job we use for testing builds.</description>
     <displayName>test-different-builds-job</displayName>
     <name>test-different-builds-job</name>
-    <url>
-        https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/
-    </url>
+    <url>https://cisdk-istomin.rhcloud.com/job/test-different-builds-job/</url>
     <buildable>true</buildable>
     <build>
         <action>
