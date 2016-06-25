@@ -139,7 +139,7 @@ public final class FakeJenkins implements Jenkins {
         this.projects = jobs;
         this.usrs = users;
         this.content = xml;
-        this.ver = "1.609.1";
+        this.ver = "1.642.2";
         this.cbrestart = onrestart;
     }
 

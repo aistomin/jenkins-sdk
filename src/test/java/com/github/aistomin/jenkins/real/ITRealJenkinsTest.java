@@ -83,7 +83,7 @@ public final class ITRealJenkinsTest {
     @Test
     public void testCanReadVersion() throws Exception {
         MatcherAssert.assertThat(
-            new TestJenkins().version(), new IsEqual<>("1.609.1")
+            new TestJenkins().version(), new IsEqual<>("1.642.2")
         );
     }
 

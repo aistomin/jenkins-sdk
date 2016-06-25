@@ -62,7 +62,7 @@ your code which is using our project. Using classes from
 installation.
 
 ## Have you found a bug?
-We've tested our code using Jenkins ver. 1.609.1. We're not robots and bugs are
+We've tested our code using Jenkins ver. 1.642.2. We're not robots and bugs are
 possible :) Don't hesitate to [create and issue](https://github.com/aistomin/jenkins-sdk/issues/new). 
 It will help to make our project better. Thanks in advance.
 

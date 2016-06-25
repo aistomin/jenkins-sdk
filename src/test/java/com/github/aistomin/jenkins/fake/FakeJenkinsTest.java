@@ -135,7 +135,7 @@ public final class FakeJenkinsTest {
     @Test
     public void testCanReadVersion() throws Exception {
         MatcherAssert.assertThat(
-            new FakeJenkins().version(), new IsEqual<>("1.609.1")
+            new FakeJenkins().version(), new IsEqual<>("1.642.2")
         );
     }
 
