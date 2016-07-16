@@ -16,7 +16,7 @@
 package com.github.aistomin.jenkins.fake;
 
 import com.github.aistomin.jenkins.Jenkins;
-import com.github.aistomin.jenkins.Jobs;
+import com.github.aistomin.jenkins.Job;
 import com.github.aistomin.jenkins.Users;
 import com.github.aistomin.xml.XmlString;
 import java.util.ArrayList;
@@ -78,29 +78,14 @@ public final class FakeJenkinsTest {
     }
 
     /**
-     * Can create fake instances providing only Jobs.
-     * @throws Exception If something goes wrong.
-     */
-    @Test
-    public void testConstructorWithJobs() throws Exception {
-        final Jobs jobs = new FakeJobs();
-        final Jenkins jenkins = new FakeJenkins(jobs);
-        MatcherAssert.assertThat(
-            jenkins.users(), new IsInstanceOf(FakeUsers.class)
-        );
-        MatcherAssert.assertThat(jenkins.xml(), new IsInstanceOf(String.class));
-        MatcherAssert.assertThat(jenkins.jobs(), new IsEqual<>(jobs));
-    }
-
-    /**
      * Can list Jenkins' jobs.
      * @throws Exception If something goes wrong.
      */
     @Test
     public void testCanListJobs() throws Exception {
-        final Jobs jobs = new FakeJobs();
         MatcherAssert.assertThat(
-            new FakeJenkins(jobs).jobs(), new IsEqual<>(jobs)
+            new FakeJenkins().jobs().iterator().next(),
+            new IsInstanceOf(Job.class)
         );
     }
 

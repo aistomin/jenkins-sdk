@@ -36,11 +36,6 @@ public final class FakeJenkins implements Jenkins {
     private static final String RESOURCE = "jenkins.xml";
 
     /**
-     * Jobs instance that should be returned in jobs() method.
-     */
-    private final transient Jobs projects;
-
-    /**
      * Users instance that should be returned in users() method.
      */
     private final transient Users usrs;
@@ -67,21 +62,7 @@ public final class FakeJenkins implements Jenkins {
      */
     public FakeJenkins() throws Exception {
         this(
-            new FakeJobs(), new FakeUsers(),
-            new XmlResource(FakeJenkins.RESOURCE),
-            new DoNothing()
-        );
-    }
-
-    /**
-     * Secondary ctor.
-     *
-     * @param jobs Jobs instance that should be returned in jobs() method.
-     * @throws Exception If something goes wrong.
-     */
-    public FakeJenkins(final Jobs jobs) throws Exception {
-        this(
-            jobs, new FakeUsers(), new XmlResource(FakeJenkins.RESOURCE),
+            new FakeUsers(), new XmlResource(FakeJenkins.RESOURCE),
             new DoNothing()
         );
     }
@@ -94,8 +75,7 @@ public final class FakeJenkins implements Jenkins {
      */
     public FakeJenkins(final Users users) throws Exception {
         this(
-            new FakeJobs(), users, new XmlResource(FakeJenkins.RESOURCE),
-            new DoNothing()
+            users, new XmlResource(FakeJenkins.RESOURCE), new DoNothing()
         );
     }
 
@@ -106,7 +86,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If something goes wrong.
      */
     public FakeJenkins(final Xml xml) throws Exception {
-        this(new FakeJobs(), new FakeUsers(), xml, new DoNothing());
+        this(new FakeUsers(), xml, new DoNothing());
     }
 
     /**
@@ -117,26 +97,20 @@ public final class FakeJenkins implements Jenkins {
      */
     public FakeJenkins(final Runnable onrestart) throws Exception {
         this(
-            new FakeJobs(), new FakeUsers(),
-            new XmlResource(FakeJenkins.RESOURCE), onrestart
+            new FakeUsers(), new XmlResource(FakeJenkins.RESOURCE), onrestart
         );
     }
 
     /**
      * Primary ctor.
      *
-     * @param jobs Jobs instance that should be returned in jobs() method.
      * @param users Users instance that should be returned in users() method.
      * @param xml XML content that should be returned in xml() method.
      * @param onrestart Restart callback.
-     * @checkstyle ParameterNumberCheck (500 lines)
-     * @todo: Let's fix this multi-parameter constructors and solve issue #284.
      */
     public FakeJenkins(
-        final Jobs jobs, final Users users, final Xml xml,
-        final Runnable onrestart
+        final Users users, final Xml xml, final Runnable onrestart
     ) {
-        this.projects = jobs;
         this.usrs = users;
         this.content = xml;
         this.ver = "1.642.2";
@@ -150,7 +124,7 @@ public final class FakeJenkins implements Jenkins {
      * @throws Exception If reading jobs was not successful.
      */
     public Jobs jobs() throws Exception {
-        return this.projects;
+        return new FakeJobs(this.content);
     }
 
     /**
