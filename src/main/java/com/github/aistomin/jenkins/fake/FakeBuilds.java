@@ -87,22 +87,12 @@ public final class FakeBuilds implements Builds {
         this.list = builds;
     }
 
-    /**
-     * Fake builds iterator.
-     *
-     * @return Fake builds iterator.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Iterator<Build> iterator() throws Exception {
         return this.list.iterator();
     }
 
-    /**
-     * Last successful fake build.
-     *
-     * @return Last successful build.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Build lastSuccessful() throws Exception {
         Build result = null;
         for (final Build build : this.list) {
@@ -114,12 +104,7 @@ public final class FakeBuilds implements Builds {
         return result;
     }
 
-    /**
-     * Last failed fake build.
-     *
-     * @return Last failed build.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Build lastFailed() throws Exception {
         Build result = null;
         for (final Build build : this.list) {
@@ -131,22 +116,12 @@ public final class FakeBuilds implements Builds {
         return result;
     }
 
-    /**
-     * Last stable fake build.
-     *
-     * @return Last stable build.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Build lastStable() throws Exception {
         return this.lastSuccessful();
     }
 
-    /**
-     * Last unstable fake build.
-     *
-     * @return Last unstable build.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Build lastUnsuccessful() throws Exception {
         Build result = null;
         for (final Build build : this.list) {
@@ -158,13 +133,7 @@ public final class FakeBuilds implements Builds {
         return result;
     }
 
-    /**
-     * Find fake build by number.
-     *
-     * @param number Build's number.
-     * @return Build.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Iterator<Build> findByNumber(final String number) throws Exception {
         final List<Build> result = new ArrayList<>(1);
         for (final Build job : this.list) {
@@ -175,13 +144,7 @@ public final class FakeBuilds implements Builds {
         return result.iterator();
     }
 
-    /**
-     * Find build by Git revision.
-     *
-     * @param rev Git revision.
-     * @return Build.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Iterator<Build> findByGitRevision(
         final String rev
     ) throws Exception {
@@ -194,12 +157,7 @@ public final class FakeBuilds implements Builds {
         return result.iterator();
     }
 
-    /**
-     * Fake builds' XML representation.
-     *
-     * @return XML's string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return this.content.content();
     }

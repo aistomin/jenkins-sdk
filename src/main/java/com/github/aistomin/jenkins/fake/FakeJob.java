@@ -64,32 +64,17 @@ public final class FakeJob implements Job {
         this.cbtrigger = ontrigger;
     }
 
-    /**
-     * Job name.
-     *
-     * @return Job name.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String name() throws Exception {
         return this.content.field("//job/displayName/text()");
     }
 
-    /**
-     * Fake job details.
-     *
-     * @return Job details.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public JobDetails details() throws Exception {
         return new RealJobDetails(this.content);
     }
 
-    /**
-     * Fake job URL.
-     *
-     * @return URL string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String url() throws Exception {
         return this.content.field("//job/url/text()");
     }
@@ -124,11 +109,7 @@ public final class FakeJob implements Job {
         );
     }
 
-    /**
-     * Fake job triggering imitation.
-     *
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public void trigger() throws Exception {
         this.cbtrigger.run();
     }
@@ -148,12 +129,7 @@ public final class FakeJob implements Job {
         );
     }
 
-    /**
-     * Fake job's XML representation.
-     *
-     * @return XML's string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return this.content.content();
     }

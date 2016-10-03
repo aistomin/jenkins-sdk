@@ -73,52 +73,27 @@ public final class RealJob implements Job {
         this.creds = credentials;
     }
 
-    /**
-     * Job name.
-     *
-     * @return Job name.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String name() throws Exception {
         return this.identifier;
     }
 
-    /**
-     * Job details.
-     *
-     * @return Job details.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public JobDetails details() throws Exception {
         return new RealJobDetails(new XmlString(this.xml()));
     }
 
-    /**
-     * Job URL.
-     *
-     * @return Job URL.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String url() throws Exception {
         return new XmlString(this.xml()).field("//job/url/text()");
     }
 
-    /**
-     * Job builds.
-     *
-     * @return Builds.
-     * @throws Exception If reading builds is not successful.
-     */
+    @Override
     public Builds builds() throws Exception {
         return new RealBuilds(this.request(), this.creds);
     }
 
-    /**
-     * Job parameters.
-     *
-     * @return Job's parameters.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Iterator<JobParameter> parameters() throws Exception {
         return new EntityIterator<>(
             new XMLDocument(
@@ -132,11 +107,7 @@ public final class RealJob implements Job {
         );
     }
 
-    /**
-     * Trigger new job's build.
-     *
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public void trigger() throws Exception {
         new PostRequest(
             String.format("%s/build", this.url()), this.creds.headers()
@@ -158,12 +129,7 @@ public final class RealJob implements Job {
         );
     }
 
-    /**
-     * Job's XML representation.
-     *
-     * @return XML's string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return new PostRequest(this.request(), this.creds.headers()).execute();
     }
@@ -212,12 +178,7 @@ public final class RealJob implements Job {
             this.creds = credentials;
         }
 
-        /**
-         * Transform username to job.
-         *
-         * @param source Source object.
-         * @return Job.
-         */
+        @Override
         public Job transform(final String source) {
             return new RealJob(source, this.api, this.creds);
         }

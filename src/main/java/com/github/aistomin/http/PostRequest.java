@@ -64,12 +64,7 @@ public final class PostRequest implements HttpRequest {
         this.heads = headers;
     }
 
-    /**
-     * Execute request.
-     *
-     * @return Request's string result.
-     * @throws Exception If request failed.
-     */
+    @Override
     public String execute() throws Exception {
         final Request request = Request.Post(this.resource);
         for (final Map.Entry<String, String> item : this.heads.entrySet()) {

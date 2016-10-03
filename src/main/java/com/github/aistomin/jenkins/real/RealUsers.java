@@ -56,12 +56,7 @@ public final class RealUsers implements Users {
         this.creds = credentials;
     }
 
-    /**
-     * Build iterator to run through existing users.
-     *
-     * @return Users iterator.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Iterator<User> iterator() throws Exception {
         final List<String> ids = new XMLDocument(this.xml())
             .xpath("//id/text()");
@@ -71,26 +66,14 @@ public final class RealUsers implements Users {
         );
     }
 
-    /**
-     * Find by Jenkins' user name.
-     *
-     * @param username Username(aka ID).
-     * @return User.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Iterator<User> findByUsername(
         final String username
     ) throws Exception {
         return this.findBy("id", username);
     }
 
-    /**
-     * Find by Jenkins' user email.
-     *
-     * @param email Username(aka ID).
-     * @return Iterator of users who match the criteria.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Iterator<User> findByEmail(final String email) throws Exception {
         return new EntityIterator<>(
             RealUsers.parseUsers(
@@ -109,23 +92,12 @@ public final class RealUsers implements Users {
         );
     }
 
-    /**
-     * Find by Jenkins' user full name.
-     *
-     * @param name Full name or part of it.
-     * @return Iterator of users who match the criteria.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Iterator<User> findByFullName(final String name) throws Exception {
         return this.findBy("fullName", name);
     }
 
-    /**
-     * Users XML representation.
-     *
-     * @return XML's string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return new PostRequest(this.request(), this.creds.headers()).execute();
     }

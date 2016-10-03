@@ -55,12 +55,7 @@ public final class RealJobs implements Jobs {
         this.creds = credentials;
     }
 
-    /**
-     * Jenkins jobs iterator.
-     *
-     * @return Jobs iterator.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Iterator<Job> iterator() throws Exception {
         return new EntityIterator<>(
             RealJobs.parseJobs(this.xml()).iterator(),
@@ -68,13 +63,7 @@ public final class RealJobs implements Jobs {
         );
     }
 
-    /**
-     * Find by Jenkins' job name.
-     *
-     * @param name Job's name.
-     * @return Job.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Iterator<Job> findByName(final String name) throws Exception {
         return new EntityIterator<>(
             RealJobs.parseJobs(
@@ -90,12 +79,7 @@ public final class RealJobs implements Jobs {
         );
     }
 
-    /**
-     * Jobs' node XML content.
-     *
-     * @return XML string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return new PostRequest(
             this.url("&xpath=hudson/job&wrapper=jobs"), this.creds.headers()

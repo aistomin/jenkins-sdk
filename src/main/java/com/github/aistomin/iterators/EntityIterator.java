@@ -16,7 +16,6 @@
 package com.github.aistomin.iterators;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * Decorator for iterator of class K to use it as a decorator of type T.
@@ -51,41 +50,17 @@ public class EntityIterator<T, S> implements Iterator<T> {
         this.transformer = transformation;
     }
 
-    /**
-     * Returns {@code true} if the iteration has more elements.
-     * (In other words, returns {@code true} if {@link #next} would
-     * return an element rather than throwing an exception.)
-     *
-     * @return If the iteration has more elements
-     */
+    @Override
     public final boolean hasNext() {
         return this.keys.hasNext();
     }
 
-    /**
-     * Returns the next element in the iteration.
-     *
-     * @return The next element in the iteration
-     * @throws NoSuchElementException If the iteration has no more elements
-     */
+    @Override
     public final T next() {
         return this.transformer.transform(this.keys.next());
     }
 
-    /**
-     * Removes from the underlying collection the last element returned
-     * by this iterator (optional operation).  This method can be called
-     * only once per call to {@link #next}.  The behavior of an iterator
-     * is unspecified if the underlying collection is modified while the
-     * iteration is in progress in any way other than by calling this
-     * method.
-     *
-     * @throws UnsupportedOperationException If the {@code remove}
-     *  operation is not supported by this iterator
-     * @throws IllegalStateException If the {@code next} method has not
-     *  yet been called, or the {@code remove} method has already
-     *  been called after the last call to the {@code next} method
-     */
+    @Override
     public final void remove() {
         this.keys.remove();
     }

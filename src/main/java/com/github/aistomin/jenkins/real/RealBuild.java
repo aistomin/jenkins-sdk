@@ -65,34 +65,19 @@ public final class RealBuild implements Build {
         this.creds = credentials;
     }
 
-    /**
-     * Build's number.
-     *
-     * @return Build number.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String number() throws Exception {
         return this.identifier;
     }
 
-    /**
-     * Build's result.
-     *
-     * @return Build's result.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public BuildResult result() throws Exception {
         return BuildResult.valueOf(
             new XmlString(this.xml()).field("//build/result/text()")
         );
     }
 
-    /**
-     * Build's date.
-     *
-     * @return Build's date.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Date date() throws Exception {
         return new Date(
             Long.parseLong(
@@ -101,42 +86,24 @@ public final class RealBuild implements Build {
         );
     }
 
-    /**
-     * Build's URL.
-     *
-     * @return URL string.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String url() throws Exception {
         return new XmlString(this.xml()).field("//build/url/text()");
     }
 
-    /**
-     * Build's details.
-     *
-     * @return Build's details.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public BuildDetails details() throws Exception {
         return new RealBuildDetails(new XmlString(this.xml()));
     }
 
-    /**
-     * Delete build.
-     *
-     * @throws Exception If error occurred.
-     */
+    @Override
     public void delete() throws Exception {
         new PostRequest(
             String.format("%sdoDelete", this.url()), this.creds.headers()
         ).execute();
     }
 
-    /**
-     * Cancel build.
-     *
-     * @throws Exception If error occurred.
-     */
+    @Override
     public void cancel() throws Exception {
         new PostRequest(
             String.format("%sstop", this.url()), this.creds.headers()
@@ -157,24 +124,14 @@ public final class RealBuild implements Build {
         );
     }
 
-    /**
-     * Git revision that is built in this build.
-     *
-     * @return Git revision hash.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String gitRevision() throws Exception {
         return new XmlString(this.xml()).field(
             "//action/lastBuiltRevision/SHA1/text()"
         );
     }
 
-    /**
-     * Jenkins build's XML representation.
-     *
-     * @return XML's string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return new PostRequest(
             String.format(
@@ -215,12 +172,7 @@ public final class RealBuild implements Build {
             this.creds = credentials;
         }
 
-        /**
-         * Transform build number to build.
-         *
-         * @param source Build number.
-         * @return Job.
-         */
+        @Override
         public Build transform(final String source) {
             return new RealBuild(source, this.api, this.creds);
         }

@@ -61,42 +61,24 @@ public final class RealJenkins implements Jenkins {
         this.creds = credentials;
     }
 
-    /**
-     * All the jobs of this Jenkins instance.
-     *
-     * @return Jobs.
-     * @throws Exception If reading jobs was not successful.
-     */
+    @Override
     public Jobs jobs() throws Exception {
         return new RealJobs(this.request(), this.creds);
     }
 
-    /**
-     * All the registered users of this Jenkins instance.
-     *
-     * @return Users.
-     * @throws Exception If reading users was not successful.
-     */
+    @Override
     public Users users() throws Exception {
         return new RealUsers(this.base, this.creds);
     }
 
-    /**
-     * Restart Jenkins.
-     * @throws Exception If reading users was not successful.
-     */
+    @Override
     public void restart() throws Exception {
         new PostRequest(
             String.format("%s/restart", this.base), this.creds.headers()
         ).execute();
     }
 
-    /**
-     * Jenkins' version.
-     *
-     * @return Version.
-     * @throws Exception If reading users was not successful.
-     */
+    @Override
     public String version() throws Exception {
         final Map<String, String> headers = new HashMap<>();
         Executor.newInstance(
@@ -117,12 +99,7 @@ public final class RealJenkins implements Jenkins {
         return headers.get("X-Jenkins");
     }
 
-    /**
-     * Root XML content of Jenkins.
-     *
-     * @return XML string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return new PostRequest(this.request(), this.creds.headers()).execute();
     }

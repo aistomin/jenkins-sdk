@@ -98,23 +98,12 @@ public final class FakeJobs implements Jobs {
         this.iterable = jobs;
     }
 
-    /**
-     * Return jobs iterator that was set via ctor.
-     *
-     * @return Iterator of jobs.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Iterator<Job> iterator() throws Exception {
         return this.iterable.iterator();
     }
 
-    /**
-     * Find by Jenkins' job name.
-     *
-     * @param name Job's name.
-     * @return Job.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Iterator<Job> findByName(final String name) throws Exception {
         final List<Job> result = new ArrayList<>(1);
         for (final Job job : this.iterable) {
@@ -125,12 +114,7 @@ public final class FakeJobs implements Jobs {
         return result.iterator();
     }
 
-    /**
-     * Return XML content that was set in ctor.
-     *
-     * @return XML string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return this.content.content();
     }

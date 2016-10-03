@@ -48,76 +48,41 @@ public final class RealBuildDetails implements BuildDetails {
         this.content = xml;
     }
 
-    /**
-     * Build's full display name.
-     *
-     * @return Full display name.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String fullDisplayName() throws Exception {
         return this.content.field("//build/fullDisplayName/text()");
     }
 
-    /**
-     * Build's display name.
-     *
-     * @return Display name.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String displayName() throws Exception {
         return this.content.field("//build/displayName/text()");
     }
 
-    /**
-     * Build's estimated duration in milliseconds.
-     *
-     * @return Build's estimated duration.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Long estimated() throws Exception {
         return Long.parseLong(
             this.content.field("//build/estimatedDuration/text()")
         );
     }
 
-    /**
-     * Build's duration in milliseconds.
-     *
-     * @return Build's duration.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Long duration() throws Exception {
         return Long.parseLong(this.content.field("//build/duration/text()"));
     }
 
-    /**
-     * Is build in process?
-     *
-     * @return Is build in process?
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Boolean building() throws Exception {
         return Boolean.parseBoolean(
             this.content.field("//build/building/text()")
         );
     }
 
-    /**
-     * Build's queue ID.
-     *
-     * @return Queue ID.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Long queue() throws Exception {
         return Long.parseLong(this.content.field("//build/queueId/text()"));
     }
 
-    /**
-     * Build's parameters.
-     *
-     * @return Parameters.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Iterator<BuildParameter> parameters() throws Exception {
         return new EntityIterator<>(
             new XMLDocument(this.content.content()).nodes("//parameter")

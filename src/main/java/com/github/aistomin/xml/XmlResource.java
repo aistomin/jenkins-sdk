@@ -40,11 +40,7 @@ public final class XmlResource implements Xml {
         this.name = file;
     }
 
-    /**
-     * XML string content.
-     * @return XML string.
-     * @throws Exception If reading XML was not successful.
-     */
+    @Override
     public String content() throws Exception {
         return IOUtils.toString(
             Thread.currentThread().getContextClassLoader()
@@ -52,13 +48,7 @@ public final class XmlResource implements Xml {
         );
     }
 
-    /**
-     * Search field value by XPath.
-     *
-     * @param xpath XPath.
-     * @return Field's value.
-     * @throws Exception If reading XML was not successful.
-     */
+    @Override
     public String field(final String xpath) throws Exception {
         return new XPath(xpath).valueFrom(this.content());
     }

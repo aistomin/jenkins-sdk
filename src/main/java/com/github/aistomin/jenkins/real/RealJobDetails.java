@@ -41,32 +41,17 @@ public final class RealJobDetails implements JobDetails {
         this.content = xml;
     }
 
-    /**
-     * Job's display name.
-     *
-     * @return Display name.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String displayName() throws Exception {
         return this.content.field("//job/displayName/text()");
     }
 
-    /**
-     * Job's description.
-     *
-     * @return Description.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String description() throws Exception {
         return this.content.field("//job/description/text()");
     }
 
-    /**
-     * Is job buildable?
-     *
-     * @return Is job buildable.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Boolean buildable() throws Exception {
         return Boolean.parseBoolean(
             this.content.field("//job/buildable/text()")

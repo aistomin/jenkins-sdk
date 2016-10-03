@@ -40,22 +40,12 @@ public final class RealBuildParameter implements BuildParameter {
         this.content = xml;
     }
 
-    /**
-     * Build parameter's name.
-     *
-     * @return Build parameter's name.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String name() throws Exception {
         return this.content.field("//parameter/name/text()");
     }
 
-    /**
-     * Build Parameter's value.
-     *
-     * @return Build parameter's value.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String value() throws Exception {
         return this.content.field("//parameter/value/text()");
     }

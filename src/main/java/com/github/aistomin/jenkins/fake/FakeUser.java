@@ -49,62 +49,32 @@ public final class FakeUser implements User {
         this.content = xml;
     }
 
-    /**
-     * Fake username.
-     *
-     * @return Username.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String username() throws Exception {
         return this.content.field("//user/id/text()");
     }
 
-    /**
-     * Fake user's full name.
-     *
-     * @return User's full name.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String fullName() throws Exception {
         return this.content.field("//user/fullName/text()");
     }
 
-    /**
-     * Fake user's email.
-     *
-     * @return User's email.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String email() throws Exception {
         return this.content.field("//user/property/address/text()");
     }
 
-    /**
-     * Fake user's URL.
-     *
-     * @return URL string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String url() throws Exception {
         return this.content.field("//user/absoluteUrl/text()");
     }
 
-    /**
-     * Fake user's description.
-     *
-     * @return Description string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String description() throws Exception {
         return this.content.field("//user/description/text()");
     }
 
-    /**
-     * Fake user's XML representation.
-     *
-     * @return XML's string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return this.content.content();
     }

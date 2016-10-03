@@ -74,72 +74,39 @@ public final class FakeBuild implements Build {
         this.cbcancel = oncancel;
     }
 
-    /**
-     * Fake build's number.
-     *
-     * @return Build number.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String number() throws Exception {
         return this.content.field("//build/displayName/text()");
     }
 
-    /**
-     * Fake build's result.
-     *
-     * @return Build's result.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public BuildResult result() throws Exception {
         return BuildResult.valueOf(this.content.field("//build/result/text()"));
     }
 
-    /**
-     * Fake build's date.
-     *
-     * @return Build's date.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Date date() throws Exception {
         return new Date(
             Long.parseLong(this.content.field("//build/timestamp/text()"))
         );
     }
 
-    /**
-     * Fake build's URL.
-     *
-     * @return URL string.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String url() throws Exception {
         return this.content.field("//build/url/text()");
     }
 
-    /**
-     * Fake build's details.
-     *
-     * @return Build's details.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public BuildDetails details() throws Exception {
         return new RealBuildDetails(new XmlString(this.xml()));
     }
 
-    /**
-     * Delete build.
-     *
-     * @throws Exception If error occurred.
-     */
+    @Override
     public void delete() throws Exception {
         this.cbdelete.run();
     }
 
-    /**
-     * Cancel build.
-     *
-     * @throws Exception If error occurred.
-     */
+    @Override
     public void cancel() throws Exception {
         this.cbcancel.run();
     }
@@ -158,24 +125,14 @@ public final class FakeBuild implements Build {
         );
     }
 
-    /**
-     * Git revision that is built in this build.
-     *
-     * @return Git revision hash.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String gitRevision() throws Exception {
         return this.content.field(
             "//build/action/lastBuiltRevision/SHA1/text()"
         );
     }
 
-    /**
-     * Fake build's XML representation.
-     *
-     * @return XML's string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return this.content.content();
     }

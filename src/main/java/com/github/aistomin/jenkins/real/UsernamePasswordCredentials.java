@@ -52,11 +52,7 @@ public final class UsernamePasswordCredentials implements Credentials {
         this.pass = password;
     }
 
-    /**
-     * Build POST request security parameters.
-     * @return Parameters' map.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Map<String, String> headers() throws Exception {
         final Map<String, String> map = new ConcurrentHashMap<>();
         map.put(

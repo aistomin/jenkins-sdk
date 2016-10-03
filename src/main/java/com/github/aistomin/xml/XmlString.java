@@ -37,22 +37,12 @@ public final class XmlString implements Xml {
         this.string = xml;
     }
 
-    /**
-     * XML string content.
-     * @return XML string.
-     * @throws Exception If reading XML was not successful.
-     */
+    @Override
     public String content() throws Exception {
         return this.string;
     }
 
-    /**
-     * Search field value by XPath.
-     *
-     * @param xpath XPath.
-     * @return Field's value.
-     * @throws Exception If reading XML was not successful.
-     */
+    @Override
     public String field(final String xpath) throws Exception {
         return new XPath(xpath).valueFrom(this.content()).trim();
     }

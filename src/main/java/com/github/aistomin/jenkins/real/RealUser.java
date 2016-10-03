@@ -61,62 +61,32 @@ public final class RealUser implements User {
         this.identifier = username;
     }
 
-    /**
-     * Username. This name is ID of user that can not be changed.
-     *
-     * @return Username.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String username() throws Exception {
         return this.identifier;
     }
 
-    /**
-     * Jenkins user's full name.
-     *
-     * @return User's full name.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String fullName() throws Exception {
         return new XmlString(this.xml()).field("//user/fullName/text()");
     }
 
-    /**
-     * Jenkins user's email.
-     *
-     * @return User's email.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String email() throws Exception {
         return new XmlString(this.xml()).field("//property/address/text()");
     }
 
-    /**
-     * User's Jenkins page URL.
-     *
-     * @return URL string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String url() throws Exception {
         return new XmlString(this.xml()).field("//user/absoluteUrl/text()");
     }
 
-    /**
-     * Jenkins user's description.
-     *
-     * @return Description string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String description() throws Exception {
         return new XmlString(this.xml()).field("//user/description/text()");
     }
 
-    /**
-     * Jenkins user's XML representation.
-     *
-     * @return XML's string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return new PostRequest(this.request(), this.creds.headers()).execute();
     }
@@ -165,12 +135,7 @@ public final class RealUser implements User {
             this.creds = credentials;
         }
 
-        /**
-         * Transform username to user.
-         *
-         * @param source Source object.
-         * @return Target object.
-         */
+        @Override
         public User transform(final String source) {
             return new RealUser(source, this.api, this.creds);
         }

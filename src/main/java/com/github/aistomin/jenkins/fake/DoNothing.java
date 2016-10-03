@@ -21,14 +21,11 @@ package com.github.aistomin.jenkins.fake;
  * @author Andrei Istomin (andrej.istomin.ikeen@gmail.com)
  * @version $Id$
  * @since 0.1
+ * @checkstyle NonStaticMethodCheck (500 lines)
  */
 public final class DoNothing implements Runnable {
 
-    /**
-     * Run.
-     *
-     * @checkstyle NonStaticMethodCheck (500 lines)
-     */
+    @Override
     public void run() {
         // do nothing
     }

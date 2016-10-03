@@ -117,50 +117,27 @@ public final class FakeJenkins implements Jenkins {
         this.cbrestart = onrestart;
     }
 
-    /**
-     * Return test jobs instance that was set via ctor.
-     *
-     * @return Jobs.
-     * @throws Exception If reading jobs was not successful.
-     */
+    @Override
     public Jobs jobs() throws Exception {
         return new FakeJobs(this.content);
     }
 
-    /**
-     * Return test users instance that was set via ctor.
-     *
-     * @return Users
-     * @throws Exception If reading users was not successful.
-     */
+    @Override
     public Users users() throws Exception {
         return this.usrs;
     }
 
-    /**
-     * Fake Jenkins' version.
-     *
-     * @return Version.
-     * @throws Exception If reading users was not successful.
-     */
+    @Override
     public String version() throws Exception {
         return this.ver;
     }
 
-    /**
-     * Restart Jenkins.
-     * @throws Exception If reading users was not successful.
-     */
+    @Override
     public void restart() throws Exception {
         this.cbrestart.run();
     }
 
-    /**
-     * Return XML content that was set in ctor.
-     *
-     * @return XML string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return this.content.content();
     }

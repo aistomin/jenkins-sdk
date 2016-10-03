@@ -57,12 +57,7 @@ public final class RealBuilds implements Builds {
         this.creds = credentials;
     }
 
-    /**
-     * Builds iterator.
-     *
-     * @return Builds iterator.
-     * @throws Exception If reading the builds was not successful.
-     */
+    @Override
     public Iterator<Build> iterator() throws Exception {
         final List<String> builds = RealBuilds.parseBuild(this.xml());
         Collections.sort(builds, String.CASE_INSENSITIVE_ORDER);
@@ -71,12 +66,7 @@ public final class RealBuilds implements Builds {
         );
     }
 
-    /**
-     * Last successful build.
-     *
-     * @return Last successful build.
-     * @throws Exception If reading the build was not successful.
-     */
+    @Override
     public Build lastSuccessful() throws Exception {
         return new RealBuild(
             new XmlString(
@@ -87,12 +77,7 @@ public final class RealBuilds implements Builds {
         );
     }
 
-    /**
-     * Last failed build.
-     *
-     * @return Last failed build.
-     * @throws Exception If reading the build was not successful.
-     */
+    @Override
     public Build lastFailed() throws Exception {
         return new RealBuild(
             new XmlString(
@@ -103,12 +88,7 @@ public final class RealBuilds implements Builds {
         );
     }
 
-    /**
-     * Last stable build.
-     *
-     * @return Last stable build.
-     * @throws Exception If reading the build was not successful.
-     */
+    @Override
     public Build lastStable() throws Exception {
         return new RealBuild(
             new XmlString(
@@ -119,12 +99,7 @@ public final class RealBuilds implements Builds {
         );
     }
 
-    /**
-     * Last unstable build.
-     *
-     * @return Last unstable build.
-     * @throws Exception If reading the build was not successful.
-     */
+    @Override
     public Build lastUnsuccessful() throws Exception {
         return new RealBuild(
             new XmlString(
@@ -135,13 +110,7 @@ public final class RealBuilds implements Builds {
         );
     }
 
-    /**
-     * Find build by number.
-     *
-     * @param number Build's number.
-     * @return Build.
-     * @throws Exception If reading the build was not successful.
-     */
+    @Override
     public Iterator<Build> findByNumber(final String number) throws Exception {
         return new EntityIterator<>(
             RealBuilds.parseBuild(
@@ -157,13 +126,7 @@ public final class RealBuilds implements Builds {
         );
     }
 
-    /**
-     * Find build by Git revision.
-     *
-     * @param rev Git revision.
-     * @return Build.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Iterator<Build> findByGitRevision(
         final String rev
     ) throws Exception {
@@ -181,12 +144,7 @@ public final class RealBuilds implements Builds {
         );
     }
 
-    /**
-     * Builds' XML representation.
-     *
-     * @return XML's string.
-     * @throws Exception If reading XML was not successful.
-     */
+    @Override
     public String xml() throws Exception {
         return new PostRequest(
             this.url("/build&wrapper=builds"), this.creds.headers()

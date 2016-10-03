@@ -85,23 +85,12 @@ public final class FakeUsers implements Users {
         this.users = list;
     }
 
-    /**
-     * Build iterator to run through fake users.
-     *
-     * @return Users iterator.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public Iterator<User> iterator() throws Exception {
         return this.users.iterator();
     }
 
-    /**
-     * Find fake user by Jenkins' user name.
-     *
-     * @param username Username(aka ID).
-     * @return User.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Iterator<User> findByUsername(
         final String username
     ) throws Exception {
@@ -114,13 +103,7 @@ public final class FakeUsers implements Users {
         return result.iterator();
     }
 
-    /**
-     * Find fake user by Jenkins' user email.
-     *
-     * @param email User's email.
-     * @return Iterator of users who match the criteria.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Iterator<User> findByEmail(final String email) throws Exception {
         final List<User> result = new ArrayList<>(1);
         for (final User user : this.users) {
@@ -131,13 +114,7 @@ public final class FakeUsers implements Users {
         return result.iterator();
     }
 
-    /**
-     * Find fake user by Jenkins' user full name.
-     *
-     * @param name Full name or part of it.
-     * @return Iterator of users who match the criteria.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public Iterator<User> findByFullName(final String name) throws Exception {
         final List<User> result = new ArrayList<>(1);
         for (final User user : this.users) {
@@ -148,12 +125,7 @@ public final class FakeUsers implements Users {
         return result.iterator();
     }
 
-    /**
-     * Return XML content that was set in ctor.
-     *
-     * @return XML string.
-     * @throws Exception If something goes wrong.
-     */
+    @Override
     public String xml() throws Exception {
         return this.content.content();
     }

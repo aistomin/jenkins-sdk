@@ -40,32 +40,17 @@ public final class RealJobParameter implements JobParameter {
         this.content = xml;
     }
 
-    /**
-     * Parameter's name.
-     *
-     * @return Parameter's name.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String name() throws Exception {
         return this.content.field("//parameterDefinition/name/text()");
     }
 
-    /**
-     * Parameter's type.
-     *
-     * @return Parameter's type.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String type() throws Exception {
         return this.content.field("//parameterDefinition/type/text()");
     }
 
-    /**
-     * Parameter's description.
-     *
-     * @return Parameter's description.
-     * @throws Exception If error occurred.
-     */
+    @Override
     public String description() throws Exception {
         return this.content.field("//parameterDefinition/description/text()");
     }
