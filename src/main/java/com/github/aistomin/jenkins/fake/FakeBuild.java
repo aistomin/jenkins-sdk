@@ -23,6 +23,7 @@ import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
 import com.github.aistomin.xml.XmlString;
 import java.util.Date;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake Jenkins' job build.
@@ -141,6 +142,20 @@ public final class FakeBuild implements Build {
      */
     public void cancel() throws Exception {
         this.cbcancel.run();
+    }
+
+    /**
+     * Keep build's log forever.
+     *
+     * @throws Exception If error occurred.
+     * @todo: Let's implement this method in issue #316
+     */
+    public void keepForever() throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "%s.keepForever() is not implemented.", this.getClass()
+            )
+        );
     }
 
     /**

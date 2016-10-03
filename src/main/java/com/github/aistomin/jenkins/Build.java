@@ -81,6 +81,13 @@ public interface Build extends ApiObject {
     void cancel() throws Exception;
 
     /**
+     * Keep build's log forever.
+     *
+     * @throws Exception If error occurred.
+     */
+    void keepForever() throws Exception;
+
+    /**
      * Git revision that is built in this build.
      *
      * @return Git revision hash.
