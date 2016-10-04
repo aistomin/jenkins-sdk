@@ -150,7 +150,7 @@ public final class FakeBuilds implements Builds {
     ) throws Exception {
         final List<Build> result = new ArrayList<>(1);
         for (final Build job : this.list) {
-            if (rev.equals(job.gitRevision())) {
+            if (rev.equals(job.details().gitRevision())) {
                 result.add(job);
             }
         }

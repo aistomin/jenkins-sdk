@@ -167,7 +167,7 @@ public final class ITRealBuildTest {
         MatcherAssert.assertThat(
             new TestJenkins().jobs().findByName(
                 "test-parametrised-job"
-            ).next().builds().findByNumber("#4").next().gitRevision(),
+            ).next().builds().findByNumber("#4").next().details().gitRevision(),
             new IsEqual<>("3d21ea7072da134395eedbc7a07bf0f00cfabf97")
         );
     }

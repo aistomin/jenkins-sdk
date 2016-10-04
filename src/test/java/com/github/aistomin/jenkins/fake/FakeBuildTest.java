@@ -67,7 +67,7 @@ public final class FakeBuildTest {
             build.url().startsWith("https://"), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            build.gitRevision(),
+            build.details().gitRevision(),
             new IsEqual<>("3d21ea7072da134395eedbc7a07bf0f00cfabf97")
         );
     }

@@ -86,12 +86,4 @@ public interface Build extends ApiObject {
      * @throws Exception If error occurred.
      */
     void keepForever() throws Exception;
-
-    /**
-     * Git revision that is built in this build.
-     *
-     * @return Git revision hash.
-     * @throws Exception If error occurred.
-     */
-    String gitRevision() throws Exception;
 }

@@ -180,7 +180,7 @@ public final class FakeBuildsTest {
             found.hasNext(), new IsEqual<>(true)
         );
         MatcherAssert.assertThat(
-            found.next().gitRevision(), new IsEqual<>(rev)
+            found.next().details().gitRevision(), new IsEqual<>(rev)
         );
         MatcherAssert.assertThat(
             found.hasNext(), new IsEqual<>(false)

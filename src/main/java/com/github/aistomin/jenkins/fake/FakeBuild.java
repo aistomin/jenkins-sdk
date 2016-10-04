@@ -126,13 +126,6 @@ public final class FakeBuild implements Build {
     }
 
     @Override
-    public String gitRevision() throws Exception {
-        return this.content.field(
-            "//build/action/lastBuiltRevision/SHA1/text()"
-        );
-    }
-
-    @Override
     public String xml() throws Exception {
         return this.content.content();
     }

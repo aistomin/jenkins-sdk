@@ -81,4 +81,12 @@ public interface BuildDetails {
      * @throws Exception If error occurred.
      */
     Iterator<BuildParameter> parameters() throws Exception;
+
+    /**
+     * Git revision that is built in this build.
+     *
+     * @return Git revision hash.
+     * @throws Exception If error occurred.
+     */
+    String gitRevision() throws Exception;
 }

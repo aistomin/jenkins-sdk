@@ -91,6 +91,13 @@ public final class RealBuildDetails implements BuildDetails {
         );
     }
 
+    @Override
+    public String gitRevision() throws Exception {
+        return this.content.field(
+            "//build/action/lastBuiltRevision/SHA1/text()"
+        );
+    }
+
     /**
      * BuildParameter transformer.
      */

@@ -33,7 +33,6 @@ import org.apache.commons.lang3.NotImplementedException;
  * @version $Id$
  * @since 0.1
  */
-@SuppressWarnings("PMD.TooManyMethods")
 public final class RealBuild implements Build {
 
     /**
@@ -121,13 +120,6 @@ public final class RealBuild implements Build {
             String.format(
                 "%s.keepForever() is not implemented.", this.getClass()
             )
-        );
-    }
-
-    @Override
-    public String gitRevision() throws Exception {
-        return new XmlString(this.xml()).field(
-            "//action/lastBuiltRevision/SHA1/text()"
         );
     }
 

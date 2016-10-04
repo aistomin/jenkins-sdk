@@ -158,13 +158,13 @@ public final class ITRealBuildsTest {
             .findByName("test-parametrised-job").next().builds()
             .findByGitRevision(rev);
         MatcherAssert.assertThat(
-            found.next().gitRevision(), new IsEqual<>(rev)
+            found.next().details().gitRevision(), new IsEqual<>(rev)
         );
         MatcherAssert.assertThat(
-            found.next().gitRevision(), new IsEqual<>(rev)
+            found.next().details().gitRevision(), new IsEqual<>(rev)
         );
         MatcherAssert.assertThat(
-            found.next().gitRevision(), new IsEqual<>(rev)
+            found.next().details().gitRevision(), new IsEqual<>(rev)
         );
         MatcherAssert.assertThat(found.hasNext(), new IsEqual<>(false));
     }
