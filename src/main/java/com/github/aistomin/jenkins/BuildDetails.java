@@ -89,4 +89,13 @@ public interface BuildDetails {
      * @throws Exception If error occurred.
      */
     String gitRevision() throws Exception;
+
+    /**
+     * Is this build marked as "Keep build log forever"?.
+     *
+     * @return True - the build is marked, False - the build will be normally
+     *  rotated.
+     * @throws Exception If error occurred.
+     */
+    boolean keptForever() throws Exception;
 }

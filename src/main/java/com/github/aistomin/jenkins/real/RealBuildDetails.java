@@ -24,6 +24,7 @@ import com.github.aistomin.xml.XmlString;
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import java.util.Iterator;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job build details like: display name, url, duration etc.
@@ -95,6 +96,22 @@ public final class RealBuildDetails implements BuildDetails {
     public String gitRevision() throws Exception {
         return this.content.field(
             "//build/action/lastBuiltRevision/SHA1/text()"
+        );
+    }
+
+    /**
+     * Is this build marked as "Keep build log forever"?.
+     *
+     * @return True - the build is marked, False - the build will be normally
+     *  rotated.
+     * @throws Exception If error occurred.
+     * @todo: Let's implement this method and solve the issue #322.
+     */
+    public boolean keptForever() throws Exception {
+        throw new NotImplementedException(
+            String.format(
+                "%s.keepForever() is not implemented.", this.getClass()
+            )
         );
     }
 
