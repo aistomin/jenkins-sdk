@@ -18,6 +18,7 @@ package com.github.aistomin.jenkins.real;
 import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.jenkins.BuildResult;
+import com.github.aistomin.jenkins.Builds;
 import com.github.aistomin.jenkins.Job;
 import java.util.Date;
 import java.util.Iterator;
@@ -169,6 +170,26 @@ public final class ITRealBuildTest {
                 "test-parametrised-job"
             ).next().builds().findByNumber("#4").next().details().gitRevision(),
             new IsEqual<>("3d21ea7072da134395eedbc7a07bf0f00cfabf97")
+        );
+    }
+
+    /**
+     * Can read Git revision that was built in current build.
+     *
+     * @throws Exception If something went wrong.
+     */
+    @Test
+    public void testCanReadKeepForever() throws Exception {
+        final Builds builds = new TestJenkins().jobs().findByName(
+            "test-different-builds-job"
+        ).next().builds();
+        MatcherAssert.assertThat(
+            builds.findByNumber("#1").next().details().keptForever(),
+            new IsEqual<>(true)
+        );
+        MatcherAssert.assertThat(
+            builds.findByNumber("#2").next().details().keptForever(),
+            new IsEqual<>(false)
         );
     }
 
