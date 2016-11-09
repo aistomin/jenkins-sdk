@@ -112,15 +112,15 @@ public final class FakeBuild implements Build {
     }
 
     /**
-     * Keep build's log forever.
+     * Set/unset flag that allows to keep build logs forever.
      *
      * @throws Exception If error occurred.
      * @todo: Let's implement this method in issue #316
      */
-    public void keepForever() throws Exception {
+    public void toggleLogKeep() throws Exception {
         throw new NotImplementedException(
             String.format(
-                "%s.keepForever() is not implemented.", this.getClass()
+                "%s.toggleLogKeep() is not implemented.", this.getClass()
             )
         );
     }

@@ -24,7 +24,6 @@ import com.github.aistomin.jenkins.Credentials;
 import com.github.aistomin.xml.XmlString;
 import java.net.URLEncoder;
 import java.util.Date;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Jenkins' job build.
@@ -109,18 +108,11 @@ public final class RealBuild implements Build {
         ).execute();
     }
 
-    /**
-     * Keep build's log forever.
-     *
-     * @throws Exception If error occurred.
-     * @todo: Let's implement this method in issue #317
-     */
-    public void keepForever() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.keepForever() is not implemented.", this.getClass()
-            )
-        );
+    @Override
+    public void toggleLogKeep() throws Exception {
+        new PostRequest(
+            String.format("%stoggleLogKeep", this.url()), this.creds.headers()
+        ).execute();
     }
 
     @Override

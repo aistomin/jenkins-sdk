@@ -81,9 +81,9 @@ public interface Build extends ApiObject {
     void cancel() throws Exception;
 
     /**
-     * Keep build's log forever.
+     * Set/unset flag that allows to keep build logs forever.
      *
      * @throws Exception If error occurred.
      */
-    void keepForever() throws Exception;
+    void toggleLogKeep() throws Exception;
 }
