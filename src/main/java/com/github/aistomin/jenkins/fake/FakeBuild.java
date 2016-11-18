@@ -23,7 +23,6 @@ import com.github.aistomin.xml.Xml;
 import com.github.aistomin.xml.XmlResource;
 import com.github.aistomin.xml.XmlString;
 import java.util.Date;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Fake Jenkins' job build.
@@ -40,38 +39,28 @@ public final class FakeBuild implements Build {
     private final transient Xml content;
 
     /**
-     * OnDelete action.
+     * Build's actions.
      */
-    private final transient Runnable cbdelete;
-
-    /**
-     * OnCancel action.
-     */
-    private final transient Runnable cbcancel;
+    private final transient FakeBuildActions actions;
 
     /**
      * Default ctor.
      */
     public FakeBuild() {
-        this(
-            new XmlResource("build.xml"), new DoNothing(),
-            new DoNothing()
-        );
+        this(new XmlResource("build.xml"), new DefaultBuildActions());
     }
 
     /**
      * Primary ctor.
      *
      * @param xml XML content that should be returned in xml() method.
-     * @param ondelete OnDelete action.
-     * @param oncancel OnCancel action.
+     * @param callbacks Build's actions.
      */
     public FakeBuild(
-        final Xml xml, final Runnable ondelete, final Runnable oncancel
+        final Xml xml, final FakeBuildActions callbacks
     ) {
         this.content = xml;
-        this.cbdelete = ondelete;
-        this.cbcancel = oncancel;
+        this.actions = callbacks;
     }
 
     @Override
@@ -103,26 +92,21 @@ public final class FakeBuild implements Build {
 
     @Override
     public void delete() throws Exception {
-        this.cbdelete.run();
+        this.actions.delete(this);
     }
 
     @Override
     public void cancel() throws Exception {
-        this.cbcancel.run();
+        this.actions.cancel(this);
     }
 
     /**
      * Set/unset flag that allows to keep build logs forever.
      *
      * @throws Exception If error occurred.
-     * @todo: Let's implement this method in issue #316
      */
     public void toggleLogKeep() throws Exception {
-        throw new NotImplementedException(
-            String.format(
-                "%s.toggleLogKeep() is not implemented.", this.getClass()
-            )
-        );
+        this.actions.toggleLogKeep(this);
     }
 
     @Override

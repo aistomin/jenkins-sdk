@@ -15,6 +15,7 @@
  */
 package com.github.aistomin.jenkins.fake;
 
+import com.github.aistomin.jenkins.Build;
 import com.github.aistomin.jenkins.BuildDetails;
 import com.github.aistomin.jenkins.BuildResult;
 import com.github.aistomin.xml.Xml;
@@ -79,17 +80,34 @@ public final class FakeBuildTest {
      */
     @Test
     public void testCanEmulateActions() throws Exception {
-        final List<String> calls = new ArrayList<>(2);
-        final Runnable runnable = new Runnable() {
-            public void run() {
-                calls.add("Deleted!!!");
+        final int size = 3;
+        final List<String> calls = new ArrayList<>(size);
+        final FakeBuild build = new FakeBuild(
+            xml(),
+            new FakeBuildActions() {
+
+                @Override
+                public void delete(final Build param) {
+                    calls.add("Deleted");
+                }
+
+                @Override
+                public void cancel(final Build param) {
+                    calls.add("Cancelled");
+                }
+
+                @Override
+                public void toggleLogKeep(final Build param) {
+                    calls.add("Kept");
+                }
             }
-        };
-        final FakeBuild build = new FakeBuild(xml(), runnable, runnable);
+        );
         build.delete();
         MatcherAssert.assertThat(calls.size(), new IsEqual<>(1));
         build.cancel();
         MatcherAssert.assertThat(calls.size(), new IsEqual<>(2));
+        build.toggleLogKeep();
+        MatcherAssert.assertThat(calls.size(), new IsEqual<>(size));
     }
 
     /**

@@ -119,14 +119,14 @@ public final class FakeBuildsTest {
         builds.add(
             new FakeBuild(
                 new XmlString("<build><displayName>#1</displayName></build>"),
-                new DoNothing(), new DoNothing()
+                new DefaultBuildActions()
             )
         );
         final String number = "#2";
         builds.add(
             new FakeBuild(
                 new XmlString("<build><displayName>#2</displayName></build>"),
-                new DoNothing(), new DoNothing()
+                new DefaultBuildActions()
             )
         );
         final Iterator<Build> found = new FakeBuilds(builds)
@@ -158,7 +158,7 @@ public final class FakeBuildsTest {
                         "</SHA1></lastBuiltRevision></action></build>"
                     )
                 ),
-                new DoNothing(), new DoNothing()
+                new DefaultBuildActions()
             )
         );
         final String rev = "456";
@@ -171,7 +171,7 @@ public final class FakeBuildsTest {
                         "</lastBuiltRevision></action></build>"
                     )
                 ),
-                new DoNothing(), new DoNothing()
+                new DefaultBuildActions()
             )
         );
         final Iterator<Build> found = new FakeBuilds(builds)
@@ -271,7 +271,7 @@ public final class FakeBuildsTest {
                     result.name()
                 )
             ),
-            new DoNothing(), new DoNothing()
+            new DefaultBuildActions()
         );
     }
 }
