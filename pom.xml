@@ -101,7 +101,7 @@
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-xml</artifactId>
-            <version>0.18</version>
+            <version>0.18.1</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
