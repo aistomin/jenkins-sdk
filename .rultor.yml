@@ -1,6 +1,6 @@
 # http://doc.rultor.com/basics.html
 docker:
-  image: "velo/rultor8"
+  image: "yegor256/java8"
 
 env:
   MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx1g"
