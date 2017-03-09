@@ -10,5 +10,5 @@ merge:
     - aistomin
   script: |-
     java -version
-    mvn -˚version
+    mvn -version
     mvn clean install -Pqulice
