@@ -1,4 +1,4 @@
-# http://doc.rultor.com/basics.html
+# http://doc.rultor.com/
 docker:
   image: "yegor256/java8"
 
