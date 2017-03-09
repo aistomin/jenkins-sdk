@@ -1,9 +1,14 @@
 # http://doc.rultor.com/basics.html
+docker:
+  image: "yegor256/java8"
+
 env:
   MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx1g"
 
 merge:
   commanders:
     - aistomin
-  script:
-    - "mvn clean install -Pqulice"
+  script: |-
+    java --version
+    mvn --version
+    mvn clean install -Pqulice
