@@ -1,4 +1,7 @@
 # http://doc.rultor.com/basics.html
+docker:
+  as_root: true
+  image: hanswesterbeek/google-debian-oracle-jdk:8
 env:
   MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx1g"
 
