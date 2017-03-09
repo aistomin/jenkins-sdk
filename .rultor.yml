@@ -9,6 +9,6 @@ merge:
   commanders:
     - aistomin
   script: |-
-    java --version
-    mvn --version
+    java -version
+    mvn -˚version
     mvn clean install -Pqulice
