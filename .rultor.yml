@@ -1,6 +1,6 @@
 # http://doc.rultor.com/
 docker:
-  image: "mostalive/ubuntu-14.04-oracle-jdk8"
+  image: "yegor256/java8"
 
 env:
   MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx1g"
@@ -9,6 +9,6 @@ merge:
   commanders:
     - aistomin
   script: |-
-    java --version
-    mvn --version
+    java -version
+    mvn -version
     mvn clean install -Pqulice
